@@ -4,7 +4,8 @@
 
 library fasta.source_library_builder;
 
-import 'dart:convert' show jsonEncode;
+import 'dart:convert' show jsonEncode, utf8;
+import 'dart:typed_data';
 
 import 'package:_fe_analyzer_shared/src/field_promotability.dart';
 import 'package:_fe_analyzer_shared/src/flow_analysis/flow_analysis_operations.dart';
@@ -98,13 +99,8 @@ part 'source_compilation_unit.dart';
 enum SourceLibraryBuilderState {
   /// The builder is in its initial state.
   ///
-  /// In this state a builder is not known a library yet.
+  /// The builder is known to be a library and not a part in this state.
   initial,
-
-  /// The builder has resolved to be a library.
-  ///
-  /// Parts never reach this state.
-  resolvedParts,
 
   /// The name space has been built for the library.
   nameSpaceBuilt,
@@ -124,9 +120,12 @@ enum SourceLibraryBuilderState {
   /// Default types of type parameters have been computed.
   defaultTypesComputed,
 
-  /// Type parameters have been checked for cyclic dependencies and their
-  /// nullability have been computed.
-  typeVariablesFinished,
+  /// Type parameters have been collected to be checked for cyclic dependencies
+  /// and their nullability to be computed.
+  unboundTypeVariablesCollected,
+
+  /// The AST nodes for the outline have been built.
+  outlineNodesBuilt,
   ;
 
   bool operator <(SourceLibraryBuilderState other) => index < other.index;
@@ -143,9 +142,13 @@ enum SourceLibraryBuilderState {
 class SourceLibraryBuilder extends LibraryBuilderImpl {
   SourceLibraryBuilderState _state = SourceLibraryBuilderState.initial;
 
-  late final SourceCompilationUnit compilationUnit;
+  final SourceCompilationUnit compilationUnit;
 
-  LookupScope _importScope;
+  final LookupScope _importScope;
+
+  final NameSpace _prefixNameSpace;
+
+  final LookupScope _prefixScope;
 
   final LibraryNameSpaceBuilder _libraryNameSpaceBuilder;
 
@@ -248,7 +251,8 @@ class SourceLibraryBuilder extends LibraryBuilderImpl {
   Set<ExtensionBuilder>? _extensionsInScope;
 
   factory SourceLibraryBuilder(
-      {required Uri importUri,
+      {required SourceCompilationUnit compilationUnit,
+      required Uri importUri,
       required Uri fileUri,
       Uri? packageUri,
       required Uri originImportUri,
@@ -263,7 +267,10 @@ class SourceLibraryBuilder extends LibraryBuilderImpl {
       required bool isUnsupported,
       required bool isAugmentation,
       required bool isPatch,
-      Map<String, Builder>? omittedTypes}) {
+      Map<String, Builder>? omittedTypes,
+      required LibraryName libraryName,
+      required NameSpace importNameSpace,
+      required LibraryNameSpaceBuilder libraryNameSpaceBuilder}) {
     Library library = target ??
         (origin?.library ??
             new Library(importUri,
@@ -272,18 +279,20 @@ class SourceLibraryBuilder extends LibraryBuilderImpl {
                     ? null
                     : indexedLibrary?.library.reference)
           ..setLanguageVersion(packageLanguageVersion.version));
-    LibraryName libraryName = new LibraryName(library.reference);
-    LibraryNameSpaceBuilder libraryNameSpaceBuilder =
-        new LibraryNameSpaceBuilder();
-    NameSpace? importNameSpace = new NameSpaceImpl();
+    libraryName.reference = library.reference;
     LookupScope importScope = new NameSpaceLookupScope(
-        importNameSpace, ScopeKind.library, 'top',
+        importNameSpace, ScopeKind.import, 'import',
         parent: parentScope);
     importScope = new FixedLookupScope(
         ScopeKind.typeParameters, 'omitted-types',
         getables: omittedTypes, parent: importScope);
+    NameSpace prefixNameSpace = new NameSpaceImpl();
+    LookupScope prefixScope = new NameSpaceLookupScope(
+        prefixNameSpace, ScopeKind.prefix, 'prefix',
+        parent: importScope);
     NameSpace exportNameSpace = origin?.exportNameSpace ?? new NameSpaceImpl();
     return new SourceLibraryBuilder._(
+        compilationUnit: compilationUnit,
         loader: loader,
         importUri: importUri,
         fileUri: fileUri,
@@ -291,8 +300,9 @@ class SourceLibraryBuilder extends LibraryBuilderImpl {
         originImportUri: originImportUri,
         packageLanguageVersion: packageLanguageVersion,
         libraryNameSpaceBuilder: libraryNameSpaceBuilder,
-        importNameSpace: importNameSpace,
         importScope: importScope,
+        prefixNameSpace: prefixNameSpace,
+        prefixScope: prefixScope,
         exportNameSpace: exportNameSpace,
         origin: origin,
         library: library,
@@ -309,14 +319,16 @@ class SourceLibraryBuilder extends LibraryBuilderImpl {
 
   SourceLibraryBuilder._(
       {required this.loader,
+      required this.compilationUnit,
       required this.importUri,
       required this.fileUri,
       required Uri? packageUri,
       required Uri originImportUri,
       required LanguageVersion packageLanguageVersion,
       required LibraryNameSpaceBuilder libraryNameSpaceBuilder,
-      required NameSpace importNameSpace,
       required LookupScope importScope,
+      required NameSpace prefixNameSpace,
+      required LookupScope prefixScope,
       required NameSpace exportNameSpace,
       required SourceLibraryBuilder? origin,
       required this.library,
@@ -333,6 +345,8 @@ class SourceLibraryBuilder extends LibraryBuilderImpl {
         _immediateOrigin = origin,
         _nameOrigin = nameOrigin,
         _importScope = importScope,
+        _prefixNameSpace = prefixNameSpace,
+        _prefixScope = prefixScope,
         _libraryNameSpaceBuilder = libraryNameSpaceBuilder,
         _exportNameSpace = exportNameSpace,
         super(fileUri) {
@@ -347,22 +361,6 @@ class SourceLibraryBuilder extends LibraryBuilderImpl {
         !importUri.isScheme('dart') || _packageUri == null,
         "Package uri '$_packageUri' set on dart: library with import uri "
         "'${importUri}'.");
-    compilationUnit = new SourceCompilationUnitImpl(
-        this, libraryNameSpaceBuilder,
-        importUri: importUri,
-        fileUri: fileUri,
-        packageUri: _packageUri,
-        originImportUri: originImportUri,
-        packageLanguageVersion: packageLanguageVersion,
-        indexedLibrary: indexedLibrary,
-        libraryName: libraryName,
-        omittedTypeDeclarationBuilders: omittedTypes,
-        importNameSpace: importNameSpace,
-        forAugmentationLibrary: isAugmentation,
-        forPatchLibrary: isPatch,
-        isAugmenting: origin != null,
-        isUnsupported: isUnsupported,
-        loader: loader);
   }
 
   SourceLibraryBuilderState get state => _state;
@@ -402,6 +400,10 @@ class SourceLibraryBuilder extends LibraryBuilderImpl {
     return true;
   }
 
+  @override
+  bool get mayImplementRestrictedTypes =>
+      compilationUnit.mayImplementRestrictedTypes;
+
   /// `true` if this is an augmentation library.
   bool get isAugmentationLibrary => compilationUnit.forAugmentationLibrary;
 
@@ -425,60 +427,25 @@ class SourceLibraryBuilder extends LibraryBuilderImpl {
   /// Return the primary message.
   Message reportFeatureNotEnabled(
       LibraryFeature feature, Uri fileUri, int charOffset, int length) {
-    assert(!feature.isEnabled);
-    Message message;
-    if (feature.isSupported) {
-      // TODO(johnniwinther): Ideally the error should actually be special-cased
-      // to mention that it is an experimental feature.
-      String enabledVersionText = feature.flag.isEnabledByDefault
-          ? feature.enabledVersion.toText()
-          : "the current release";
-      if (_languageVersion.isExplicit) {
-        message = templateExperimentOptOutExplicit.withArguments(
-            feature.flag.name, enabledVersionText);
-        addProblem(message, charOffset, length, fileUri,
-            context: <LocatedMessage>[
-              templateExperimentOptOutComment
-                  .withArguments(feature.flag.name)
-                  .withLocation(_languageVersion.fileUri!,
-                      _languageVersion.charOffset, _languageVersion.charCount)
-            ]);
-      } else {
-        message = templateExperimentOptOutImplicit.withArguments(
-            feature.flag.name, enabledVersionText);
-        addProblem(message, charOffset, length, fileUri);
-      }
-    } else {
-      if (feature.flag.isEnabledByDefault) {
-        // Coverage-ignore-block(suite): Not run.
-        if (_languageVersion.version < feature.enabledVersion) {
-          message =
-              templateExperimentDisabledInvalidLanguageVersion.withArguments(
-                  feature.flag.name, feature.enabledVersion.toText());
-          addProblem(message, charOffset, length, fileUri);
-        } else {
-          message = templateExperimentDisabled.withArguments(feature.flag.name);
-          addProblem(message, charOffset, length, fileUri);
-        }
-      } else {
-        message = templateExperimentNotEnabledOffByDefault
-            .withArguments(feature.flag.name);
-        addProblem(message, charOffset, length, fileUri);
-      }
-    }
-    return message;
+    return compilationUnit.reportFeatureNotEnabled(
+        feature, fileUri, charOffset, length);
   }
 
   @override
   LookupScope get scope => compilationUnit.scope;
 
+  // Coverage-ignore(suite): Not run.
   LookupScope get importScope => _importScope;
 
   @override
-  NameSpace get nameSpace {
+  NameSpace get libraryNameSpace {
     assert(_nameSpace != null, "Name space has not being computed for $this.");
     return _nameSpace!;
   }
+
+  LookupScope get prefixScope => _prefixScope;
+
+  NameSpace get prefixNameSpace => _prefixNameSpace;
 
   @override
   NameSpace get exportNameSpace => _exportNameSpace;
@@ -546,22 +513,33 @@ class SourceLibraryBuilder extends LibraryBuilderImpl {
             new OmittedTypeDeclarationBuilder(entry.key, entry.value, this);
       }
     }
-    SourceLibraryBuilder augmentationLibrary = new SourceLibraryBuilder(
-        fileUri: uri,
-        importUri: uri,
-        originImportUri: importUri,
-        packageLanguageVersion: compilationUnit.packageLanguageVersion,
-        loader: loader,
-        isUnsupported: false,
-        target: library,
-        origin: this,
-        isAugmentation: true,
-        isPatch: false,
-        indexedLibrary: indexedLibrary,
-        omittedTypes: omittedTypeDeclarationBuilders);
+    SourceCompilationUnit augmentationCompilationUnit =
+        new SourceCompilationUnitImpl(
+      fileUri: uri,
+      importUri: uri,
+      originImportUri: importUri,
+      packageLanguageVersion: compilationUnit.packageLanguageVersion,
+      loader: loader,
+      isUnsupported: false,
+      augmentationRoot: compilationUnit,
+      forAugmentationLibrary: true,
+      isAugmenting: true,
+      forPatchLibrary: false,
+      indexedLibrary: indexedLibrary,
+      omittedTypeDeclarationBuilders: omittedTypeDeclarationBuilders,
+      referenceIsPartOwner: null,
+      // TODO(johnniwinther): Shouldn't these be the copied from this
+      // library?
+      packageUri: null,
+      nameOrigin: null,
+      mayImplementRestrictedTypes: false,
+    );
+    SourceLibraryBuilder augmentationLibrary =
+        augmentationCompilationUnit.createLibrary(library);
     addAugmentationLibrary(augmentationLibrary);
+    Uint8List sourceUtf8 = utf8.encode(source);
     loader.registerUnparsedLibrarySource(
-        augmentationLibrary.compilationUnit, source);
+        augmentationCompilationUnit, sourceUtf8);
     return augmentationLibrary;
   }
 
@@ -670,6 +648,9 @@ class SourceLibraryBuilder extends LibraryBuilderImpl {
 
   /// Builds the core AST structure of this library as needed for the outline.
   Library buildOutlineNodes(LibraryBuilder coreLibrary) {
+    assert(checkState(
+        required: [SourceLibraryBuilderState.unboundTypeVariablesCollected]));
+
     // TODO(johnniwinther): Avoid the need to process augmentation libraries
     // before the origin. Currently, settings performed by the augmentation are
     // overridden by the origin. For instance, the `Map` class is abstract in
@@ -690,7 +671,7 @@ class SourceLibraryBuilder extends LibraryBuilderImpl {
       part.buildOutlineNode(library);
     }*/
 
-    checkMemberConflicts(this, nameSpace,
+    checkMemberConflicts(this, libraryNameSpace,
         checkForInstanceVsStaticConflict: false,
         checkForMethodVsSetterConflict: true);
 
@@ -698,6 +679,7 @@ class SourceLibraryBuilder extends LibraryBuilderImpl {
     while (iterator.moveNext()) {
       _buildOutlineNodes(iterator.current, coreLibrary);
     }
+    state = SourceLibraryBuilderState.outlineNodesBuilt;
 
     library.isSynthetic = isSynthetic;
     library.isUnsupported = isUnsupported;
@@ -733,7 +715,7 @@ class SourceLibraryBuilder extends LibraryBuilderImpl {
   void buildInitialScopes() {
     assert(checkState(required: [SourceLibraryBuilderState.scopesBuilt]));
 
-    NameIterator iterator = nameSpace.filteredNameIterator(
+    NameIterator iterator = libraryNameSpace.filteredNameIterator(
         includeDuplicates: false, includeAugmentations: false);
     UriOffset uriOffset = new UriOffset(fileUri, TreeNode.noOffset);
     while (iterator.moveNext()) {
@@ -768,10 +750,9 @@ class SourceLibraryBuilder extends LibraryBuilderImpl {
     }
 
     compilationUnit.addImportsToScope();
-    // TODO(johnniwinther): Support imports into parts.
-    /*for (SourceCompilationUnit part in parts) {
+    for (SourceCompilationUnit part in parts) {
       part.addImportsToScope();
-    }*/
+    }
 
     NameIterator<Builder> iterator = exportNameSpace.filteredNameIterator(
         includeDuplicates: false, includeAugmentations: false);
@@ -837,7 +818,7 @@ class SourceLibraryBuilder extends LibraryBuilderImpl {
   }
 
   void buildNameSpace() {
-    assert(checkState(required: [SourceLibraryBuilderState.resolvedParts]));
+    assert(checkState(required: [SourceLibraryBuilderState.initial]));
 
     assert(
         _nameSpace == null, "Name space has already being computed for $this.");
@@ -1089,15 +1070,7 @@ class SourceLibraryBuilder extends LibraryBuilderImpl {
   bool get isAugmenting => compilationUnit.isAugmenting;
 
   @override
-  SourceLibraryBuilder get origin {
-    SourceLibraryBuilder? origin = _immediateOrigin;
-    // TODO(johnniwinther): This returns the wrong origin for early queries on
-    // augmentations imported into parts.
-    if (origin != null && origin.partOfLibrary is SourceLibraryBuilder) {
-      origin = origin.partOfLibrary as SourceLibraryBuilder;
-    }
-    return origin?.origin ?? this;
-  }
+  SourceLibraryBuilder get origin => _immediateOrigin ?? this;
 
   @override
   final Uri importUri;
@@ -1107,19 +1080,19 @@ class SourceLibraryBuilder extends LibraryBuilderImpl {
   void becomeCoreLibrary() {
     assert(checkState(required: [SourceLibraryBuilderState.nameSpaceBuilt]));
 
-    if (nameSpace.lookupLocalMember("dynamic", setter: false) == null) {
-      nameSpace.addLocalMember("dynamic",
+    if (libraryNameSpace.lookupLocalMember("dynamic", setter: false) == null) {
+      libraryNameSpace.addLocalMember("dynamic",
           new DynamicTypeDeclarationBuilder(const DynamicType(), this, -1),
           setter: false);
     }
-    if (nameSpace.lookupLocalMember("Never", setter: false) == null) {
-      nameSpace.addLocalMember(
+    if (libraryNameSpace.lookupLocalMember("Never", setter: false) == null) {
+      libraryNameSpace.addLocalMember(
           "Never",
           new NeverTypeDeclarationBuilder(
               const NeverType.nonNullable(), this, -1),
           setter: false);
     }
-    assert(nameSpace.lookupLocalMember("Null", setter: false) != null,
+    assert(libraryNameSpace.lookupLocalMember("Null", setter: false) != null,
         "No class 'Null' found in dart:core.");
   }
 
@@ -1319,11 +1292,10 @@ class SourceLibraryBuilder extends LibraryBuilderImpl {
         declaration.buildOutlineExpressions(
             classHierarchy, delayedDefaultValueCloners);
       } else {
+        // Coverage-ignore-block(suite): Not run.
         assert(
             declaration is PrefixBuilder ||
-                // Coverage-ignore(suite): Not run.
                 declaration is DynamicTypeDeclarationBuilder ||
-                // Coverage-ignore(suite): Not run.
                 declaration is NeverTypeDeclarationBuilder,
             "Unexpected builder in library: ${declaration} "
             "(${declaration.runtimeType}");
@@ -1395,12 +1367,12 @@ class SourceLibraryBuilder extends LibraryBuilderImpl {
       if (!declaration.isAugmenting && !declaration.isDuplicate) {
         library.addTypedef(typedef);
       }
-    } else if (declaration is PrefixBuilder) {
-      // Ignored. Kernel doesn't represent prefixes.
-      return;
     }
     // Coverage-ignore(suite): Not run.
-    else if (declaration is BuiltinTypeDeclarationBuilder) {
+    else if (declaration is PrefixBuilder) {
+      // Ignored. Kernel doesn't represent prefixes.
+      return;
+    } else if (declaration is BuiltinTypeDeclarationBuilder) {
       // Nothing needed.
       return;
     } else {
@@ -1442,6 +1414,7 @@ class SourceLibraryBuilder extends LibraryBuilderImpl {
   }
 
   void addDependencies(Library library, Set<SourceCompilationUnit> seen) {
+    assert(checkState(required: [SourceLibraryBuilderState.outlineNodesBuilt]));
     compilationUnit.addDependencies(library, seen);
     for (SourceCompilationUnit part in parts) {
       part.addDependencies(library, seen);
@@ -1574,6 +1547,8 @@ class SourceLibraryBuilder extends LibraryBuilderImpl {
       nominalVariables[builder] = this;
     }
     _unboundNominalVariables.clear();
+
+    state = SourceLibraryBuilderState.unboundTypeVariablesCollected;
   }
 
   /// Computes variances of type parameters on typedefs.
@@ -1604,7 +1579,7 @@ class SourceLibraryBuilder extends LibraryBuilderImpl {
       TypeBuilder bottomType, ClassBuilder objectClass) {
     assert(checkState(
         required: [SourceLibraryBuilderState.resolvedTypes],
-        pending: [SourceLibraryBuilderState.typeVariablesFinished]));
+        pending: [SourceLibraryBuilderState.unboundTypeVariablesCollected]));
     int count = 0;
 
     Iterable<SourceLibraryBuilder>? augmentationLibraries =
@@ -1695,11 +1670,11 @@ class SourceLibraryBuilder extends LibraryBuilderImpl {
         count += builder.buildBodyNodes();
       } else if (builder is SourceTypeAliasBuilder) {
         // Do nothing.
-      } else if (builder is PrefixBuilder) {
-        // Ignored. Kernel doesn't represent prefixes.
       }
       // Coverage-ignore(suite): Not run.
-      else if (builder is BuiltinTypeDeclarationBuilder) {
+      else if (builder is PrefixBuilder) {
+        // Ignored. Kernel doesn't represent prefixes.
+      } else if (builder is BuiltinTypeDeclarationBuilder) {
         // Nothing needed.
       } else {
         unhandled("${builder.runtimeType}", "buildBodyNodes",
@@ -2154,8 +2129,8 @@ class SourceLibraryBuilder extends LibraryBuilderImpl {
         }
         declaration.checkTypes(this, typeEnvironment);
         if (declaration.isGetter) {
-          Builder? setterDeclaration =
-              nameSpace.lookupLocalMember(declaration.name, setter: true);
+          Builder? setterDeclaration = libraryNameSpace
+              .lookupLocalMember(declaration.name, setter: true);
           if (setterDeclaration != null) {
             checkGetterSetterTypes(declaration,
                 setterDeclaration as ProcedureBuilder, typeEnvironment);
@@ -2185,9 +2160,9 @@ class SourceLibraryBuilder extends LibraryBuilderImpl {
           checkTypeVariableDependencies(typeVariables);
         }
       } else {
+        // Coverage-ignore-block(suite): Not run.
         assert(
             declaration is! TypeDeclarationBuilder ||
-                // Coverage-ignore(suite): Not run.
                 declaration is BuiltinTypeDeclarationBuilder,
             "Unexpected declaration ${declaration.runtimeType}");
       }
@@ -2264,7 +2239,7 @@ class SourceLibraryBuilder extends LibraryBuilderImpl {
       scope.forEachExtension((e) {
         _extensionsInScope!.add(e);
       });
-      Iterator<PrefixBuilder> iterator = nameSpace.filteredIterator(
+      Iterator<PrefixBuilder> iterator = prefixNameSpace.filteredIterator(
           includeDuplicates: false, includeAugmentations: false);
       while (iterator.moveNext()) {
         iterator.current.forEachExtension((e) {
@@ -2661,7 +2636,7 @@ class SourceLibraryBuilderMemberIterator<T extends Builder>
   SourceLibraryBuilderMemberIterator._(
       SourceLibraryBuilder libraryBuilder, this.augmentationBuilders,
       {required this.includeDuplicates})
-      : _iterator = libraryBuilder.nameSpace.filteredIterator<T>(
+      : _iterator = libraryBuilder.libraryNameSpace.filteredIterator<T>(
             parent: libraryBuilder,
             includeDuplicates: includeDuplicates,
             includeAugmentations: false);
@@ -2676,10 +2651,11 @@ class SourceLibraryBuilderMemberIterator<T extends Builder>
     if (augmentationBuilders != null && augmentationBuilders!.moveNext()) {
       SourceLibraryBuilder augmentationLibraryBuilder =
           augmentationBuilders!.current;
-      _iterator = augmentationLibraryBuilder.nameSpace.filteredIterator<T>(
-          parent: augmentationLibraryBuilder,
-          includeDuplicates: includeDuplicates,
-          includeAugmentations: false);
+      _iterator = augmentationLibraryBuilder.libraryNameSpace
+          .filteredIterator<T>(
+              parent: augmentationLibraryBuilder,
+              includeDuplicates: includeDuplicates,
+              includeAugmentations: false);
     }
     if (_iterator != null) {
       if (_iterator!.moveNext()) {
@@ -2711,7 +2687,7 @@ class SourceLibraryBuilderMemberNameIterator<T extends Builder>
   SourceLibraryBuilderMemberNameIterator._(
       SourceLibraryBuilder libraryBuilder, this.augmentationBuilders,
       {required this.includeDuplicates})
-      : _iterator = libraryBuilder.nameSpace.filteredNameIterator<T>(
+      : _iterator = libraryBuilder.libraryNameSpace.filteredNameIterator<T>(
             parent: libraryBuilder,
             includeDuplicates: includeDuplicates,
             includeAugmentations: false);
@@ -2726,10 +2702,11 @@ class SourceLibraryBuilderMemberNameIterator<T extends Builder>
     if (augmentationBuilders != null && augmentationBuilders!.moveNext()) {
       SourceLibraryBuilder augmentationLibraryBuilder =
           augmentationBuilders!.current;
-      _iterator = augmentationLibraryBuilder.nameSpace.filteredNameIterator<T>(
-          parent: augmentationLibraryBuilder,
-          includeDuplicates: includeDuplicates,
-          includeAugmentations: false);
+      _iterator = augmentationLibraryBuilder.libraryNameSpace
+          .filteredNameIterator<T>(
+              parent: augmentationLibraryBuilder,
+              includeDuplicates: includeDuplicates,
+              includeAugmentations: false);
     }
     if (_iterator != null) {
       if (_iterator!.moveNext()) {

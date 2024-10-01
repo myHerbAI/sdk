@@ -36,9 +36,11 @@
 /// represented by an element.
 library;
 
+import 'package:_fe_analyzer_shared/src/types/shared_type.dart';
 import 'package:analyzer/dart/analysis/features.dart';
 import 'package:analyzer/dart/analysis/session.dart';
 import 'package:analyzer/dart/constant/value.dart';
+import 'package:analyzer/dart/element/element2.dart';
 import 'package:analyzer/dart/element/nullability_suffix.dart';
 import 'package:analyzer/dart/element/scope.dart';
 import 'package:analyzer/dart/element/type.dart';
@@ -2196,12 +2198,18 @@ sealed class NamespaceCombinator {}
 ///
 /// Clients may not extend, implement or mix-in this class.
 abstract class ParameterElement
-    implements PromotableElement, ConstantEvaluationTarget {
+    implements
+        PromotableElement,
+        ConstantEvaluationTarget,
+        SharedNamedFunctionParameterStructure<DartType> {
   @override
   ParameterElement get declaration;
 
   /// The code of the default value, or `null` if no default value.
   String? get defaultValueCode;
+
+  @experimental
+  FormalParameterElement get element;
 
   /// Whether the parameter has a default value.
   bool get hasDefaultValue;
@@ -2250,6 +2258,7 @@ abstract class ParameterElement
   /// change the meaning of this getter. The parameter `{@required int x}`
   /// will return `false` and the parameter `{@required required int x}`
   /// will return `true`.
+  @override
   bool get isRequired;
 
   /// Whether the parameter is both a required and named parameter.
@@ -2570,7 +2579,9 @@ abstract class TypeAliasElement
   /// Note that this always instantiates the typedef itself, so for a
   /// [TypeAliasElement] the returned [DartType] might still be a generic
   /// type, with type formals. For example, if the typedef is:
+  ///
   ///     typedef F<T> = void Function<U>(T, U);
+  ///
   /// then `F<int>` will produce `void Function<U>(int, U)`.
   DartType instantiate({
     required List<DartType> typeArguments,
@@ -2586,7 +2597,8 @@ abstract class TypeDefiningElement implements Element {}
 /// A type parameter.
 ///
 /// Clients may not extend, implement or mix-in this class.
-abstract class TypeParameterElement implements TypeDefiningElement {
+abstract class TypeParameterElement
+    implements TypeDefiningElement, SharedTypeParameterStructure<DartType> {
   /// The type representing the bound associated with this parameter, or `null`
   /// if this parameter does not have an explicit bound. Being able to
   /// distinguish between an implicit and explicit bound is needed by the

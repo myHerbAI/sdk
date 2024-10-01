@@ -361,10 +361,14 @@ if (argsSplit != -1) {
 
   // Constructor function for JS `Response` objects, allows us to test for it
   // via `instanceof`.
-  self.Response = function() {}
+  self.Response = function () { }
 
   self.location = {}
-  self.location.href = 'file://' + args[wasmArg];
+  if (args[wasmArg].startsWith('/')) {
+    self.location.href = 'file://' + args[wasmArg];
+  } else {
+    self.location.href = args[wasmArg];
+  }
 
   // Signals `Stopwatch._initTicker` to use `Date.now` to get ticks instead of
   // `performance.now`, as it's not available in d8.
@@ -399,6 +403,11 @@ const main = async () => {
     // Make its exports available as imports under the 'ffi' module name.
     importObject.ffi = ffiInstance.exports;
   }
+
+  globalThis.loadData = async (relativeToWasmFileUri) => {
+    var path = wasmFilename.slice(0, wasmFilename.lastIndexOf('/'));
+    return await readBytes(`${path}/${relativeToWasmFileUri}`);
+  };
 
   // Instantiate the Dart module, importing from the global scope.
   const wasmFilename = args[wasmArg];

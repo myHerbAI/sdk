@@ -213,6 +213,10 @@ abstract class ExecutableMember extends Member
       (declaration as ExecutableElementImpl?)?.enclosingFragment;
 
   @override
+  List<FormalParameterFragment> get formalParameters =>
+      declaration.parameters.cast<FormalParameterFragment>();
+
+  @override
   bool get hasImplicitReturnType => declaration.hasImplicitReturnType;
 
   @override
@@ -278,10 +282,6 @@ abstract class ExecutableMember extends Member
       return ParameterMember(p, augmentationSubstitution, _substitution);
     }).toList();
   }
-
-  @override
-  List<FormalParameterFragment> get parameters2 =>
-      declaration.parameters.cast<FormalParameterFragment>();
 
   @override
   // TODO(augmentations): This needs to return a member built from the previous
@@ -1022,6 +1022,10 @@ class ParameterMember extends VariableMember
 
   @override
   String? get defaultValueCode => declaration.defaultValueCode;
+
+  @override
+  // TODO(scheglov): we lose types
+  FormalParameterElement get element => declaration.element;
 
   @Deprecated('Use enclosingElement3 instead')
   @override

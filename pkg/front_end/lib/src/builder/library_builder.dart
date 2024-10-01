@@ -19,6 +19,7 @@ import '../base/messages.dart'
         Message,
         ProblemReporting,
         noLength,
+        templateDuplicatedExport,
         templateInternalProblemConstructorNotFound,
         templateInternalProblemNotFoundIn,
         templateInternalProblemPrivateConstructorAccess;
@@ -26,6 +27,7 @@ import '../base/name_space.dart';
 import '../base/problems.dart' show internalProblem;
 import '../base/scope.dart';
 import '../base/uri_offset.dart';
+import '../kernel/load_library_builder.dart';
 import '../source/offset_map.dart';
 import '../source/outline_builder.dart';
 import '../source/source_class_builder.dart';
@@ -102,7 +104,7 @@ abstract class SourceCompilationUnit implements CompilationUnit {
 
   /// Creates a [SourceLibraryBuilder] for with this [SourceCompilationUnit] as
   /// the main compilation unit.
-  SourceLibraryBuilder createLibrary();
+  SourceLibraryBuilder createLibrary([Library? library]);
 
   @override
   SourceLoader get loader;
@@ -164,6 +166,8 @@ abstract class SourceCompilationUnit implements CompilationUnit {
 
   LookupScope get scope;
 
+  bool get mayImplementRestrictedTypes;
+
   void takeMixinApplications(
       Map<SourceClassBuilder, TypeBuilder> mixinApplications);
 
@@ -213,7 +217,10 @@ abstract class SourceCompilationUnit implements CompilationUnit {
       required List<CombinatorBuilder>? combinators,
       required bool deferred});
 
-  void addToScope(String name, Builder member, int charOffset, bool isImport);
+  void addImportedBuilderToScope(
+      {required String name,
+      required Builder builder,
+      required int charOffset});
 
   void addImportsToScope();
 
@@ -245,13 +252,13 @@ abstract class SourceCompilationUnit implements CompilationUnit {
       Map<NominalVariableBuilder, SourceLibraryBuilder> nominalVariables,
       Map<StructuralVariableBuilder, SourceLibraryBuilder> structuralVariables);
 
-  /// Adds [prefixBuilder] to library name space.
+  /// Adds [prefixFragment] to library name space.
   ///
   /// Returns `true` if the prefix name was new to the name space. Otherwise the
   /// prefix was merged with an existing prefix of the same name.
   // TODO(johnniwinther): Remove this.
-  bool addPrefixBuilder(
-      String name, PrefixBuilder prefixBuilder, int charOffset);
+  bool addPrefixFragment(
+      String name, PrefixFragment prefixFragment, int charOffset);
 
   int resolveTypes(ProblemReporting problemReporting);
 }
@@ -259,7 +266,7 @@ abstract class SourceCompilationUnit implements CompilationUnit {
 abstract class LibraryBuilder implements Builder, ProblemReporting {
   LookupScope get scope;
 
-  NameSpace get nameSpace;
+  NameSpace get libraryNameSpace;
 
   NameSpace get exportNameSpace;
 
@@ -272,7 +279,7 @@ abstract class LibraryBuilder implements Builder, ProblemReporting {
 
   LibraryBuilder get nameOriginBuilder;
 
-  abstract bool mayImplementRestrictedTypes;
+  bool get mayImplementRestrictedTypes;
 
   bool get isPart;
 
@@ -390,10 +397,7 @@ abstract class LibraryBuilderImpl extends ModifierBuilderImpl
   @override
   final Uri fileUri;
 
-  @override
-  bool mayImplementRestrictedTypes = false;
-
-  LibraryBuilderImpl(this.fileUri) : super(null, -1);
+  LibraryBuilderImpl(this.fileUri);
 
   @override
   // Coverage-ignore(suite): Not run.
@@ -402,6 +406,9 @@ abstract class LibraryBuilderImpl extends ModifierBuilderImpl
   @override
   // Coverage-ignore(suite): Not run.
   Builder? get parent => null;
+
+  @override
+  int get charOffset => -1;
 
   @override
   bool get isPart => false;
@@ -421,19 +428,19 @@ abstract class LibraryBuilderImpl extends ModifierBuilderImpl
 
   @override
   Iterator<Builder> get localMembersIterator {
-    return nameSpace.filteredIterator(
+    return libraryNameSpace.filteredIterator(
         parent: this, includeDuplicates: true, includeAugmentations: true);
   }
 
   @override
   Iterator<T> localMembersIteratorOfType<T extends Builder>() {
-    return nameSpace.filteredIterator<T>(
+    return libraryNameSpace.filteredIterator<T>(
         parent: this, includeDuplicates: true, includeAugmentations: true);
   }
 
   @override
   NameIterator<Builder> get localMembersNameIterator {
-    return nameSpace.filteredNameIterator(
+    return libraryNameSpace.filteredNameIterator(
         parent: this, includeDuplicates: true, includeAugmentations: true);
   }
 
@@ -453,6 +460,78 @@ abstract class LibraryBuilderImpl extends ModifierBuilderImpl
         problemOnLibrary: true);
   }
 
+  /// Computes a builder for the export collision between [declaration] and
+  /// [other]. If [declaration] is declared in [libraryNameSpace] then this is
+  /// returned instead of reporting a collision.
+  Builder _computeAmbiguousDeclarationForExport(
+      String name, Builder declaration, Builder other,
+      {required UriOffset uriOffset}) {
+    // Prefix builders and load library builders are not part of an export
+    // scope.
+    assert(declaration is! PrefixBuilder,
+        "Unexpected prefix builder $declaration.");
+    assert(other is! PrefixBuilder, "Unexpected prefix builder $other.");
+    assert(declaration is! LoadLibraryBuilder,
+        "Unexpected load library builder $declaration.");
+    assert(other is! LoadLibraryBuilder,
+        "Unexpected load library builder $other.");
+
+    if (declaration == other) return declaration;
+    if (declaration is InvalidTypeDeclarationBuilder) return declaration;
+    if (other is InvalidTypeDeclarationBuilder) return other;
+    if (declaration is AccessErrorBuilder) {
+      // Coverage-ignore-block(suite): Not run.
+      AccessErrorBuilder error = declaration;
+      declaration = error.builder;
+    }
+    if (other is AccessErrorBuilder) {
+      // Coverage-ignore-block(suite): Not run.
+      AccessErrorBuilder error = other;
+      other = error.builder;
+    }
+    Builder? preferred;
+    Uri? uri;
+    Uri? otherUri;
+    if (libraryNameSpace.lookupLocalMember(name, setter: false) ==
+        declaration) {
+      return declaration;
+    } else {
+      uri = computeLibraryUri(declaration);
+      otherUri = computeLibraryUri(other);
+      if (otherUri.isScheme("dart") &&
+          // Coverage-ignore(suite): Not run.
+          !uri.isScheme("dart")) {
+        preferred = declaration;
+      } else if (uri.isScheme("dart") &&
+          // Coverage-ignore(suite): Not run.
+          !otherUri.isScheme("dart")) {
+        preferred = other;
+      }
+    }
+    if (preferred != null) {
+      return preferred;
+    }
+
+    Uri firstUri = uri;
+    Uri secondUri = otherUri;
+    if (firstUri.toString().compareTo(secondUri.toString()) > 0) {
+      firstUri = secondUri;
+      secondUri = uri;
+    }
+
+    // TODO(ahe): We should probably use a context object here
+    // instead of including URIs in this message.
+    Message message =
+        templateDuplicatedExport.withArguments(name, firstUri, secondUri);
+    addProblem(message, uriOffset.fileOffset, noLength, uriOffset.uri);
+    // We report the error lazily (setting suppressMessage to false) because the
+    // spec 18.1 states that 'It is not an error if N is introduced by two or
+    // more imports but never referred to.'
+    return new InvalidTypeDeclarationBuilder(name,
+        message.withLocation(uriOffset.uri, uriOffset.fileOffset, name.length),
+        suppressMessage: false);
+  }
+
   @override
   bool addToExportScope(String name, Builder member,
       {required UriOffset uriOffset}) {
@@ -464,9 +543,9 @@ abstract class LibraryBuilderImpl extends ModifierBuilderImpl
       return false;
     } else {
       if (existing != null) {
-        Builder result = computeAmbiguousDeclarationForScope(
-            this, nameSpace, name, existing, member,
-            uriOffset: uriOffset, isExport: true);
+        Builder result = _computeAmbiguousDeclarationForExport(
+            name, existing, member,
+            uriOffset: uriOffset);
         exportNameSpace.addLocalMember(name, result, setter: member.isSetter);
         return result != existing;
       } else {
@@ -487,7 +566,7 @@ abstract class LibraryBuilderImpl extends ModifierBuilderImpl
           -1,
           null);
     }
-    Builder? cls = (bypassLibraryPrivacy ? nameSpace : exportNameSpace)
+    Builder? cls = (bypassLibraryPrivacy ? libraryNameSpace : exportNameSpace)
         .lookupLocalMember(className, setter: false);
     if (cls is TypeAliasBuilder) {
       // Coverage-ignore-block(suite): Not run.
@@ -524,7 +603,7 @@ abstract class LibraryBuilderImpl extends ModifierBuilderImpl
 
   @override
   Builder? lookupLocalMember(String name, {bool required = false}) {
-    Builder? builder = nameSpace.lookupLocalMember(name, setter: false);
+    Builder? builder = libraryNameSpace.lookupLocalMember(name, setter: false);
     if (required && builder == null) {
       internalProblem(
           templateInternalProblemNotFoundIn.withArguments(

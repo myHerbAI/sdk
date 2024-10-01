@@ -410,7 +410,7 @@ class MacroIntrospection {
       List<macro.FormalParameterDeclarationImpl> namedParameters
     ) = _createParameters(builder.libraryBuilder, formals);
     macro.ParameterizedTypeDeclaration definingTypeDeclaration;
-    Builder? parent = builder.parent;
+    DeclarationBuilder? parent = builder.declarationBuilder;
     if (parent is ClassBuilder) {
       definingTypeDeclaration = getClassDeclaration(parent);
     } else if (parent is ExtensionTypeDeclarationBuilder) {
@@ -693,7 +693,7 @@ class _TypePhaseIntrospector implements macro.TypePhaseIntrospector {
       memberName = name.substring(0, name.length - 1);
       isSetter = true;
     }
-    Builder? builder = libraryBuilder.nameSpace
+    Builder? builder = libraryBuilder.libraryNameSpace
         .lookupLocalMember(memberName, setter: isSetter);
     if (builder == null) {
       return new Future.error(

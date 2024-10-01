@@ -200,7 +200,6 @@ library
       element: <testLibrary>
       libraryImports
         package:test/order.dart
-          reference: <not-implemented>
       classes
         class A1 @70
           reference: <testLibraryFragment>::@class::A1
@@ -379,7 +378,6 @@ library
       element: <testLibrary>
       libraryImports
         package:test/order.dart
-          reference: <not-implemented>
       classes
         class A1 @64
           reference: <testLibraryFragment>::@class::A1
@@ -557,7 +555,6 @@ library
       element: <testLibrary>
       libraryImports
         package:test/order.dart
-          reference: <not-implemented>
       classes
         class A1 @65
           reference: <testLibraryFragment>::@class::A1
@@ -665,7 +662,6 @@ library
       element: <testLibrary>
       libraryImports
         package:test/order.dart
-          reference: <not-implemented>
       classes
         class A1 @65
           reference: <testLibraryFragment>::@class::A1
@@ -1044,7 +1040,6 @@ library
       element: <testLibrary>
       libraryImports
         package:test/arguments_text.dart
-          reference: <not-implemented>
       classes
         class A @76
           reference: <testLibraryFragment>::@class::A
@@ -3120,7 +3115,6 @@ library
       nextFragment: <testLibrary>::@fragment::package:test/test.macro.dart
       libraryImports
         package:test/append.dart
-          reference: <not-implemented>
       classes
         class A @66
           reference: <testLibraryFragment>::@class::A
@@ -3149,9 +3143,9 @@ library
               element: <testLibrary>::@fragment::package:test/test.macro.dart::@classAugmentation::A::@constructor::named#element
               periodOffset: 56
               nameEnd: 62
-              parameters
+              formalParameters
                 this.f @68
-                  element: <not-implemented>
+                  element: <testLibrary>::@fragment::package:test/test.macro.dart::@classAugmentation::A::@constructor::named::@parameter::f#element
   classes
     class A
       firstFragment: <testLibraryFragment>::@class::A
@@ -3163,7 +3157,7 @@ library
       constructors
         named
           firstFragment: <testLibrary>::@fragment::package:test/test.macro.dart::@classAugmentation::A::@constructor::named
-          parameters
+          formalParameters
             requiredPositional final f
               type: int
       getters
@@ -3242,7 +3236,6 @@ library
       nextFragment: <testLibrary>::@fragment::package:test/test.macro.dart
       libraryImports
         package:test/append.dart
-          reference: <not-implemented>
       classes
         class A @65
           reference: <testLibraryFragment>::@class::A
@@ -3262,16 +3255,16 @@ library
               element: <testLibrary>::@fragment::package:test/test.macro.dart::@classAugmentation::A::@constructor::named#element
               periodOffset: 56
               nameEnd: 62
-              parameters
+              formalParameters
                 a @67
-                  element: <not-implemented>
+                  element: <testLibrary>::@fragment::package:test/test.macro.dart::@classAugmentation::A::@constructor::named::@parameter::a#element
   classes
     class A
       firstFragment: <testLibraryFragment>::@class::A
       constructors
         named
           firstFragment: <testLibrary>::@fragment::package:test/test.macro.dart::@classAugmentation::A::@constructor::named
-          parameters
+          formalParameters
             requiredPositional a
               type: int
 ''');
@@ -3345,7 +3338,6 @@ library
       nextFragment: <testLibrary>::@fragment::package:test/test.macro.dart
       libraryImports
         package:test/append.dart
-          reference: <not-implemented>
       classes
         class A @59
           reference: <testLibraryFragment>::@class::A
@@ -3363,16 +3355,16 @@ library
             new @55
               reference: <testLibrary>::@fragment::package:test/test.macro.dart::@classAugmentation::A::@constructor::new
               element: <testLibrary>::@fragment::package:test/test.macro.dart::@classAugmentation::A::@constructor::new#element
-              parameters
+              formalParameters
                 a @61
-                  element: <not-implemented>
+                  element: <testLibrary>::@fragment::package:test/test.macro.dart::@classAugmentation::A::@constructor::new::@parameter::a#element
   classes
     class A
       firstFragment: <testLibraryFragment>::@class::A
       constructors
         new
           firstFragment: <testLibrary>::@fragment::package:test/test.macro.dart::@classAugmentation::A::@constructor::new
-          parameters
+          formalParameters
             requiredPositional a
               type: int
 ''');
@@ -3462,7 +3454,6 @@ library
       nextFragment: <testLibrary>::@fragment::package:test/test.macro.dart
       libraryImports
         package:test/append.dart
-          reference: <not-implemented>
       classes
         class A @62
           reference: <testLibraryFragment>::@class::A
@@ -3490,9 +3481,9 @@ library
             set foo= @-1
               reference: <testLibrary>::@fragment::package:test/test.macro.dart::@classAugmentation::A::@setter::foo
               element: <testLibrary>::@fragment::package:test/test.macro.dart::@classAugmentation::A::@setter::foo#element
-              parameters
+              formalParameters
                 _foo @-1
-                  element: <not-implemented>
+                  element: <testLibrary>::@fragment::package:test/test.macro.dart::@classAugmentation::A::@setter::foo::@parameter::_foo#element
   classes
     class A
       firstFragment: <testLibraryFragment>::@class::A
@@ -3508,7 +3499,7 @@ library
       setters
         synthetic set foo=
           firstFragment: <testLibrary>::@fragment::package:test/test.macro.dart::@classAugmentation::A::@setter::foo
-          parameters
+          formalParameters
             requiredPositional _foo
               type: int
 ''');
@@ -3589,7 +3580,6 @@ library
       nextFragment: <testLibrary>::@fragment::package:test/test.macro.dart
       libraryImports
         package:test/append.dart
-          reference: <not-implemented>
       classes
         class A @67
           reference: <testLibraryFragment>::@class::A
@@ -3697,7 +3687,6 @@ library
       nextFragment: <testLibrary>::@fragment::package:test/test.macro.dart
       libraryImports
         package:test/append.dart
-          reference: <not-implemented>
       classes
         class A @73
           reference: <testLibraryFragment>::@class::A
@@ -3715,16 +3704,16 @@ library
             foo @59
               reference: <testLibrary>::@fragment::package:test/test.macro.dart::@classAugmentation::A::@method::foo
               element: <testLibrary>::@fragment::package:test/test.macro.dart::@classAugmentation::A::@method::foo#element
-              parameters
+              formalParameters
                 a @70
-                  element: <not-implemented>
+                  element: <testLibrary>::@fragment::package:test/test.macro.dart::@classAugmentation::A::@method::foo::@parameter::a#element
   classes
     class A
       firstFragment: <testLibraryFragment>::@class::A
       methods
         foo
           firstFragment: <testLibrary>::@fragment::package:test/test.macro.dart::@classAugmentation::A::@method::foo
-          parameters
+          formalParameters
             requiredPositional a
               type: double
 ''');
@@ -3808,7 +3797,6 @@ library
       nextFragment: <testLibrary>::@fragment::package:test/test.macro.dart
       libraryImports
         package:test/append.dart
-          reference: <not-implemented>
       classes
         class A @67
           reference: <testLibraryFragment>::@class::A
@@ -3831,9 +3819,9 @@ library
             set foo= @59
               reference: <testLibrary>::@fragment::package:test/test.macro.dart::@classAugmentation::A::@setter::foo
               element: <testLibrary>::@fragment::package:test/test.macro.dart::@classAugmentation::A::@setter::foo#element
-              parameters
+              formalParameters
                 a @67
-                  element: <not-implemented>
+                  element: <testLibrary>::@fragment::package:test/test.macro.dart::@classAugmentation::A::@setter::foo::@parameter::a#element
   classes
     class A
       firstFragment: <testLibraryFragment>::@class::A
@@ -3845,7 +3833,7 @@ library
       setters
         set foo=
           firstFragment: <testLibrary>::@fragment::package:test/test.macro.dart::@classAugmentation::A::@setter::foo
-          parameters
+          formalParameters
             requiredPositional a
               type: int
 ''');
@@ -3886,7 +3874,7 @@ library
       constructors
         new
           firstFragment: <testLibrary>::@fragment::package:test/test.macro.dart::@classAugmentation::B::@constructor::new
-          parameters
+          formalParameters
             optionalPositional x
               type: dynamic
 ''');
@@ -3925,7 +3913,7 @@ library
       methods
         foo
           firstFragment: <testLibrary>::@fragment::package:test/test.macro.dart::@classAugmentation::B::@method::foo
-          parameters
+          formalParameters
             optionalPositional x
               type: dynamic
 ''');
@@ -3964,7 +3952,7 @@ library
       methods
         foo
           firstFragment: <testLibrary>::@fragment::package:test/test.macro.dart::@classAugmentation::B::@method::foo
-          parameters
+          formalParameters
             optionalPositional x
               type: dynamic
               metadata
@@ -4023,7 +4011,7 @@ library
       methods
         foo
           firstFragment: <testLibrary>::@fragment::package:test/test.macro.dart::@classAugmentation::B::@method::foo
-          parameters
+          formalParameters
             requiredPositional x
               type: dynamic
               metadata
@@ -4087,7 +4075,7 @@ library
       setters
         set foo=
           firstFragment: <testLibrary>::@fragment::package:test/test.macro.dart::@classAugmentation::B::@setter::foo
-          parameters
+          formalParameters
             requiredPositional x
               type: dynamic
               metadata
@@ -4853,7 +4841,7 @@ library
                 rightParenthesis: ) @108
               element: package:test/a.dart::<fragment>::@class::A::@constructor::new
               element2: package:test/a.dart::<fragment>::@class::A::@constructor::new#element
-          parameters
+          formalParameters
             requiredPositional _
               type: int
 ''');
@@ -4956,7 +4944,7 @@ library
   functions
     foo
       firstFragment: <testLibrary>::@fragment::package:test/test.macro.dart::@function::foo
-      parameters
+      formalParameters
         optionalPositional x
           type: dynamic
       returnType: void
@@ -5096,7 +5084,7 @@ library
             rightParenthesis: ) @88
           element: package:test/a.dart::<fragment>::@class::A::@constructor::new
           element2: package:test/a.dart::<fragment>::@class::A::@constructor::new#element
-      parameters
+      formalParameters
         requiredPositional _
           type: int
 ''');
@@ -5140,7 +5128,7 @@ library
   setters
     static set foo=
       firstFragment: <testLibrary>::@fragment::package:test/test.macro.dart::@accessor::foo
-      parameters
+      formalParameters
         requiredPositional x
           type: dynamic
           metadata
@@ -5425,7 +5413,7 @@ library
   functions
     foo
       firstFragment: <testLibrary>::@fragment::package:test/test.macro.dart::@function::foo
-      parameters
+      formalParameters
         requiredPositional x1
           type: X
         requiredPositional x2
@@ -5471,7 +5459,7 @@ library
   functions
     foo
       firstFragment: <testLibrary>::@fragment::package:test/test.macro.dart::@function::foo
-      parameters
+      formalParameters
         requiredPositional x
           type: X
       returnType: void
@@ -5555,9 +5543,7 @@ library
       nextFragment: <testLibrary>::@fragment::package:test/test.macro.dart
       libraryImports
         package:test/append.dart
-          reference: <not-implemented>
         package:test/a.dart
-          reference: <not-implemented>
       classes
         class B @71
           reference: <testLibraryFragment>::@class::B
@@ -5642,7 +5628,6 @@ library
       nextFragment: <testLibrary>::@fragment::package:test/test.macro.dart
       libraryImports
         package:test/append.dart
-          reference: <not-implemented>
       classes
         class A @64
           reference: <testLibraryFragment>::@class::A
@@ -5745,7 +5730,6 @@ library
       nextFragment: <testLibrary>::@fragment::package:test/test.macro.dart
       libraryImports
         package:test/append.dart
-          reference: <not-implemented>
       classes
         class A @64
           reference: <testLibraryFragment>::@class::A
@@ -5886,7 +5870,6 @@ library
       nextFragment: <testLibrary>::@fragment::package:test/test.macro.dart
       libraryImports
         package:test/a.dart
-          reference: <not-implemented>
       classes
         class A @42
           reference: <testLibraryFragment>::@class::A
@@ -5897,7 +5880,6 @@ library
       previousFragment: <testLibraryFragment>
       libraryImports
         package:test/a.dart
-          reference: <not-implemented>
       prefixes
         prefix0
           reference: <testLibrary>::@fragment::package:test/test.macro.dart::@prefix::prefix0
@@ -6049,7 +6031,6 @@ library
       nextFragment: <testLibrary>::@fragment::package:test/test.macro.dart
       libraryImports
         package:test/a.dart
-          reference: <not-implemented>
       classes
         class A @36
           reference: <testLibraryFragment>::@class::A
@@ -6060,9 +6041,7 @@ library
       previousFragment: <testLibraryFragment>
       libraryImports
         package:test/a.dart
-          reference: <not-implemented>
         dart:core
-          reference: <not-implemented>
       prefixes
         prefix0
           reference: <testLibrary>::@fragment::package:test/test.macro.dart::@prefix::prefix0
@@ -6092,9 +6071,9 @@ library
             set foo= @-1
               reference: <testLibrary>::@fragment::package:test/test.macro.dart::@classAugmentation::A::@setter::foo
               element: <testLibrary>::@fragment::package:test/test.macro.dart::@classAugmentation::A::@setter::foo#element
-              parameters
+              formalParameters
                 _foo @-1
-                  element: <not-implemented>
+                  element: <testLibrary>::@fragment::package:test/test.macro.dart::@classAugmentation::A::@setter::foo::@parameter::_foo#element
   classes
     class A
       firstFragment: <testLibraryFragment>::@class::A
@@ -6110,7 +6089,7 @@ library
       setters
         synthetic set foo=
           firstFragment: <testLibrary>::@fragment::package:test/test.macro.dart::@classAugmentation::A::@setter::foo
-          parameters
+          formalParameters
             requiredPositional _foo
               type: int
 ''');
@@ -6226,7 +6205,6 @@ library
       nextFragment: <testLibrary>::@fragment::package:test/test.macro.dart
       libraryImports
         package:test/a.dart
-          reference: <not-implemented>
       classes
         class A @37
           reference: <testLibraryFragment>::@class::A
@@ -6237,9 +6215,7 @@ library
       previousFragment: <testLibraryFragment>
       libraryImports
         package:test/a.dart
-          reference: <not-implemented>
         dart:core
-          reference: <not-implemented>
       prefixes
         prefix0
           reference: <testLibrary>::@fragment::package:test/test.macro.dart::@prefix::prefix0
@@ -6374,7 +6350,6 @@ library
       nextFragment: <testLibrary>::@fragment::package:test/test.macro.dart
       libraryImports
         package:test/a.dart
-          reference: <not-implemented>
       classes
         class A @37
           reference: <testLibraryFragment>::@class::A
@@ -6385,9 +6360,7 @@ library
       previousFragment: <testLibraryFragment>
       libraryImports
         package:test/a.dart
-          reference: <not-implemented>
         dart:core
-          reference: <not-implemented>
       prefixes
         prefix0
           reference: <testLibrary>::@fragment::package:test/test.macro.dart::@prefix::prefix0
@@ -6532,7 +6505,6 @@ library
       nextFragment: <testLibrary>::@fragment::package:test/test.macro.dart
       libraryImports
         package:test/a.dart
-          reference: <not-implemented>
       classes
         class A @37
           reference: <testLibraryFragment>::@class::A
@@ -6543,9 +6515,7 @@ library
       previousFragment: <testLibraryFragment>
       libraryImports
         package:test/a.dart
-          reference: <not-implemented>
         dart:core
-          reference: <not-implemented>
       prefixes
         prefix0
           reference: <testLibrary>::@fragment::package:test/test.macro.dart::@prefix::prefix0
@@ -6565,16 +6535,16 @@ library
             set foo= @173
               reference: <testLibrary>::@fragment::package:test/test.macro.dart::@classAugmentation::A::@setter::foo
               element: <testLibrary>::@fragment::package:test/test.macro.dart::@classAugmentation::A::@setter::foo#element
-              parameters
+              formalParameters
                 value @189
-                  element: <not-implemented>
+                  element: <testLibrary>::@fragment::package:test/test.macro.dart::@classAugmentation::A::@setter::foo::@parameter::value#element
               nextFragment: <testLibrary>::@fragment::package:test/test.macro.dart::@classAugmentation::A::@setterAugmentation::foo
             augment set foo= @216
               reference: <testLibrary>::@fragment::package:test/test.macro.dart::@classAugmentation::A::@setterAugmentation::foo
               element: <testLibrary>::@fragment::package:test/test.macro.dart::@classAugmentation::A::@setter::foo#element
-              parameters
+              formalParameters
                 value @232
-                  element: <not-implemented>
+                  element: <testLibrary>::@fragment::package:test/test.macro.dart::@classAugmentation::A::@setterAugmentation::foo::@parameter::value#element
               previousFragment: <testLibrary>::@fragment::package:test/test.macro.dart::@classAugmentation::A::@setter::foo
   classes
     class A
@@ -6587,7 +6557,7 @@ library
       setters
         external set foo=
           firstFragment: <testLibrary>::@fragment::package:test/test.macro.dart::@classAugmentation::A::@setter::foo
-          parameters
+          formalParameters
             requiredPositional value
               type: int
 ''');
@@ -6764,7 +6734,6 @@ library
       element: <testLibrary>
       libraryImports
         package:test/append.dart
-          reference: <not-implemented>
       classes
         class A @78
           reference: <testLibraryFragment>::@class::A
@@ -6819,7 +6788,6 @@ library
       element: <testLibrary>
       libraryImports
         package:test/append.dart
-          reference: <not-implemented>
       classes
         class A @44
           reference: <testLibraryFragment>::@class::A
@@ -6874,7 +6842,6 @@ library
       element: <testLibrary>
       libraryImports
         package:test/append.dart
-          reference: <not-implemented>
       classes
         class A @76
           reference: <testLibraryFragment>::@class::A
@@ -6945,7 +6912,6 @@ library
       nextFragment: <testLibrary>::@fragment::package:test/test.macro.dart
       libraryImports
         package:test/a.dart
-          reference: <not-implemented>
       classes
         class A @56
           reference: <testLibraryFragment>::@class::A
@@ -7036,7 +7002,6 @@ library
       element: <testLibrary>
       libraryImports
         package:test/a.dart
-          reference: <not-implemented>
       classes
         class A @35
           reference: <testLibraryFragment>::@class::A
@@ -7095,7 +7060,6 @@ library
       element: <testLibrary>
       libraryImports
         package:test/diagnostic.dart
-          reference: <not-implemented>
       functions
         f @59
           reference: <testLibraryFragment>::@function::f
@@ -7150,7 +7114,6 @@ library
       element: <testLibrary>
       libraryImports
         package:test/diagnostic.dart
-          reference: <not-implemented>
   macroDiagnostics
     InvalidMacroTargetDiagnostic
       annotationIndex: 0
@@ -7221,9 +7184,7 @@ library
       element: <testLibrary>
       libraryImports
         package:test/diagnostic.dart
-          reference: <not-implemented>
         package:test/a.dart
-          reference: <not-implemented>
       classes
         class X @84
           reference: <testLibraryFragment>::@class::X
@@ -7293,9 +7254,7 @@ library
       element: <testLibrary>
       libraryImports
         package:test/diagnostic.dart
-          reference: <not-implemented>
         package:test/a.dart
-          reference: <not-implemented>
       classes
         class X @82
           reference: <testLibraryFragment>::@class::X
@@ -7355,7 +7314,6 @@ library
       element: <testLibrary>
       libraryImports
         package:test/diagnostic.dart
-          reference: <not-implemented>
       classes
         class A @62
           reference: <testLibraryFragment>::@class::A
@@ -7426,7 +7384,6 @@ library
       element: <testLibrary>
       libraryImports
         package:test/diagnostic.dart
-          reference: <not-implemented>
       classes
         class A @33
           reference: <testLibraryFragment>::@class::A
@@ -7506,7 +7463,6 @@ library
       element: <testLibrary>
       libraryImports
         package:test/diagnostic.dart
-          reference: <not-implemented>
       classes
         class A @80
           reference: <testLibraryFragment>::@class::A
@@ -7581,7 +7537,6 @@ library
       element: <testLibrary>
       libraryImports
         package:test/diagnostic.dart
-          reference: <not-implemented>
       classes
         class A @33
           reference: <testLibraryFragment>::@class::A
@@ -7669,7 +7624,6 @@ library
       element: <testLibrary>
       libraryImports
         package:test/diagnostic.dart
-          reference: <not-implemented>
       classes
         class A @33
           reference: <testLibraryFragment>::@class::A
@@ -7751,7 +7705,6 @@ library
       element: <testLibrary>
       libraryImports
         package:test/diagnostic.dart
-          reference: <not-implemented>
       functions
         foo @79
           reference: <testLibraryFragment>::@function::foo
@@ -7824,7 +7777,6 @@ library
       element: <testLibrary>
       libraryImports
         package:test/diagnostic.dart
-          reference: <not-implemented>
       classes
         class A @33
           reference: <testLibraryFragment>::@class::A
@@ -7893,7 +7845,6 @@ library
       element: <testLibrary>
       libraryImports
         package:test/diagnostic.dart
-          reference: <not-implemented>
       mixins
         mixin A @62
           reference: <testLibraryFragment>::@mixin::A
@@ -7961,7 +7912,6 @@ library
       element: <testLibrary>
       libraryImports
         package:test/diagnostic.dart
-          reference: <not-implemented>
       mixins
         mixin A @80
           reference: <testLibraryFragment>::@mixin::A
@@ -8032,7 +7982,6 @@ library
       element: <testLibrary>
       libraryImports
         package:test/diagnostic.dart
-          reference: <not-implemented>
       typeAliases
         A @82
           reference: <testLibraryFragment>::@typeAlias::A
@@ -8104,7 +8053,6 @@ library
       element: <testLibrary>
       libraryImports
         package:test/diagnostic.dart
-          reference: <not-implemented>
       classes
         class A @56
           reference: <testLibraryFragment>::@class::A
@@ -8174,7 +8122,6 @@ library
       element: <testLibrary>
       libraryImports
         package:test/diagnostic.dart
-          reference: <not-implemented>
       classes
         class A @78
           reference: <testLibraryFragment>::@class::A
@@ -8250,7 +8197,6 @@ library
       element: <testLibrary>
       libraryImports
         package:test/diagnostic.dart
-          reference: <not-implemented>
       classes
         class A @33
           reference: <testLibraryFragment>::@class::A
@@ -8342,24 +8288,23 @@ library
       element: <testLibrary>
       libraryImports
         package:test/diagnostic.dart
-          reference: <not-implemented>
       functions
         foo @93
           reference: <testLibraryFragment>::@function::foo
           element: <testLibraryFragment>::@function::foo#element
-          parameters
+          formalParameters
             a @101
-              element: <not-implemented>
+              element: <testLibraryFragment>::@function::foo::@parameter::a#element
             default b @113
               reference: <testLibraryFragment>::@function::foo::@parameter::b
-              element: <not-implemented>
+              element: <testLibraryFragment>::@function::foo::@parameter::b#element
             default c @122
               reference: <testLibraryFragment>::@function::foo::@parameter::c
-              element: <not-implemented>
+              element: <testLibraryFragment>::@function::foo::@parameter::c#element
   functions
     foo
       firstFragment: <testLibraryFragment>::@function::foo
-      parameters
+      formalParameters
         requiredPositional a
           type: int
         optionalNamed b
@@ -8432,20 +8377,19 @@ library
       element: <testLibrary>
       libraryImports
         package:test/diagnostic.dart
-          reference: <not-implemented>
       functions
         foo @98
           reference: <testLibraryFragment>::@function::foo
           element: <testLibraryFragment>::@function::foo#element
-          parameters
+          formalParameters
             a @106
-              element: <not-implemented>
+              element: <testLibraryFragment>::@function::foo::@parameter::a#element
             b @116
-              element: <not-implemented>
+              element: <testLibraryFragment>::@function::foo::@parameter::b#element
   functions
     foo
       firstFragment: <testLibraryFragment>::@function::foo
-      parameters
+      formalParameters
         requiredPositional a
           type: int
         requiredPositional b
@@ -8507,7 +8451,6 @@ library
       element: <testLibrary>
       libraryImports
         package:test/diagnostic.dart
-          reference: <not-implemented>
       functions
         foo @76
           reference: <testLibraryFragment>::@function::foo
@@ -8575,7 +8518,6 @@ library
       element: <testLibrary>
       libraryImports
         package:test/diagnostic.dart
-          reference: <not-implemented>
       functions
         foo @144
           reference: <testLibraryFragment>::@function::foo
@@ -8643,7 +8585,6 @@ library
       element: <testLibrary>
       libraryImports
         package:test/diagnostic.dart
-          reference: <not-implemented>
       functions
         foo @139
           reference: <testLibraryFragment>::@function::foo
@@ -8710,7 +8651,6 @@ library
       element: <testLibrary>
       libraryImports
         package:test/diagnostic.dart
-          reference: <not-implemented>
       functions
         foo @103
           reference: <testLibraryFragment>::@function::foo
@@ -8775,7 +8715,6 @@ library
       element: <testLibrary>
       libraryImports
         package:test/diagnostic.dart
-          reference: <not-implemented>
       functions
         foo @88
           reference: <testLibraryFragment>::@function::foo
@@ -8852,7 +8791,6 @@ library
       element: <testLibrary>
       libraryImports
         package:test/diagnostic.dart
-          reference: <not-implemented>
       classes
         class A @33
           reference: <testLibraryFragment>::@class::A
@@ -8938,18 +8876,17 @@ library
       element: <testLibrary>
       libraryImports
         package:test/diagnostic.dart
-          reference: <not-implemented>
       functions
         foo @98
           reference: <testLibraryFragment>::@function::foo
           element: <testLibraryFragment>::@function::foo#element
-          parameters
+          formalParameters
             a @102
-              element: <not-implemented>
+              element: <testLibraryFragment>::@function::foo::@parameter::a#element
   functions
     foo
       firstFragment: <testLibraryFragment>::@function::foo
-      parameters
+      formalParameters
         requiredPositional a
           type: dynamic
       returnType: void
@@ -9009,7 +8946,6 @@ library
       element: <testLibrary>
       libraryImports
         package:test/diagnostic.dart
-          reference: <not-implemented>
       functions
         foo @72
           reference: <testLibraryFragment>::@function::foo
@@ -9080,7 +9016,6 @@ library
       element: <testLibrary>
       libraryImports
         package:test/diagnostic.dart
-          reference: <not-implemented>
       classes
         class A @33
           reference: <testLibraryFragment>::@class::A
@@ -9157,7 +9092,6 @@ library
       element: <testLibrary>
       libraryImports
         package:test/diagnostic.dart
-          reference: <not-implemented>
       topLevelVariables
         final foo @80
           reference: <testLibraryFragment>::@topLevelVariable::foo
@@ -9231,7 +9165,6 @@ library
       element: <testLibrary>
       libraryImports
         package:test/diagnostic.dart
-          reference: <not-implemented>
       functions
         foo @86
           reference: <testLibraryFragment>::@function::foo
@@ -9303,7 +9236,6 @@ library
       element: <testLibrary>
       libraryImports
         package:test/diagnostic.dart
-          reference: <not-implemented>
       typeAliases
         A @35
           reference: <testLibraryFragment>::@typeAlias::A
@@ -9390,7 +9322,6 @@ library
       element: <testLibrary>
       libraryImports
         package:test/diagnostic.dart
-          reference: <not-implemented>
       classes
         class A @33
           reference: <testLibraryFragment>::@class::A
@@ -9399,18 +9330,18 @@ library
             foo @116
               reference: <testLibraryFragment>::@class::A::@method::foo
               element: <testLibraryFragment>::@class::A::@method::foo#element
-              parameters
+              formalParameters
                 a @124
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@class::A::@method::foo::@parameter::a#element
                 b @134
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@class::A::@method::foo::@parameter::b#element
   classes
     class A
       firstFragment: <testLibraryFragment>::@class::A
       methods
         foo
           firstFragment: <testLibraryFragment>::@class::A::@method::foo
-          parameters
+          formalParameters
             requiredPositional a
               type: int
             requiredPositional b
@@ -9477,7 +9408,6 @@ library
       element: <testLibrary>
       libraryImports
         package:test/diagnostic.dart
-          reference: <not-implemented>
       classes
         class A @33
           reference: <testLibraryFragment>::@class::A
@@ -9551,7 +9481,6 @@ library
       element: <testLibrary>
       libraryImports
         package:test/diagnostic.dart
-          reference: <not-implemented>
       functions
         foo @114
           reference: <testLibraryFragment>::@function::foo
@@ -9631,7 +9560,6 @@ library
       element: <testLibrary>
       libraryImports
         package:test/diagnostic.dart
-          reference: <not-implemented>
       classes
         class A @33
           reference: <testLibraryFragment>::@class::A
@@ -9727,7 +9655,6 @@ library
       element: <testLibrary>
       libraryImports
         package:test/diagnostic.dart
-          reference: <not-implemented>
       classes
         class A @33
           reference: <testLibraryFragment>::@class::A
@@ -9807,7 +9734,6 @@ library
       element: <testLibrary>
       libraryImports
         package:test/diagnostic.dart
-          reference: <not-implemented>
       typeAliases
         A @81
           reference: <testLibraryFragment>::@typeAlias::A
@@ -9889,7 +9815,6 @@ library
       element: <testLibrary>
       libraryImports
         package:test/diagnostic.dart
-          reference: <not-implemented>
       classes
         class A @62
           reference: <testLibraryFragment>::@class::A
@@ -9960,7 +9885,6 @@ library
       element: <testLibrary>
       libraryImports
         package:test/diagnostic.dart
-          reference: <not-implemented>
       classes
         class A @61
           reference: <testLibraryFragment>::@class::A
@@ -10019,7 +9943,6 @@ library
       element: <testLibrary>
       libraryImports
         package:test/diagnostic.dart
-          reference: <not-implemented>
       classes
         class A @60
           reference: <testLibraryFragment>::@class::A
@@ -10078,7 +10001,6 @@ library
       element: <testLibrary>
       libraryImports
         package:test/diagnostic.dart
-          reference: <not-implemented>
       classes
         class A @63
           reference: <testLibraryFragment>::@class::A
@@ -10145,7 +10067,6 @@ library
       element: <testLibrary>
       libraryImports
         package:test/diagnostic.dart
-          reference: <not-implemented>
       classes
         class A @68
           reference: <testLibraryFragment>::@class::A
@@ -10216,7 +10137,6 @@ library
       element: <testLibrary>
       libraryImports
         package:test/diagnostic.dart
-          reference: <not-implemented>
       classes
         class A @33
           reference: <testLibraryFragment>::@class::A
@@ -10325,7 +10245,6 @@ library
       element: <testLibrary>
       libraryImports
         package:test/diagnostic.dart
-          reference: <not-implemented>
       classes
         class A @33
           reference: <testLibraryFragment>::@class::A
@@ -10344,9 +10263,9 @@ library
             set foo= @-1
               reference: <testLibraryFragment>::@class::A::@setter::foo
               element: <testLibraryFragment>::@class::A::@setter::foo#element
-              parameters
+              formalParameters
                 _foo @-1
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@class::A::@setter::foo::@parameter::_foo#element
   classes
     class A
       firstFragment: <testLibraryFragment>::@class::A
@@ -10362,7 +10281,7 @@ library
       setters
         synthetic set foo=
           firstFragment: <testLibraryFragment>::@class::A::@setter::foo
-          parameters
+          formalParameters
             requiredPositional _foo
               type: int
 ''');
@@ -10431,7 +10350,6 @@ library
       element: <testLibrary>
       libraryImports
         package:test/diagnostic.dart
-          reference: <not-implemented>
       classes
         class A @33
           reference: <testLibraryFragment>::@class::A
@@ -10505,7 +10423,6 @@ library
       element: <testLibrary>
       libraryImports
         package:test/diagnostic.dart
-          reference: <not-implemented>
       classes
         class A @67
           reference: <testLibraryFragment>::@class::A
@@ -10569,7 +10486,6 @@ library
       element: <testLibrary>
       libraryImports
         package:test/diagnostic.dart
-          reference: <not-implemented>
       classes
         class A @55
           reference: <testLibraryFragment>::@class::A
@@ -10631,7 +10547,6 @@ library
       element: <testLibrary>
       libraryImports
         package:test/diagnostic.dart
-          reference: <not-implemented>
       classes
         class A @55
           reference: <testLibraryFragment>::@class::A
@@ -10698,7 +10613,6 @@ library
       element: <testLibrary>
       libraryImports
         package:test/diagnostic.dart
-          reference: <not-implemented>
       classes
         class A @61
           reference: <testLibraryFragment>::@class::A
@@ -10912,7 +10826,6 @@ library
       nextFragment: <testLibrary>::@fragment::package:test/test.macro.dart
       libraryImports
         package:test/append.dart
-          reference: <not-implemented>
       classes
         class A @29
           reference: <testLibraryFragment>::@class::A
@@ -10926,7 +10839,6 @@ library
       previousFragment: <testLibraryFragment>
       libraryImports
         package:test/test.dart
-          reference: <not-implemented>
       prefixes
         prefix0
           reference: <testLibrary>::@fragment::package:test/test.macro.dart::@prefix::prefix0
@@ -11007,7 +10919,6 @@ library
       element: <testLibrary>
       libraryImports
         package:test/append.dart
-          reference: <not-implemented>
       classes
         class A @29
           reference: <testLibraryFragment>::@class::A
@@ -11127,7 +11038,6 @@ library
       element: <testLibrary>
       libraryImports
         package:test/append.dart
-          reference: <not-implemented>
       classes
         class A @29
           reference: <testLibraryFragment>::@class::A
@@ -11209,7 +11119,6 @@ library
       nextFragment: <testLibrary>::@fragment::package:test/test.macro.dart
       libraryImports
         package:test/append.dart
-          reference: <not-implemented>
       classes
         class A @29
           reference: <testLibraryFragment>::@class::A
@@ -11290,7 +11199,6 @@ library
       element: <testLibrary>
       libraryImports
         package:test/append.dart
-          reference: <not-implemented>
       classes
         class A @29
           reference: <testLibraryFragment>::@class::A
@@ -11361,7 +11269,6 @@ library
       element: <testLibrary>
       libraryImports
         package:test/append.dart
-          reference: <not-implemented>
       classes
         class A @29
           reference: <testLibraryFragment>::@class::A
@@ -11432,7 +11339,6 @@ library
       element: <testLibrary>
       libraryImports
         package:test/append.dart
-          reference: <not-implemented>
       classes
         class A @29
           reference: <testLibraryFragment>::@class::A
@@ -11505,7 +11411,6 @@ library
       element: <testLibrary>
       libraryImports
         package:test/append.dart
-          reference: <not-implemented>
       classes
         class A @29
           reference: <testLibraryFragment>::@class::A
@@ -11578,7 +11483,6 @@ library
       element: <testLibrary>
       libraryImports
         package:test/append.dart
-          reference: <not-implemented>
       classes
         class A @29
           reference: <testLibraryFragment>::@class::A
@@ -11651,7 +11555,6 @@ library
       element: <testLibrary>
       libraryImports
         package:test/append.dart
-          reference: <not-implemented>
       classes
         class A @29
           reference: <testLibraryFragment>::@class::A
@@ -11724,7 +11627,6 @@ library
       element: <testLibrary>
       libraryImports
         package:test/append.dart
-          reference: <not-implemented>
       classes
         class A @29
           reference: <testLibraryFragment>::@class::A
@@ -11797,7 +11699,6 @@ library
       element: <testLibrary>
       libraryImports
         package:test/append.dart
-          reference: <not-implemented>
       classes
         class A @29
           reference: <testLibraryFragment>::@class::A
@@ -11897,7 +11798,6 @@ library
       element: <testLibrary>
       libraryImports
         package:test/append.dart
-          reference: <not-implemented>
       classes
         class A @29
           reference: <testLibraryFragment>::@class::A
@@ -12008,7 +11908,6 @@ library
       element: <testLibrary>
       libraryImports
         package:test/append.dart
-          reference: <not-implemented>
       classes
         class A @29
           reference: <testLibraryFragment>::@class::A
@@ -12081,7 +11980,6 @@ library
       element: <testLibrary>
       libraryImports
         package:test/append.dart
-          reference: <not-implemented>
       classes
         class A @29
           reference: <testLibraryFragment>::@class::A
@@ -12176,7 +12074,6 @@ library
       nextFragment: <testLibrary>::@fragment::package:test/test.macro.dart
       libraryImports
         package:test/append.dart
-          reference: <not-implemented>
       classes
         class A @29
           reference: <testLibraryFragment>::@class::A
@@ -12264,7 +12161,6 @@ library
       element: <testLibrary>
       libraryImports
         package:test/append.dart
-          reference: <not-implemented>
       classes
         class A @29
           reference: <testLibraryFragment>::@class::A
@@ -12337,7 +12233,6 @@ library
       element: <testLibrary>
       libraryImports
         package:test/append.dart
-          reference: <not-implemented>
       classes
         class A @29
           reference: <testLibraryFragment>::@class::A
@@ -12410,7 +12305,6 @@ library
       element: <testLibrary>
       libraryImports
         package:test/append.dart
-          reference: <not-implemented>
       classes
         class A @29
           reference: <testLibraryFragment>::@class::A
@@ -12483,7 +12377,6 @@ library
       element: <testLibrary>
       libraryImports
         package:test/append.dart
-          reference: <not-implemented>
       classes
         class A @29
           reference: <testLibraryFragment>::@class::A
@@ -12641,7 +12534,6 @@ library
       nextFragment: <testLibrary>::@fragment::package:test/test.macro.dart
       libraryImports
         package:test/auto_to_string.dart
-          reference: <not-implemented>
       classes
         class A @53
           reference: <testLibraryFragment>::@class::A
@@ -12668,7 +12560,6 @@ library
       previousFragment: <testLibraryFragment>
       libraryImports
         dart:core
-          reference: <not-implemented>
       prefixes
         prefix0
           reference: <testLibrary>::@fragment::package:test/test.macro.dart::@prefix::prefix0
@@ -12859,7 +12750,6 @@ library
       nextFragment: <testLibrary>::@fragment::package:test/test.macro.dart
       libraryImports
         package:test/json_serializable.dart
-          reference: <not-implemented>
       classes
         class A @60
           reference: <testLibraryFragment>::@class::A
@@ -12886,9 +12776,7 @@ library
       previousFragment: <testLibraryFragment>
       libraryImports
         package:test/json_serializable.dart
-          reference: <not-implemented>
         dart:core
-          reference: <not-implemented>
       prefixes
         prefix0
           reference: <testLibrary>::@fragment::package:test/test.macro.dart::@prefix::prefix0
@@ -12905,18 +12793,18 @@ library
               element: <testLibrary>::@fragment::package:test/test.macro.dart::@classAugmentation::A::@constructor::fromJson#element
               periodOffset: 176
               nameEnd: 185
-              parameters
+              formalParameters
                 json @231
-                  element: <not-implemented>
+                  element: <testLibrary>::@fragment::package:test/test.macro.dart::@classAugmentation::A::@constructor::fromJson::@parameter::json#element
               nextFragment: <testLibrary>::@fragment::package:test/test.macro.dart::@classAugmentation::A::@constructorAugmentation::fromJson
             augment fromJson @336
               reference: <testLibrary>::@fragment::package:test/test.macro.dart::@classAugmentation::A::@constructorAugmentation::fromJson
               element: <testLibrary>::@fragment::package:test/test.macro.dart::@classAugmentation::A::@constructor::fromJson#element
               periodOffset: 335
               nameEnd: 344
-              parameters
+              formalParameters
                 json @390
-                  element: <not-implemented>
+                  element: <testLibrary>::@fragment::package:test/test.macro.dart::@classAugmentation::A::@constructorAugmentation::fromJson::@parameter::json#element
               previousFragment: <testLibrary>::@fragment::package:test/test.macro.dart::@classAugmentation::A::@constructor::fromJson
           methods
             toJson @314
@@ -12942,7 +12830,7 @@ library
       constructors
         external fromJson
           firstFragment: <testLibrary>::@fragment::package:test/test.macro.dart::@classAugmentation::A::@constructor::fromJson
-          parameters
+          formalParameters
             requiredPositional json
               type: Map<String, Object?>
       getters
@@ -17842,7 +17730,6 @@ library
       nextFragment: <testLibrary>::@fragment::package:test/test.macro.dart
       libraryImports
         package:test/append.dart
-          reference: <not-implemented>
       classes
         class A @67
           reference: <testLibraryFragment>::@class::A
@@ -17924,7 +17811,6 @@ library
       nextFragment: <testLibrary>::@fragment::package:test/test.macro.dart
       libraryImports
         package:test/append.dart
-          reference: <not-implemented>
       classes
         class A @73
           reference: <testLibraryFragment>::@class::A
@@ -18028,7 +17914,6 @@ library
       nextFragment: <testLibrary>::@fragment::package:test/test.macro.dart
       libraryImports
         package:test/append.dart
-          reference: <not-implemented>
       prefixes
         prefix
           reference: <testLibraryFragment>::@prefix::prefix
@@ -18135,7 +18020,6 @@ library
       nextFragment: <testLibrary>::@fragment::package:test/test.macro.dart
       libraryImports
         package:test/append.dart
-          reference: <not-implemented>
       prefixes
         prefix
           reference: <testLibraryFragment>::@prefix::prefix
@@ -18236,7 +18120,6 @@ library
       nextFragment: <testLibrary>::@fragment::package:test/test.macro.dart
       libraryImports
         package:test/append.dart
-          reference: <not-implemented>
       classes
         class A @61
           reference: <testLibraryFragment>::@class::A
@@ -18465,7 +18348,6 @@ library
       nextFragment: <testLibrary>::@fragment::package:test/test.macro.dart
       libraryImports
         package:test/a.dart
-          reference: <not-implemented>
       classes
         class A @35
           reference: <testLibraryFragment>::@class::A
@@ -18592,7 +18474,6 @@ library
       nextFragment: <testLibrary>::@fragment::package:test/test.macro.dart
       libraryImports
         package:test/b.dart
-          reference: <not-implemented>
       classes
         class X @35
           reference: <testLibraryFragment>::@class::X
@@ -18602,7 +18483,6 @@ library
       previousFragment: <testLibraryFragment>
       libraryImports
         package:test/a.dart
-          reference: <not-implemented>
       prefixes
         prefix0
           reference: <testLibrary>::@fragment::package:test/test.macro.dart::@prefix::prefix0
@@ -18614,9 +18494,9 @@ library
             foo @100
               reference: <testLibrary>::@fragment::package:test/test.macro.dart::@class::MyClass::@method::foo
               element: <testLibrary>::@fragment::package:test/test.macro.dart::@class::MyClass::@method::foo#element
-              parameters
+              formalParameters
                 _ @114
-                  element: <not-implemented>
+                  element: <testLibrary>::@fragment::package:test/test.macro.dart::@class::MyClass::@method::foo::@parameter::_#element
   classes
     class X
       firstFragment: <testLibraryFragment>::@class::X
@@ -18625,7 +18505,7 @@ library
       methods
         foo
           firstFragment: <testLibrary>::@fragment::package:test/test.macro.dart::@class::MyClass::@method::foo
-          parameters
+          formalParameters
             requiredPositional _
               type: A
 ''');
@@ -19029,7 +18909,6 @@ library
       nextFragment: <testLibrary>::@fragment::package:test/test.macro.dart
       libraryImports
         package:test/a.dart
-          reference: <not-implemented>
       classes
         class X @37
           reference: <testLibraryFragment>::@class::X
@@ -19039,7 +18918,6 @@ library
       previousFragment: <testLibraryFragment>
       libraryImports
         package:test/a.dart
-          reference: <not-implemented>
       prefixes
         prefix0
           reference: <testLibrary>::@fragment::package:test/test.macro.dart::@prefix::prefix0
@@ -19288,9 +19166,7 @@ library
       nextFragment: <testLibrary>::@fragment::package:test/test.macro.dart
       libraryImports
         package:test/append.dart
-          reference: <not-implemented>
         package:test/a.dart
-          reference: <not-implemented>
       classes
         class B @78
           reference: <testLibraryFragment>::@class::B
@@ -19956,9 +19832,7 @@ elementFactory
 
     newAnalysisOptionsYamlFile(
       otherRootPath,
-      AnalysisOptionsFileConfig(
-        experiments: experiments,
-      ).toContent(),
+      analysisOptionsContent(experiments: experiments),
     );
 
     var file = newFile('$otherRootPath/lib/other.dart', r'''
@@ -20026,7 +19900,6 @@ library
       nextFragment: package:other/other.dart::@fragment::package:other/other.macro.dart
       libraryImports
         package:test/append.dart
-          reference: <not-implemented>
       classes
         class A @74
           reference: package:other/other.dart::<fragment>::@class::A

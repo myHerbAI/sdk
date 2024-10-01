@@ -29,18 +29,43 @@ class DynamicType extends _SpecialSimpleType
 /// Representation of a function type suitable for unit testing of code in the
 /// `_fe_analyzer_shared` package.
 ///
-/// Optional parameters, named parameters, and type parameters are not (yet)
-/// supported.
-class FunctionType extends Type {
-  /// The return type.
+/// Type parameters are not (yet) supported.
+class FunctionType extends Type
+    implements
+        SharedFunctionTypeStructure<Type, Never, NamedFunctionParameter> {
+  @override
   final Type returnType;
 
   /// A list of the types of positional parameters.
   final List<Type> positionalParameters;
 
+  @override
+  final int requiredPositionalParameterCount;
+
+  /// A list of the named parameters, sorted by name.
+  final List<NamedFunctionParameter> namedParameters;
+
   FunctionType(this.returnType, this.positionalParameters,
-      {super.nullabilitySuffix = NullabilitySuffix.none})
-      : super._();
+      {int? requiredPositionalParameterCount,
+      this.namedParameters = const [],
+      super.nullabilitySuffix = NullabilitySuffix.none})
+      : requiredPositionalParameterCount =
+            requiredPositionalParameterCount ?? positionalParameters.length,
+        super._() {
+    for (var i = 1; i < namedParameters.length; i++) {
+      assert(namedParameters[i - 1].name.compareTo(namedParameters[i].name) < 0,
+          'namedParameters not properly sorted');
+    }
+  }
+
+  @override
+  List<Type> get positionalParameterTypes => positionalParameters;
+
+  @override
+  List<NamedFunctionParameter> get sortedNamedParameters => namedParameters;
+
+  @override
+  List<Never> get typeFormals => const [];
 
   @override
   Type? closureWithRespectToUnknown({required bool covariant}) {
@@ -48,11 +73,17 @@ class FunctionType extends Type {
         returnType.closureWithRespectToUnknown(covariant: covariant);
     List<Type>? newPositionalParameters =
         positionalParameters.closureWithRespectToUnknown(covariant: !covariant);
-    if (newReturnType == null && newPositionalParameters == null) {
+    List<NamedFunctionParameter>? newNamedParameters =
+        namedParameters.closureWithRespectToUnknown(covariant: !covariant);
+    if (newReturnType == null &&
+        newPositionalParameters == null &&
+        newNamedParameters == null) {
       return null;
     }
     return FunctionType(newReturnType ?? returnType,
         newPositionalParameters ?? positionalParameters,
+        requiredPositionalParameterCount: requiredPositionalParameterCount,
+        namedParameters: newNamedParameters ?? namedParameters,
         nullabilitySuffix: nullabilitySuffix);
   }
 
@@ -61,22 +92,43 @@ class FunctionType extends Type {
     Type? newReturnType = returnType.recursivelyDemote(covariant: covariant);
     List<Type>? newPositionalParameters =
         positionalParameters.recursivelyDemote(covariant: !covariant);
-    if (newReturnType == null && newPositionalParameters == null) {
+    List<NamedFunctionParameter>? newNamedParameters =
+        namedParameters.recursivelyDemote(covariant: !covariant);
+    if (newReturnType == null &&
+        newPositionalParameters == null &&
+        newNamedParameters == null) {
       return null;
     }
     return FunctionType(newReturnType ?? returnType,
         newPositionalParameters ?? positionalParameters,
+        requiredPositionalParameterCount: requiredPositionalParameterCount,
+        namedParameters: newNamedParameters ?? namedParameters,
         nullabilitySuffix: nullabilitySuffix);
   }
 
   @override
   Type withNullability(NullabilitySuffix suffix) =>
-      FunctionType(returnType, positionalParameters, nullabilitySuffix: suffix);
+      FunctionType(returnType, positionalParameters,
+          requiredPositionalParameterCount: requiredPositionalParameterCount,
+          namedParameters: namedParameters,
+          nullabilitySuffix: suffix);
 
   @override
-  String _toStringWithoutSuffix({required bool parenthesizeIfComplex}) =>
-      _parenthesizeIf(parenthesizeIfComplex,
-          '$returnType Function(${positionalParameters.join(', ')})');
+  String _toStringWithoutSuffix({required bool parenthesizeIfComplex}) {
+    var parameters = <Object>[
+      ...positionalParameters.sublist(0, requiredPositionalParameterCount)
+    ];
+    if (requiredPositionalParameterCount < positionalParameters.length) {
+      var optionalPositionalParameters =
+          positionalParameters.sublist(requiredPositionalParameterCount);
+      parameters.add('[${optionalPositionalParameters.join(', ')}]');
+    }
+    if (namedParameters.isNotEmpty) {
+      parameters.add('{${namedParameters.join(', ')}}');
+    }
+    return _parenthesizeIf(parenthesizeIfComplex,
+        '$returnType Function(${parameters.join(', ')})');
+  }
 }
 
 /// Representation of the type `FutureOr<T>` suitable for unit testing of code
@@ -118,6 +170,19 @@ class InvalidType extends _SpecialSimpleType
 
   @override
   Type withNullability(NullabilitySuffix suffix) => this;
+}
+
+/// A named parameter of a function type.
+class NamedFunctionParameter extends NamedType
+    implements SharedNamedFunctionParameterStructure<Type> {
+  @override
+  final bool isRequired;
+
+  NamedFunctionParameter(
+      {required this.isRequired, required super.name, required super.type});
+
+  @override
+  String toString() => [if (isRequired) 'required', type, name].join(' ');
 }
 
 class NamedType implements SharedNamedTypeStructure<Type> {
@@ -461,6 +526,20 @@ abstract class Type implements SharedTypeStructure<Type> {
   String _toStringWithoutSuffix({required bool parenthesizeIfComplex});
 }
 
+class TypeParameter implements SharedTypeParameterStructure<Type> {
+  final String name;
+
+  final Type bound;
+
+  TypeParameter({required this.name, required this.bound});
+
+  @override
+  String get displayName => name;
+
+  @override
+  String toString() => name;
+}
+
 class TypeSystem {
   static final Map<String, List<Type> Function(List<Type>)>
       _coreSuperInterfaceTemplates = {
@@ -480,7 +559,7 @@ class TypeSystem {
 
   static final _objectType = Type('Object');
 
-  final Map<String, Type> _typeVarBounds = {};
+  final Map<String, TypeParameter> _typeVariables = {};
 
   final Map<String, List<Type> Function(List<Type>)> _superInterfaceTemplates =
       Map.of(_coreSuperInterfaceTemplates);
@@ -490,8 +569,9 @@ class TypeSystem {
     _superInterfaceTemplates[className] = template;
   }
 
-  void addTypeVariable(String name, {String? bound}) {
-    _typeVarBounds[name] = Type(bound ?? 'Object?');
+  TypeParameter addTypeVariable(String name, {String? bound}) {
+    return _typeVariables[name] =
+        TypeParameter(name: name, bound: Type(bound ?? 'Object?'));
   }
 
   Type factor(Type t, Type s) {
@@ -673,20 +753,20 @@ class TypeSystem {
     // Type Variable Reflexivity 1: if T0 is a type variable X0 or a promoted
     // type variables X0 & S0 and T1 is X0 then:
     if (_isTypeVar(t0) &&
+        _isTypeVar(t1) &&
         t1 is PrimaryType &&
+        matchTypeParameterType(t0) == matchTypeParameterType(t1) &&
         t1.nullabilitySuffix == NullabilitySuffix.none &&
-        t1.args.isEmpty &&
-        _typeVarName(t0) == t1.name) {
+        t1.args.isEmpty) {
       // - T0 <: T1
       return true;
     }
 
     // Type Variable Reflexivity 2: if T0 is a type variable X0 or a promoted
     // type variables X0 & S0 and T1 is X0 & S1 then:
-    if (_isTypeVar(t0) &&
-        t1 is PromotedTypeVariableType &&
-        t1.nullabilitySuffix == NullabilitySuffix.none &&
-        _typeVarName(t0) == _typeVarName(t1)) {
+    if (t1 is PromotedTypeVariableType &&
+        matchTypeParameterType(t0) == matchTypeParameterType(t1) &&
+        t1.nullabilitySuffix == NullabilitySuffix.none) {
       // - T0 <: T1 iff T0 <: S1.
       return isSubtype(t0, t1.promotion);
     }
@@ -804,16 +884,15 @@ class TypeSystem {
     bool isPositionalFunctionSubtype() {
       // Positional Function Types: T0 is U0 Function<X0 extends B00, ...,
       // Xk extends B0k>(V0 x0, ..., Vn xn, [Vn+1 xn+1, ..., Vm xm])
-      if (t0 is! FunctionType) return false;
-      var n = t0.positionalParameters.length;
-      // (Note: we don't support optional parameters)
-      var m = n;
+      if (t0 is! FunctionType || t0.namedParameters.isNotEmpty) return false;
+      var n = t0.requiredPositionalParameterCount;
+      var m = t0.positionalParameters.length;
 
       // - and T1 is U1 Function<Y0 extends B10, ..., Yk extends B1k>(S0 y0,
       //   ..., Sp yp, [Sp+1 yp+1, ..., Sq yq])
-      if (t1 is! FunctionType) return false;
-      var p = t1.positionalParameters.length;
-      var q = p;
+      if (t1 is! FunctionType || t1.namedParameters.isNotEmpty) return false;
+      var p = t1.requiredPositionalParameterCount;
+      var q = t1.positionalParameters.length;
 
       // - and p >= n
       if (p < n) return false;
@@ -849,24 +928,78 @@ class TypeSystem {
       // Named Function Types: T0 is U0 Function<X0 extends B00, ..., Xk extends
       // B0k>(V0 x0, ..., Vn xn, {r0n+1 Vn+1 xn+1, ..., r0m Vm xm}) where r0j is
       // empty or required for j in n+1...m
-      //
+      if (t0 is! FunctionType) return false;
+      var n = t0.positionalParameters.length;
+      if (t0.requiredPositionalParameterCount != n) return false;
+
       // - and T1 is U1 Function<Y0 extends B10, ..., Yk extends B1k>(S0 y0,
       //   ..., Sn yn, {r1n+1 Sn+1 yn+1, ..., r1q Sq yq}) where r1j is empty or
       //   required for j in n+1...q
+      if (t1 is! FunctionType ||
+          t1.positionalParameters.length != n ||
+          t1.requiredPositionalParameterCount != n) {
+        return false;
+      }
+
       // - and {yn+1, ... , yq} subsetof {xn+1, ... , xm}
+      var t1IndexToT0Index = <int>[];
+      for (var i = 0, j = 0;
+          i < t0.namedParameters.length || j < t1.namedParameters.length;) {
+        if (i >= t0.namedParameters.length) break;
+        if (j >= t1.namedParameters.length) return false;
+        switch (
+            t0.namedParameters[i].name.compareTo(t1.namedParameters[j].name)) {
+          case < 0:
+            i++;
+          case > 0:
+            return false;
+          default: // == 0
+            t1IndexToT0Index.add(i);
+            i++;
+            j++;
+        }
+      }
+
+      // (Note: no substitution is needed in the code below; we don't support
+      // type arguments on function types)
+
       // - and Si[Z0/Y0, ..., Zk/Yk] <: Vi[Z0/X0, ..., Zk/Xk] for i in 0...n
+      for (var i = 0; i < n; i++) {
+        if (!isSubtype(
+            t1.positionalParameters[i], t0.positionalParameters[i])) {
+          return false;
+        }
+      }
+
       // - and Si[Z0/Y0, ..., Zk/Yk] <: Tj[Z0/X0, ..., Zk/Xk] for i in n+1...q,
       //   yj = xi
+      for (var j = 0; j < t1IndexToT0Index.length; j++) {
+        var i = t1IndexToT0Index[j];
+        if (!isSubtype(
+            t1.namedParameters[j].type, t0.namedParameters[i].type)) {
+          return false;
+        }
+      }
+
       // - and for each j such that r0j is required, then there exists an i in
       //   n+1...q such that xj = yi, and r1i is required
+      for (var j = 0; j < t1IndexToT0Index.length; j++) {
+        var i = t1IndexToT0Index[j];
+        if (t1.namedParameters[j].isRequired &&
+            !t0.namedParameters[i].isRequired) {
+          return false;
+        }
+      }
+
       // - and U0[Z0/X0, ..., Zk/Xk] <: U1[Z0/Y0, ..., Zk/Yk]
+      if (!isSubtype(t0.returnType, t1.returnType)) return false;
+
       // - and B0i[Z0/X0, ..., Zk/Xk] === B1i[Z0/Y0, ..., Zk/Yk] for i in 0...k
       // - where the Zi are fresh type variables with bounds B0i[Z0/X0, ...,
       //   Zk/Xk]
-
-      // Note: nothing to do here; we don't support named arguments on function
-      // types.
-      return false;
+      // (No check needed here since we don't support type arguments on function
+      // types)
+      return true;
     }
 
     if (isNamedFunctionSubtype()) return true;
@@ -900,6 +1033,21 @@ class TypeSystem {
     return false;
   }
 
+  TypeParameter? matchTypeParameterType(Type t) {
+    if (t is PromotedTypeVariableType &&
+        t.nullabilitySuffix == NullabilitySuffix.none) {
+      var typeVar = matchTypeParameterType(t.innerType);
+      assert(typeVar != null);
+      return typeVar;
+    } else if (t is PrimaryType &&
+        t.nullabilitySuffix == NullabilitySuffix.none &&
+        t.args.isEmpty) {
+      return _typeVariables[t.name];
+    } else {
+      return null;
+    }
+  }
+
   bool _isTop(Type t) {
     if (t is PrimaryType) {
       return t is DynamicType || t is InvalidType || t is VoidType;
@@ -909,31 +1057,9 @@ class TypeSystem {
     return false;
   }
 
-  bool _isTypeVar(Type t) {
-    if (t is PromotedTypeVariableType &&
-        t.nullabilitySuffix == NullabilitySuffix.none) {
-      assert(_isTypeVar(t.innerType));
-      return true;
-    } else if (t is PrimaryType &&
-        t.nullabilitySuffix == NullabilitySuffix.none &&
-        t.args.isEmpty) {
-      return _typeVarBounds.containsKey(t.name);
-    } else {
-      return false;
-    }
-  }
+  bool _isTypeVar(Type t) => matchTypeParameterType(t) != null;
 
-  Type _typeVarBound(Type t) => _typeVarBounds[_typeVarName(t)]!;
-
-  String _typeVarName(Type t) {
-    assert(_isTypeVar(t));
-    if (t is PromotedTypeVariableType &&
-        t.nullabilitySuffix == NullabilitySuffix.none) {
-      return _typeVarName(t.innerType);
-    } else {
-      return (t as PrimaryType).name;
-    }
-  }
+  Type _typeVarBound(Type t) => matchTypeParameterType(t)!.bound;
 }
 
 /// Representation of the unknown type suitable for unit testing of code in the
@@ -989,7 +1115,7 @@ abstract class _SpecialSimpleType extends PrimaryType {
 
 class _TypeParser {
   static final _typeTokenizationRegexp =
-      RegExp(_identifierPattern + r'|\(|\)|<|>|,|\?|\*|&|{|}');
+      RegExp(_identifierPattern + r'|\(|\)|<|>|,|\?|\*|&|{|}|\[|\]');
 
   static const _identifierPattern = '[_a-zA-Z][_a-zA-Z0-9]*';
 
@@ -1012,6 +1138,55 @@ class _TypeParser {
   Never _parseFailure(String message) {
     throw ParseError(
         'Error parsing type `$_typeStr` at token $_currentToken: $message');
+  }
+
+  List<NamedFunctionParameter> _parseNamedFunctionParameters() {
+    assert(_currentToken == '{');
+    _next();
+    var namedParameters = <NamedFunctionParameter>[];
+    while (true) {
+      var isRequired = _currentToken == 'required';
+      if (isRequired) {
+        _next();
+      }
+      var type = _parseType();
+      var name = _currentToken;
+      if (_identifierRegexp.matchAsPrefix(name) == null) {
+        _parseFailure('Expected an identifier');
+      }
+      namedParameters.add(NamedFunctionParameter(
+          name: name, type: type, isRequired: isRequired));
+      _next();
+      if (_currentToken == ',') {
+        _next();
+        continue;
+      }
+      if (_currentToken == '}') {
+        break;
+      }
+      _parseFailure('Expected `}` or `,`');
+    }
+    _next();
+    namedParameters.sort((a, b) => a.name.compareTo(b.name));
+    return namedParameters;
+  }
+
+  void _parseOptionalFunctionParameters(List<Type> positionalParameterTypes) {
+    assert(_currentToken == '[');
+    _next();
+    while (true) {
+      var type = _parseType();
+      positionalParameterTypes.add(type);
+      if (_currentToken == ',') {
+        _next();
+        continue;
+      }
+      if (_currentToken == ']') {
+        break;
+      }
+      _parseFailure('Expected `]` or `,`');
+    }
+    _next();
   }
 
   List<NamedType> _parseRecordTypeNamedFields() {
@@ -1084,10 +1259,26 @@ class _TypeParser {
         _parseFailure('Expected `(`');
       }
       _next();
-      var parameterTypes = <Type>[];
+      var positionalParameterTypes = <Type>[];
+      List<NamedFunctionParameter>? namedFunctionParameters;
+      int? requiredPositionalParameterCount;
       if (_currentToken != ')') {
         while (true) {
-          parameterTypes.add(_parseType());
+          if (_currentToken == '{') {
+            namedFunctionParameters = _parseNamedFunctionParameters();
+            if (_currentToken != ')') {
+              _parseFailure('Expected `)`');
+            }
+            break;
+          } else if (_currentToken == '[') {
+            requiredPositionalParameterCount = positionalParameterTypes.length;
+            _parseOptionalFunctionParameters(positionalParameterTypes);
+            if (_currentToken != ')') {
+              _parseFailure('Expected `)`');
+            }
+            break;
+          }
+          positionalParameterTypes.add(_parseType());
           if (_currentToken == ')') break;
           if (_currentToken != ',') {
             _parseFailure('Expected `,` or `)`');
@@ -1096,7 +1287,10 @@ class _TypeParser {
         }
       }
       _next();
-      return FunctionType(type, parameterTypes);
+      return FunctionType(type, positionalParameterTypes,
+          requiredPositionalParameterCount: requiredPositionalParameterCount ??
+              positionalParameterTypes.length,
+          namedParameters: namedFunctionParameters ?? const []);
     } else {
       return null;
     }
@@ -1118,9 +1312,15 @@ class _TypeParser {
     //   typeArgs := `<` type (`,` type)* `>`
     //   nullability := (`?` | `*`)?
     //   suffix := `Function` `(` type (`,` type)* `)`
+    //           | `Function` `(` (type `,`)* namedFunctionParameters `)`
+    //           | `Function` `(` (type `,`)* optionalFunctionParameters `)`
     //           | `?`
     //           | `*`
     //           | `&` unsuffixedType
+    //   namedFunctionParameters := `{` namedFunctionParameter
+    //                              (`,` namedFunctionParameter)* `}`
+    //   namedFunctionParameter := `required`? type identifier
+    //   optionalFunctionParameters := `[` type (`,` type)* `]`
     // TODO(paulberry): support more syntax if needed
     var result = _parseUnsuffixedType();
     while (true) {
@@ -1237,6 +1437,55 @@ class _TypeParser {
     }
     result.add('<END>');
     return result;
+  }
+}
+
+extension on List<NamedFunctionParameter> {
+  /// Calls [Type.closureWithRespectToUnknown] to translate every list member
+  /// into a type that doesn't involve the unknown type (`_`).  If no type would
+  /// be changed by this operation, returns `null`.
+  List<NamedFunctionParameter>? closureWithRespectToUnknown(
+      {required bool covariant}) {
+    List<NamedFunctionParameter>? newList;
+    for (int i = 0; i < length; i++) {
+      NamedFunctionParameter namedFunctionParameter = this[i];
+      Type? newType = namedFunctionParameter.type
+          .closureWithRespectToUnknown(covariant: covariant);
+      if (newList == null) {
+        if (newType == null) continue;
+        newList = sublist(0, i);
+      }
+      newList.add(newType == null
+          ? namedFunctionParameter
+          : NamedFunctionParameter(
+              isRequired: namedFunctionParameter.isRequired,
+              name: namedFunctionParameter.name,
+              type: newType));
+    }
+    return newList;
+  }
+
+  /// Calls [Type.recursivelyDemote] to translate every list member into a type
+  /// that doesn't involve any type promotion.  If no type would be changed by
+  /// this operation, returns `null`.
+  List<NamedFunctionParameter>? recursivelyDemote({required bool covariant}) {
+    List<NamedFunctionParameter>? newList;
+    for (int i = 0; i < length; i++) {
+      NamedFunctionParameter namedFunctionParameter = this[i];
+      Type? newType =
+          namedFunctionParameter.type.recursivelyDemote(covariant: covariant);
+      if (newList == null) {
+        if (newType == null) continue;
+        newList = sublist(0, i);
+      }
+      newList.add(newType == null
+          ? namedFunctionParameter
+          : NamedFunctionParameter(
+              isRequired: namedFunctionParameter.isRequired,
+              name: namedFunctionParameter.name,
+              type: newType));
+    }
+    return newList;
   }
 }
 

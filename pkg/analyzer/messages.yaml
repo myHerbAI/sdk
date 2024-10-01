@@ -2340,12 +2340,12 @@ CompileTimeErrorCode:
       2: the name of the class defining the field with which the method conflicts
   CONFLICTING_TYPE_VARIABLE_AND_CLASS:
     sharedName: CONFLICTING_TYPE_VARIABLE_AND_CONTAINER
-    problemMessage: "'{0}' can't be used to name both a type variable and the class in which the type variable is defined."
-    correctionMessage: Try renaming either the type variable or the class.
+    problemMessage: "'{0}' can't be used to name both a type parameter and the class in which the type parameter is defined."
+    correctionMessage: Try renaming either the type parameter or the class.
     hasPublishedDocs: true
     comment: |-
       Parameters:
-      0: the name of the type variable
+      0: the name of the type parameter
     documentation: |-
       #### Description
 
@@ -2371,44 +2371,44 @@ CompileTimeErrorCode:
       ```
   CONFLICTING_TYPE_VARIABLE_AND_ENUM:
     sharedName: CONFLICTING_TYPE_VARIABLE_AND_CONTAINER
-    problemMessage: "'{0}' can't be used to name both a type variable and the enum in which the type variable is defined."
-    correctionMessage: Try renaming either the type variable or the enum.
+    problemMessage: "'{0}' can't be used to name both a type parameter and the enum in which the type parameter is defined."
+    correctionMessage: Try renaming either the type parameter or the enum.
     hasPublishedDocs: true
     comment: |-
       Parameters:
-      0: the name of the type variable
+      0: the name of the type parameter
   CONFLICTING_TYPE_VARIABLE_AND_EXTENSION:
     sharedName: CONFLICTING_TYPE_VARIABLE_AND_CONTAINER
-    problemMessage: "'{0}' can't be used to name both a type variable and the extension in which the type variable is defined."
-    correctionMessage: Try renaming either the type variable or the extension.
+    problemMessage: "'{0}' can't be used to name both a type parameter and the extension in which the type parameter is defined."
+    correctionMessage: Try renaming either the type variaparameterble or the extension.
     hasPublishedDocs: true
     comment: |-
       Parameters:
-      0: the name of the type variable
+      0: the name of the type parameter
   CONFLICTING_TYPE_VARIABLE_AND_EXTENSION_TYPE:
     sharedName: CONFLICTING_TYPE_VARIABLE_AND_CONTAINER
-    problemMessage: "'{0}' can't be used to name both a type variable and the extension type in which the type variable is defined."
-    correctionMessage: Try renaming either the type variable or the extension.
+    problemMessage: "'{0}' can't be used to name both a type parameter and the extension type in which the type parameter is defined."
+    correctionMessage: Try renaming either the type parameter or the extension.
     hasPublishedDocs: true
     comment: |-
       Parameters:
-      0: the name of the type variable
+      0: the name of the type parameter
   CONFLICTING_TYPE_VARIABLE_AND_MIXIN:
     sharedName: CONFLICTING_TYPE_VARIABLE_AND_CONTAINER
-    problemMessage: "'{0}' can't be used to name both a type variable and the mixin in which the type variable is defined."
-    correctionMessage: Try renaming either the type variable or the mixin.
+    problemMessage: "'{0}' can't be used to name both a type parameter and the mixin in which the type parameter is defined."
+    correctionMessage: Try renaming either the type parameter or the mixin.
     hasPublishedDocs: true
     comment: |-
       Parameters:
-      0: the name of the type variable
+      0: the name of the type parameter
   CONFLICTING_TYPE_VARIABLE_AND_MEMBER_CLASS:
     sharedName: CONFLICTING_TYPE_VARIABLE_AND_MEMBER
-    problemMessage: "'{0}' can't be used to name both a type variable and a member in this class."
-    correctionMessage: Try renaming either the type variable or the member.
+    problemMessage: "'{0}' can't be used to name both a type parameter and a member in this class."
+    correctionMessage: Try renaming either the type parameter or the member.
     hasPublishedDocs: true
     comment: |-
       Parameters:
-      0: the name of the type variable
+      0: the name of the type parameter
     documentation: |-
       #### Description
 
@@ -2438,36 +2438,36 @@ CompileTimeErrorCode:
       ```
   CONFLICTING_TYPE_VARIABLE_AND_MEMBER_MIXIN:
     sharedName: CONFLICTING_TYPE_VARIABLE_AND_MEMBER
-    problemMessage: "'{0}' can't be used to name both a type variable and a member in this mixin."
-    correctionMessage: Try renaming either the type variable or the member.
+    problemMessage: "'{0}' can't be used to name both a type parameter and a member in this mixin."
+    correctionMessage: Try renaming either the type parameter or the member.
     hasPublishedDocs: true
     comment: |-
       Parameters:
-      0: the name of the type variable
+      0: the name of the type parameter
   CONFLICTING_TYPE_VARIABLE_AND_MEMBER_ENUM:
     sharedName: CONFLICTING_TYPE_VARIABLE_AND_MEMBER
-    problemMessage: "'{0}' can't be used to name both a type variable and a member in this enum."
-    correctionMessage: Try renaming either the type variable or the member.
+    problemMessage: "'{0}' can't be used to name both a type parameter and a member in this enum."
+    correctionMessage: Try renaming either the type parameter or the member.
     hasPublishedDocs: true
     comment: |-
       Parameters:
-      0: the name of the type variable
+      0: the name of the type parameter
   CONFLICTING_TYPE_VARIABLE_AND_MEMBER_EXTENSION:
     sharedName: CONFLICTING_TYPE_VARIABLE_AND_MEMBER
-    problemMessage: "'{0}' can't be used to name both a type variable and a member in this extension."
-    correctionMessage: Try renaming either the type variable or the member.
+    problemMessage: "'{0}' can't be used to name both a type parameter and a member in this extension."
+    correctionMessage: Try renaming either the type parameter or the member.
     hasPublishedDocs: true
     comment: |-
       Parameters:
-      0: the name of the type variable
+      0: the name of the type parameter
   CONFLICTING_TYPE_VARIABLE_AND_MEMBER_EXTENSION_TYPE:
     sharedName: CONFLICTING_TYPE_VARIABLE_AND_MEMBER
-    problemMessage: "'{0}' can't be used to name both a type variable and a member in this extension type."
-    correctionMessage: Try renaming either the type variable or the member.
+    problemMessage: "'{0}' can't be used to name both a type parameter and a member in this extension type."
+    correctionMessage: Try renaming either the type parameter or the member.
     hasPublishedDocs: true
     comment: |-
       Parameters:
-      0: the name of the type variable
+      0: the name of the type parameter
   CONST_CONSTRUCTOR_FIELD_TYPE_MISMATCH:
     problemMessage: "In a const constructor, a value of type '{0}' can't be assigned to the field '{1}', which has type '{2}'."
     correctionMessage: "Try using a subtype, or removing the keyword 'const'."
@@ -8675,7 +8675,8 @@ CompileTimeErrorCode:
         method.
 
       The concrete implementation can be invalid because of incompatibilities in
-      either the return type, the types of parameters, or the type variables.
+      either the return type, the types of the method's parameters, or the type
+      parameters.
 
       #### Example
 
@@ -9135,7 +9136,7 @@ CompileTimeErrorCode:
       ```
   INVALID_TYPE_ARGUMENT_IN_CONST_LIST:
     sharedName: INVALID_TYPE_ARGUMENT_IN_CONST_LITERAL
-    problemMessage: "Constant list literals can't include a type parameter as a type argument, such as '{0}'."
+    problemMessage: "Constant list literals can't use a type parameter in a type argument, such as '{0}'."
     correctionMessage: Try replacing the type parameter with a different type.
     hasPublishedDocs: true
     comment: |-
@@ -9144,7 +9145,7 @@ CompileTimeErrorCode:
     documentation: |-
       #### Description
 
-      The analyzer produces this diagnostic when a type parameter is used as a
+      The analyzer produces this diagnostic when a type parameter is used in a
       type argument in a list, map, or set literal that is prefixed by `const`.
       This isn't allowed because the value of the type parameter (the actual type
       that will be used at runtime) can't be known at compile time.
@@ -9189,7 +9190,7 @@ CompileTimeErrorCode:
       ```
   INVALID_TYPE_ARGUMENT_IN_CONST_MAP:
     sharedName: INVALID_TYPE_ARGUMENT_IN_CONST_LITERAL
-    problemMessage: "Constant map literals can't include a type parameter as a type argument, such as '{0}'."
+    problemMessage: "Constant map literals can't use a type parameter in a type argument, such as '{0}'."
     correctionMessage: Try replacing the type parameter with a different type.
     hasPublishedDocs: true
     comment: |-
@@ -9197,7 +9198,7 @@ CompileTimeErrorCode:
       0: the name of the type parameter
   INVALID_TYPE_ARGUMENT_IN_CONST_SET:
     sharedName: INVALID_TYPE_ARGUMENT_IN_CONST_LITERAL
-    problemMessage: "Constant set literals can't include a type parameter as a type argument, such as '{0}'."
+    problemMessage: "Constant set literals can't use a type parameter in a type argument, such as '{0}'."
     correctionMessage: Try replacing the type parameter with a different type.
     hasPublishedDocs: true
     comment: |-
@@ -20667,6 +20668,7 @@ FfiCode:
   VARIABLE_LENGTH_ARRAY_NOT_LAST:
     problemMessage: "Variable length 'Array's must only occur as the last field of Structs."
     correctionMessage: "Try adjusting the arguments in the 'Array' annotation."
+    hasPublishedDocs: true
     comment: No parameters.
     documentation: |-
       #### Description
@@ -27205,7 +27207,7 @@ WarningCode:
   UNREACHABLE_SWITCH_DEFAULT:
     problemMessage: "This default clause is covered by the previous cases."
     correctionMessage: Try removing the default clause, or restructuring the preceding patterns.
-    hasPublishedDocs: false
+    hasPublishedDocs: true
     comment: No parameters.
     documentation: |-
       #### Description
@@ -27670,11 +27672,10 @@ WarningCode:
 
       var x = min(0, 1);
       ```
-
   URI_DOES_NOT_EXIST_IN_DOC_IMPORT:
     problemMessage: "Target of URI doesn't exist: '{0}'."
     correctionMessage: Try creating the file referenced by the URI, or try using a URI for a file that does exist.
-    hasPublishedDocs: false
+    hasPublishedDocs: true
     comment: |-
       Parameters:
       0: the URI pointing to a nonexistent file

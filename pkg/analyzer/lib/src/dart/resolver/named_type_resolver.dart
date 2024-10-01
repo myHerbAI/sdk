@@ -20,6 +20,7 @@ import 'package:analyzer/src/dart/resolver/flow_analysis_visitor.dart';
 import 'package:analyzer/src/diagnostic/diagnostic_factory.dart';
 import 'package:analyzer/src/error/codes.dart';
 import 'package:analyzer/src/generated/scope_helpers.dart';
+import 'package:analyzer/src/utilities/extensions/element.dart';
 
 /// Helper for resolving types.
 ///
@@ -69,6 +70,9 @@ class NamedTypeResolver with ScopeHelpers {
 
   bool get _genericMetadataIsEnabled =>
       enclosingClass!.library.featureSet.isEnabled(Feature.generic_metadata);
+
+  bool get _inferenceUsingBoundsIsEnabled => enclosingClass!.library.featureSet
+      .isEnabled(Feature.inference_using_bounds);
 
   /// Resolve the given [NamedType] - set its element and static type. Only the
   /// given [node] is resolved, all its children must be already resolved.
@@ -177,6 +181,7 @@ class NamedTypeResolver with ScopeHelpers {
           declaredReturnType: element.thisType,
           contextReturnType: enclosingClass!.thisType,
           genericMetadataIsEnabled: _genericMetadataIsEnabled,
+          inferenceUsingBoundsIsEnabled: _inferenceUsingBoundsIsEnabled,
           strictInference: strictInference,
           strictCasts: strictCasts,
           typeSystemOperations: typeSystemOperations,
@@ -295,7 +300,7 @@ class NamedTypeResolver with ScopeHelpers {
 
   void _resolveToElement(NamedTypeImpl node, Element? element,
       {required TypeConstraintGenerationDataForTesting? dataForTesting}) {
-    node.element = element;
+    node.element2 = element.asElement2;
 
     if (element == null) {
       node.type = InvalidTypeImpl.instance;
@@ -346,7 +351,7 @@ class NamedTypeResolver with ScopeHelpers {
         name2: importPrefix.name,
         typeArguments: null,
         question: null,
-      )..element = importPrefixElement;
+      )..element2 = importPrefixElement.asElement2;
       if (identical(node, redirectedConstructor_namedType)) {
         redirectedConstructor_namedType = namedType;
       }

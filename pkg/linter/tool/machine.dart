@@ -15,7 +15,6 @@ import 'package:yaml/yaml.dart';
 
 import '../tool/util/path_utils.dart';
 import 'messages_data.dart';
-import 'since.dart';
 import 'util/score_utils.dart' as score_utils;
 
 /// Generates a list of lint rules in machine format suitable for consumption by
@@ -48,7 +47,7 @@ Future<String> generateRulesJson({
   registerLintRules();
   var fixStatusMap = readFixStatusMap();
   return await getMachineListing(Registry.ruleRegistry,
-      fixStatusMap: fixStatusMap, sinceInfo: sinceMap, pretty: pretty);
+      fixStatusMap: fixStatusMap, pretty: pretty);
 }
 
 Future<String> getMachineListing(
@@ -56,7 +55,6 @@ Future<String> getMachineListing(
   Map<String, String>? fixStatusMap,
   bool pretty = true,
   bool includeSetInfo = true,
-  Map<String, SinceInfo>? sinceInfo,
 }) async {
   var rules = List<LintRule>.of(ruleRegistry, growable: false)
     ..sort((a, b) => a.name.compareTo(b.name));
@@ -70,6 +68,8 @@ Future<String> getMachineListing(
   ) = await _fetchSetRules(fetch: includeSetInfo);
 
   var categories = messagesYaml.categoryMappings;
+  var deprecatedDetails = messagesYaml.deprecatedDetails;
+  var addedIn = messagesYaml.addedIn;
   var json = encoder.convert([
     for (var rule in rules.where((rule) => !rule.state.isInternal))
       {
@@ -85,10 +85,8 @@ Future<String> getMachineListing(
         ],
         'fixStatus':
             fixStatusMap[rule.lintCodes.first.uniqueName] ?? 'unregistered',
-        // ignore: deprecated_member_use
-        'details': rule.details,
-        if (sinceInfo != null)
-          'sinceDartSdk': sinceInfo[rule.name]?.sinceDartSdk ?? 'Unreleased',
+        'details': deprecatedDetails[rule.name],
+        'sinceDartSdk': addedIn[rule.name] ?? 'Unreleased',
       }
   ]);
   return json;

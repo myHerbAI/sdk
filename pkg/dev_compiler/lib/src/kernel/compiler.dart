@@ -632,7 +632,7 @@ class ProgramCompiler extends ComputeOnceConstantVisitor<js_ast.Expression>
 
     if (_constLazyAccessors.isNotEmpty) {
       var constTableBody = _runtimeStatement(
-          'defineLazy(#, { # }, false)', [_constTable, _constLazyAccessors]);
+          'defineLazy(#, { # })', [_constTable, _constLazyAccessors]);
       _moduleItems.insert(_constTableInsertionIndex, constTableBody);
       _constLazyAccessors.clear();
     }
@@ -1541,7 +1541,7 @@ class ProgramCompiler extends ComputeOnceConstantVisitor<js_ast.Expression>
   /// if possible, otherwise define them as lazy properties.
   void _emitStaticFieldsAndAccessors(Class c, List<js_ast.Statement> body) {
     var fields = c.fields.where((f) => f.isStatic && !f.isExternal).toList();
-    var fieldNames = Set.from(fields.map((f) => f.name));
+    var fieldNames = Set.of(fields.map((f) => f.name));
     var staticSetters = c.procedures.where(
         (p) => p.isStatic && p.isAccessor && fieldNames.contains(p.name));
     var members = [...fields, ...staticSetters];
@@ -2762,8 +2762,7 @@ class ProgramCompiler extends ComputeOnceConstantVisitor<js_ast.Expression>
     }
     _currentUri = savedUri;
 
-    return _runtimeStatement(
-        'defineLazy(#, { # }, #)', [objExpr, accessors, js.boolean(false)]);
+    return _runtimeStatement('defineLazy(#, { # })', [objExpr, accessors]);
   }
 
   js_ast.Fun _emitStaticFieldInitializer(Field field) {
@@ -3610,7 +3609,7 @@ class ProgramCompiler extends ComputeOnceConstantVisitor<js_ast.Expression>
           .add(js.statement('const # = Object.create(null);', [_constTable]));
 
       constTable.add(_runtimeStatement(
-          'defineLazy(#, { # }, false)', [_constTable, _constLazyAccessors]));
+          'defineLazy(#, { # })', [_constTable, _constLazyAccessors]));
 
       constTable.addAll(_constTableCache.emit());
     }
@@ -6135,13 +6134,18 @@ class ProgramCompiler extends ComputeOnceConstantVisitor<js_ast.Expression>
       var typeArgs = node.arguments.types;
       var name = target.name.text;
 
-      if (args.isEmpty && typeArgs.length == 1) {
-        if (name == 'TYPE_REF') {
-          return _emitType(typeArgs.single);
+      if (args.isEmpty) {
+        if (typeArgs.isEmpty && name == 'DART_RUNTIME_LIBRARY') {
+          return _runtimeModule;
         }
-        if (name == 'LEGACY_TYPE_REF') {
-          return _emitType(
-              typeArgs.single.withDeclaredNullability(Nullability.legacy));
+        if (typeArgs.length == 1) {
+          if (name == 'TYPE_REF') {
+            return _emitType(typeArgs.single);
+          }
+          if (name == 'LEGACY_TYPE_REF') {
+            return _emitType(
+                typeArgs.single.withDeclaredNullability(Nullability.legacy));
+          }
         }
       }
 

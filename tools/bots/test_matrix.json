@@ -74,6 +74,7 @@
       ".dart_tool/package_config.json",
       "out/ReleaseX64/dart",
       "out/ReleaseX64/dart_precompiled_runtime",
+      "out/ReleaseX64/dart2js_platform.dill",
       "out/ReleaseX64/dart2wasm.snapshot",
       "out/ReleaseX64/dart2wasm_asserts.snapshot",
       "out/ReleaseX64/dart2wasm_outline.dill",
@@ -104,6 +105,7 @@
       "tests/light_unittest.dart",
       "tests/search/",
       "tests/ffi/",
+      "third_party/flute/",
       "third_party/jsc/",
       "third_party/firefox_jsshell/",
       "third_party/d8/",
@@ -641,8 +643,15 @@
         "compiler": "fasta"
       }
     },
-    "analyzer-(linux|mac|win)": {
+    "analyzer-(linux|win)": {
       "options": {
+        "compiler": "dart2analyzer",
+        "use-sdk": true
+      }
+    },
+    "analyzer-mac": {
+      "options": {
+        "architecture": "arm64",
         "compiler": "dart2analyzer",
         "use-sdk": true
       }
@@ -2105,10 +2114,46 @@
           "fileset": "js_platform"
         },
         {
-          "name": "ddc co19 tests",
+          "name": "ddc co19 Language tests",
           "arguments": [
             "-nddc-${system}-firefox",
-            "co19"
+            "co19/Language"
+          ],
+          "shards": 6,
+          "fileset": "js_platform"
+        },
+        {
+          "name": "ddc co19 LanguageFeatures tests",
+          "arguments": [
+            "-nddc-${system}-firefox",
+            "co19/LanguageFeatures"
+          ],
+          "shards": 6,
+          "fileset": "js_platform"
+        },
+        {
+          "name": "ddc co19 LibTest tests",
+          "arguments": [
+            "-nddc-${system}-firefox",
+            "co19/LibTest"
+          ],
+          "shards": 6,
+          "fileset": "js_platform"
+        },
+        {
+          "name": "ddc co19 TypeSystem tests",
+          "arguments": [
+            "-nddc-${system}-firefox",
+            "co19/TypeSystem"
+          ],
+          "shards": 6,
+          "fileset": "js_platform"
+        },
+        {
+          "name": "ddc co19 Utils tests",
+          "arguments": [
+            "-nddc-${system}-firefox",
+            "co19/Utils"
           ],
           "shards": 6,
           "fileset": "js_platform"
@@ -3000,21 +3045,6 @@
             "analyze",
             "--suppress-analytics",
             "runtime/observatory"
-          ]
-        },
-        {
-          "_comment": "This uses analyzer_cli which is deprecated.",
-          "name": "dartanalyzer --batch tests",
-          "arguments": [
-            "-nanalyzer-${system}"
-          ]
-        },
-        {
-          "_comment": "This uses analyzer_cli which is deprecated.",
-          "name": "dartanalyzer --batch pkg tests",
-          "arguments": [
-            "-nanalyzer-${system}",
-            "pkg"
           ]
         }
       ]

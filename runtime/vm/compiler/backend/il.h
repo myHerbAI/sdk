@@ -4173,7 +4173,10 @@ class ReachabilityFenceInstr : public TemplateInstruction<1, NoThrow> {
 
 class ConstraintInstr : public TemplateDefinition<1, NoThrow> {
  public:
-  ConstraintInstr(Value* value, Range* constraint) : constraint_(constraint) {
+  ConstraintInstr(Value* value,
+                  Range* constraint,
+                  Representation representation)
+      : constraint_(constraint), representation_(representation) {
     SetInputAt(0, value);
   }
 
@@ -4193,6 +4196,11 @@ class ConstraintInstr : public TemplateDefinition<1, NoThrow> {
   Value* value() const { return inputs_[0]; }
   Range* constraint() const { return constraint_; }
 
+  virtual Representation RequiredInputRepresentation(intptr_t idx) const {
+    return representation_;
+  }
+  virtual Representation representation() const { return representation_; }
+
   virtual void InferRange(RangeAnalysis* analysis, Range* range);
 
   // Constraints for branches have their target block stored in order
@@ -4203,7 +4211,9 @@ class ConstraintInstr : public TemplateDefinition<1, NoThrow> {
 
   PRINT_OPERANDS_TO_SUPPORT
 
-#define FIELD_LIST(F) F(Range*, constraint_)
+#define FIELD_LIST(F)                                                          \
+  F(Range*, constraint_)                                                       \
+  F(const Representation, representation_)
 
   DECLARE_INSTRUCTION_SERIALIZABLE_FIELDS(ConstraintInstr,
                                           TemplateDefinition,
@@ -4235,12 +4245,16 @@ class ConstantInstr : public TemplateDefinition<0, NoThrow, Pure> {
   bool HasZeroRepresentation() const {
     switch (representation()) {
       case kTagged:
+      case kUntagged:
+      case kUnboxedInt8:
       case kUnboxedUint8:
+      case kUnboxedInt16:
       case kUnboxedUint16:
-      case kUnboxedUint32:
       case kUnboxedInt32:
+      case kUnboxedUint32:
       case kUnboxedInt64:
         return IsSmi() && compiler::target::SmiValue(value()) == 0;
+      case kUnboxedFloat:
       case kUnboxedDouble:
         return compiler::target::IsDouble(value()) &&
                bit_cast<uint64_t>(compiler::target::DoubleValue(value())) == 0;
@@ -5348,6 +5362,7 @@ class RelationalOpInstr : public TemplateComparison<2, NoThrow, Pure> {
       : TemplateComparison(source, kind, deopt_id),
         speculative_mode_(speculative_mode) {
     ASSERT(Token::IsRelationalOperator(kind));
+    ASSERT((cid == kSmiCid) || (cid == kMintCid) || (cid == kDoubleCid));
     SetInputAt(0, left);
     SetInputAt(1, right);
     set_operation_cid(cid);
@@ -10760,6 +10775,8 @@ class CheckBoundBaseInstr : public TemplateDefinition<2, NoThrow, Pure> {
   Value* index() const { return inputs_[kIndexPos]; }
 
   virtual Definition* Canonicalize(FlowGraph* flow_graph);
+
+  virtual void InferRange(RangeAnalysis* analysis, Range* range);
 
   DECLARE_ABSTRACT_INSTRUCTION(CheckBoundBase);
 

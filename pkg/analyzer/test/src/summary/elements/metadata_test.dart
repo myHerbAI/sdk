@@ -106,9 +106,9 @@ library
             const new @43
               reference: <testLibraryFragment>::@class::A::@constructor::new
               element: <testLibraryFragment>::@class::A::@constructor::new#element
-              parameters
+              formalParameters
                 o @45
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@class::A::@constructor::new::@parameter::o#element
   classes
     class C
       firstFragment: <testLibraryFragment>::@class::C
@@ -120,7 +120,7 @@ library
       constructors
         const new
           firstFragment: <testLibraryFragment>::@class::A::@constructor::new
-          parameters
+          formalParameters
             requiredPositional o
               type: dynamic
 ''');
@@ -202,9 +202,9 @@ library
             const new @45
               reference: <testLibraryFragment>::@class::A::@constructor::new
               element: <testLibraryFragment>::@class::A::@constructor::new#element
-              parameters
+              formalParameters
                 o @47
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@class::A::@constructor::new::@parameter::o#element
   classes
     class C
       firstFragment: <testLibraryFragment>::@class::C
@@ -216,7 +216,7 @@ library
       constructors
         const new
           firstFragment: <testLibraryFragment>::@class::A::@constructor::new
-          parameters
+          formalParameters
             requiredPositional o
               type: dynamic
 ''');
@@ -296,7 +296,6 @@ library
       element: <testLibrary>
       libraryImports
         package:test/a.dart
-          reference: <not-implemented>
       prefixes
         a
           reference: <testLibraryFragment>::@prefix::a
@@ -377,7 +376,6 @@ library
       element: <testLibrary>
       libraryImports
         package:test/a.dart
-          reference: <not-implemented>
       classes
         class C @32
           reference: <testLibraryFragment>::@class::C
@@ -494,9 +492,9 @@ library
             set x= @-1
               reference: <testLibraryFragment>::@class::C::@setter::x
               element: <testLibraryFragment>::@class::C::@setter::x#element
-              parameters
+              formalParameters
                 _x @-1
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@class::C::@setter::x::@parameter::_x#element
       topLevelVariables
         const a @6
           reference: <testLibraryFragment>::@topLevelVariable::a
@@ -524,7 +522,7 @@ library
       setters
         synthetic set x=
           firstFragment: <testLibraryFragment>::@class::C::@setter::x
-          parameters
+          formalParameters
             requiredPositional _x
               type: int
   topLevelVariables
@@ -1085,9 +1083,9 @@ library
               element: <testLibraryFragment>::@class::A::@constructor::named#element
               periodOffset: 19
               nameEnd: 25
-              parameters
+              formalParameters
                 _ @30
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@class::A::@constructor::named::@parameter::_#element
         class C @54
           reference: <testLibraryFragment>::@class::C
           element: <testLibraryFragment>::@class::C#element
@@ -1101,7 +1099,7 @@ library
       constructors
         const named
           firstFragment: <testLibraryFragment>::@class::A::@constructor::named
-          parameters
+          formalParameters
             requiredPositional _
               type: int
     class C
@@ -1203,9 +1201,9 @@ library
               element: <testLibraryFragment>::@class::A::@constructor::named#element
               periodOffset: 22
               nameEnd: 28
-              parameters
+              formalParameters
                 _ @31
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@class::A::@constructor::named::@parameter::_#element
         class C @56
           reference: <testLibraryFragment>::@class::C
           element: <testLibraryFragment>::@class::C#element
@@ -1221,7 +1219,7 @@ library
       constructors
         const named
           firstFragment: <testLibraryFragment>::@class::A::@constructor::named
-          parameters
+          formalParameters
             requiredPositional _
               type: T
     class C
@@ -1533,7 +1531,6 @@ library
       element: <testLibrary>
       libraryImports
         package:test/foo.dart
-          reference: <not-implemented>
       prefixes
         foo
           reference: <testLibraryFragment>::@prefix::foo
@@ -1639,7 +1636,6 @@ library
       element: <testLibrary>
       libraryImports
         package:test/foo.dart
-          reference: <not-implemented>
       prefixes
         foo
           reference: <testLibraryFragment>::@prefix::foo
@@ -1750,7 +1746,6 @@ library
       element: <testLibrary>
       libraryImports
         package:test/foo.dart
-          reference: <not-implemented>
       prefixes
         foo
           reference: <testLibraryFragment>::@prefix::foo
@@ -2015,9 +2010,9 @@ library
             const new @18
               reference: <testLibraryFragment>::@class::A::@constructor::new
               element: <testLibraryFragment>::@class::A::@constructor::new#element
-              parameters
+              formalParameters
                 _ @24
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@class::A::@constructor::new::@parameter::_#element
         class C @42
           reference: <testLibraryFragment>::@class::C
           element: <testLibraryFragment>::@class::C#element
@@ -2031,7 +2026,7 @@ library
       constructors
         const new
           firstFragment: <testLibraryFragment>::@class::A::@constructor::new
-          parameters
+          formalParameters
             requiredPositional _
               type: int
     class C
@@ -2115,9 +2110,9 @@ library
             const new @21
               reference: <testLibraryFragment>::@class::A::@constructor::new
               element: <testLibraryFragment>::@class::A::@constructor::new#element
-              parameters
+              formalParameters
                 _ @25
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@class::A::@constructor::new::@parameter::_#element
         class C @44
           reference: <testLibraryFragment>::@class::C
           element: <testLibraryFragment>::@class::C#element
@@ -2133,7 +2128,7 @@ library
       constructors
         const new
           firstFragment: <testLibraryFragment>::@class::A::@constructor::new
-          parameters
+          formalParameters
             requiredPositional _
               type: T
     class C
@@ -2310,7 +2305,6 @@ library
       element: <testLibrary>
       libraryImports
         package:test/foo.dart
-          reference: <not-implemented>
       prefixes
         foo
           reference: <testLibraryFragment>::@prefix::foo
@@ -2408,7 +2402,6 @@ library
       element: <testLibrary>
       libraryImports
         package:test/foo.dart
-          reference: <not-implemented>
       prefixes
         foo
           reference: <testLibraryFragment>::@prefix::foo
@@ -2511,7 +2504,6 @@ library
       element: <testLibrary>
       libraryImports
         package:test/foo.dart
-          reference: <not-implemented>
       prefixes
         foo
           reference: <testLibraryFragment>::@prefix::foo
@@ -2741,9 +2733,9 @@ library
             const new @16
               reference: <testLibraryFragment>::@class::A::@constructor::new
               element: <testLibraryFragment>::@class::A::@constructor::new#element
-              parameters
+              formalParameters
                 x @18
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@class::A::@constructor::new::@parameter::x#element
         class C @39
           reference: <testLibraryFragment>::@class::C
           element: <testLibraryFragment>::@class::C#element
@@ -2757,7 +2749,7 @@ library
       constructors
         const new
           firstFragment: <testLibraryFragment>::@class::A::@constructor::new
-          parameters
+          formalParameters
             requiredPositional x
               type: dynamic
     class C
@@ -3161,9 +3153,9 @@ library
             set x= @-1
               reference: <testLibraryFragment>::@class::C::@setter::x
               element: <testLibraryFragment>::@class::C::@setter::x#element
-              parameters
+              formalParameters
                 _x @-1
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@class::C::@setter::x::@parameter::_x#element
       topLevelVariables
         const a @6
           reference: <testLibraryFragment>::@topLevelVariable::a
@@ -3191,7 +3183,7 @@ library
       setters
         synthetic set x=
           firstFragment: <testLibraryFragment>::@class::C::@setter::x
-          parameters
+          formalParameters
             requiredPositional _x
               type: int
   topLevelVariables
@@ -3294,9 +3286,9 @@ library
             new @37
               reference: <testLibraryFragment>::@class::C::@constructor::new
               element: <testLibraryFragment>::@class::C::@constructor::new#element
-              parameters
+              formalParameters
                 this.x @47
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@class::C::@constructor::new::@parameter::x#element
                   metadata
                     Annotation
                       atSign: @ @39
@@ -3315,9 +3307,9 @@ library
             set x= @-1
               reference: <testLibraryFragment>::@class::C::@setter::x
               element: <testLibraryFragment>::@class::C::@setter::x#element
-              parameters
+              formalParameters
                 _x @-1
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@class::C::@setter::x::@parameter::_x#element
       topLevelVariables
         const a @6
           reference: <testLibraryFragment>::@topLevelVariable::a
@@ -3339,7 +3331,7 @@ library
       constructors
         new
           firstFragment: <testLibraryFragment>::@class::C::@constructor::new
-          parameters
+          formalParameters
             requiredPositional final x
               type: dynamic
               metadata
@@ -3358,7 +3350,7 @@ library
       setters
         synthetic set x=
           firstFragment: <testLibraryFragment>::@class::C::@setter::x
-          parameters
+          formalParameters
             requiredPositional _x
               type: dynamic
   topLevelVariables
@@ -3460,9 +3452,9 @@ library
             new @33
               reference: <testLibraryFragment>::@class::C::@constructor::new
               element: <testLibraryFragment>::@class::C::@constructor::new#element
-              parameters
+              formalParameters
                 default this.x @44
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@class::C::@constructor::new::@parameter::x#element
                   metadata
                     Annotation
                       atSign: @ @36
@@ -3481,9 +3473,9 @@ library
             set x= @-1
               reference: <testLibraryFragment>::@class::C::@setter::x
               element: <testLibraryFragment>::@class::C::@setter::x#element
-              parameters
+              formalParameters
                 _x @-1
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@class::C::@setter::x::@parameter::_x#element
       topLevelVariables
         const a @6
           reference: <testLibraryFragment>::@topLevelVariable::a
@@ -3505,7 +3497,7 @@ library
       constructors
         new
           firstFragment: <testLibraryFragment>::@class::C::@constructor::new
-          parameters
+          formalParameters
             optionalPositional final x
               type: dynamic
               metadata
@@ -3524,7 +3516,7 @@ library
       setters
         synthetic set x=
           firstFragment: <testLibraryFragment>::@class::C::@setter::x
-          parameters
+          formalParameters
             requiredPositional _x
               type: dynamic
   topLevelVariables
@@ -3814,9 +3806,9 @@ library
                 staticType: null
               element: <testLibraryFragment>::@getter::a
               element2: <testLibraryFragment>::@getter::a#element
-          parameters
+          formalParameters
             value @25
-              element: <not-implemented>
+              element: <testLibraryFragment>::@setter::f::@parameter::value#element
   topLevelVariables
     const a
       firstFragment: <testLibraryFragment>::@topLevelVariable::a
@@ -3842,7 +3834,7 @@ library
             staticType: null
           element: <testLibraryFragment>::@getter::a
           element2: <testLibraryFragment>::@getter::a#element
-      parameters
+      formalParameters
         requiredPositional value
           type: dynamic
 ''');
@@ -4003,9 +3995,9 @@ library
         f @16
           reference: <testLibraryFragment>::@function::f
           element: <testLibraryFragment>::@function::f#element
-          parameters
+          formalParameters
             g @21
-              element: <not-implemented>
+              element: <testLibraryFragment>::@function::f::@parameter::g#element
               metadata
                 Annotation
                   atSign: @ @18
@@ -4027,7 +4019,7 @@ library
   functions
     f
       firstFragment: <testLibraryFragment>::@function::f
-      parameters
+      formalParameters
         requiredPositional g
           type: dynamic Function()
           metadata
@@ -4109,9 +4101,9 @@ library
         f @16
           reference: <testLibraryFragment>::@function::f
           element: <testLibraryFragment>::@function::f#element
-          parameters
+          formalParameters
             default g @22
-              element: <not-implemented>
+              element: <testLibraryFragment>::@function::f::@parameter::g#element
               metadata
                 Annotation
                   atSign: @ @19
@@ -4133,7 +4125,7 @@ library
   functions
     f
       firstFragment: <testLibraryFragment>::@function::f
-      parameters
+      formalParameters
         optionalPositional g
           type: dynamic Function()
           metadata
@@ -4607,9 +4599,9 @@ library
         f @0
           reference: <testLibraryFragment>::@function::f
           element: <testLibraryFragment>::@function::f#element
-          parameters
+          formalParameters
             _ @2
-              element: <not-implemented>
+              element: <testLibraryFragment>::@function::f::@parameter::_#element
   classes
     class C
       firstFragment: <testLibraryFragment>::@class::C
@@ -4619,7 +4611,7 @@ library
   functions
     f
       firstFragment: <testLibraryFragment>::@function::f
-      parameters
+      formalParameters
         requiredPositional _
           type: dynamic
       returnType: dynamic
@@ -5351,9 +5343,9 @@ library
                     staticType: null
                   element: <testLibraryFragment>::@getter::a
                   element2: <testLibraryFragment>::@getter::a#element
-              parameters
+              formalParameters
                 value @39
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@class::C::@setter::m::@parameter::value#element
       topLevelVariables
         const a @6
           reference: <testLibraryFragment>::@topLevelVariable::a
@@ -5387,7 +5379,7 @@ library
                 staticType: null
               element: <testLibraryFragment>::@getter::a
               element2: <testLibraryFragment>::@getter::a#element
-          parameters
+          formalParameters
             requiredPositional value
               type: dynamic
   topLevelVariables
@@ -5923,9 +5915,9 @@ library
                     staticType: null
                   element: <testLibraryFragment>::@getter::foo
                   element2: <testLibraryFragment>::@getter::foo#element
-              parameters
+              formalParameters
                 a @46
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@class::A::@constructor::new::@parameter::a#element
                   metadata
                     Annotation
                       atSign: @ @37
@@ -5961,7 +5953,7 @@ library
                 staticType: null
               element: <testLibraryFragment>::@getter::foo
               element2: <testLibraryFragment>::@getter::foo#element
-          parameters
+          formalParameters
             requiredPositional a
               type: int
               metadata
@@ -6242,9 +6234,9 @@ library
                         staticType: null
                       element: <testLibraryFragment>::@getter::foo
                       element2: <testLibraryFragment>::@getter::foo#element
-              parameters
+              formalParameters
                 a @64
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@class::A::@method::method::@parameter::a#element
                   metadata
                     Annotation
                       atSign: @ @55
@@ -6295,7 +6287,7 @@ library
                     staticType: null
                   element: <testLibraryFragment>::@getter::foo
                   element2: <testLibraryFragment>::@getter::foo#element
-          parameters
+          formalParameters
             requiredPositional a
               type: int
               metadata
@@ -6424,9 +6416,9 @@ library
                     staticType: null
                   element: <testLibraryFragment>::@getter::foo
                   element2: <testLibraryFragment>::@getter::foo#element
-              parameters
+              formalParameters
                 a @55
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@class::A::@setter::setter::@parameter::a#element
                   metadata
                     Annotation
                       atSign: @ @46
@@ -6470,7 +6462,7 @@ library
                 staticType: null
               element: <testLibraryFragment>::@getter::foo
               element2: <testLibraryFragment>::@getter::foo#element
-          parameters
+          formalParameters
             requiredPositional a
               type: int
               metadata
@@ -7228,15 +7220,15 @@ library
             set isStatic= @-1
               reference: <testLibraryFragment>::@class::A::@setter::isStatic
               element: <testLibraryFragment>::@class::A::@setter::isStatic#element
-              parameters
+              formalParameters
                 _isStatic @-1
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@class::A::@setter::isStatic::@parameter::_isStatic#element
             set isInstance= @-1
               reference: <testLibraryFragment>::@class::A::@setter::isInstance
               element: <testLibraryFragment>::@class::A::@setter::isInstance#element
-              parameters
+              formalParameters
                 _isInstance @-1
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@class::A::@setter::isInstance::@parameter::_isInstance#element
       topLevelVariables
         const foo @6
           reference: <testLibraryFragment>::@topLevelVariable::foo
@@ -7277,12 +7269,12 @@ library
       setters
         synthetic static set isStatic=
           firstFragment: <testLibraryFragment>::@class::A::@setter::isStatic
-          parameters
+          formalParameters
             requiredPositional _isStatic
               type: int
         synthetic set isInstance=
           firstFragment: <testLibraryFragment>::@class::A::@setter::isInstance
-          parameters
+          formalParameters
             requiredPositional _isInstance
               type: int
   topLevelVariables
@@ -8039,10 +8031,10 @@ library
                     staticType: null
                   element: <testLibraryFragment>::@getter::foo
                   element2: <testLibraryFragment>::@getter::foo#element
-          parameters
+          formalParameters
             default a @47
               reference: <testLibraryFragment>::@function::f::@parameter::a
-              element: <not-implemented>
+              element: <testLibraryFragment>::@function::f::@parameter::a#element
               metadata
                 Annotation
                   atSign: @ @37
@@ -8086,7 +8078,7 @@ library
                 staticType: null
               element: <testLibraryFragment>::@getter::foo
               element2: <testLibraryFragment>::@getter::foo#element
-      parameters
+      formalParameters
         optionalNamed a
           firstFragment: <testLibraryFragment>::@function::f::@parameter::a
           type: int?
@@ -8303,9 +8295,9 @@ library
                 staticType: null
               element: <testLibraryFragment>::@getter::foo
               element2: <testLibraryFragment>::@getter::foo#element
-          parameters
+          formalParameters
             a @41
-              element: <not-implemented>
+              element: <testLibraryFragment>::@setter::setter::@parameter::a#element
               metadata
                 Annotation
                   atSign: @ @32
@@ -8341,7 +8333,7 @@ library
             staticType: null
           element: <testLibraryFragment>::@getter::foo
           element2: <testLibraryFragment>::@getter::foo#element
-      parameters
+      formalParameters
         requiredPositional a
           type: int
           metadata
@@ -8492,9 +8484,9 @@ library
         set isNotConst= @-1
           reference: <testLibraryFragment>::@setter::isNotConst
           element: <testLibraryFragment>::@setter::isNotConst#element
-          parameters
+          formalParameters
             _isNotConst @-1
-              element: <not-implemented>
+              element: <testLibraryFragment>::@setter::isNotConst::@parameter::_isNotConst#element
   topLevelVariables
     const foo
       firstFragment: <testLibraryFragment>::@topLevelVariable::foo
@@ -8519,7 +8511,7 @@ library
   setters
     synthetic static set isNotConst=
       firstFragment: <testLibraryFragment>::@setter::isNotConst
-      parameters
+      formalParameters
         requiredPositional _isNotConst
           type: int
 ''');
@@ -8794,7 +8786,6 @@ library
       previousFragment: <testLibraryFragment>
       libraryImports
         dart:math
-          reference: <not-implemented>
           metadata
             Annotation
               atSign: @ @21
@@ -8933,7 +8924,6 @@ library
       element: <testLibrary>
       libraryImports
         package:test/a.dart
-          reference: <not-implemented>
       prefixes
         a
           reference: <testLibraryFragment>::@prefix::a
@@ -9015,9 +9005,9 @@ library
         f @16
           reference: <testLibraryFragment>::@function::f
           element: <testLibraryFragment>::@function::f#element
-          parameters
+          formalParameters
             x @21
-              element: <not-implemented>
+              element: <testLibraryFragment>::@function::f::@parameter::x#element
               metadata
                 Annotation
                   atSign: @ @18
@@ -9039,7 +9029,7 @@ library
   functions
     f
       firstFragment: <testLibraryFragment>::@function::f
-      parameters
+      formalParameters
         requiredPositional x
           type: dynamic
           metadata
@@ -9130,9 +9120,9 @@ library
             m @29
               reference: <testLibraryFragment>::@class::C::@method::m
               element: <testLibraryFragment>::@class::C::@method::m#element
-              parameters
+              formalParameters
                 x @34
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@class::C::@method::m::@parameter::x#element
                   metadata
                     Annotation
                       atSign: @ @31
@@ -9161,7 +9151,7 @@ library
       methods
         m
           firstFragment: <testLibraryFragment>::@class::C::@method::m
-          parameters
+          formalParameters
             requiredPositional x
               type: dynamic
               metadata
@@ -9257,9 +9247,9 @@ library
         set foo= @21
           reference: <testLibraryFragment>::@setter::foo
           element: <testLibraryFragment>::@setter::foo#element
-          parameters
+          formalParameters
             x @32
-              element: <not-implemented>
+              element: <testLibraryFragment>::@setter::foo::@parameter::x#element
               metadata
                 Annotation
                   atSign: @ @25
@@ -9285,7 +9275,7 @@ library
   setters
     static set foo=
       firstFragment: <testLibraryFragment>::@setter::foo
-      parameters
+      formalParameters
         requiredPositional x
           type: int
           metadata
@@ -9366,9 +9356,9 @@ library
         f @16
           reference: <testLibraryFragment>::@function::f
           element: <testLibraryFragment>::@function::f#element
-          parameters
+          formalParameters
             default x @22
-              element: <not-implemented>
+              element: <testLibraryFragment>::@function::f::@parameter::x#element
               metadata
                 Annotation
                   atSign: @ @19
@@ -9390,7 +9380,7 @@ library
   functions
     f
       firstFragment: <testLibraryFragment>::@function::f
-      parameters
+      formalParameters
         optionalPositional x
           type: dynamic
           metadata
@@ -9489,9 +9479,9 @@ library
             new @29
               reference: <testLibraryFragment>::@class::A::@constructor::new
               element: <testLibraryFragment>::@class::A::@constructor::new#element
-              parameters
+              formalParameters
                 x @35
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@class::A::@constructor::new::@parameter::x#element
         class B @48
           reference: <testLibraryFragment>::@class::B
           element: <testLibraryFragment>::@class::B#element
@@ -9499,9 +9489,9 @@ library
             new @64
               reference: <testLibraryFragment>::@class::B::@constructor::new
               element: <testLibraryFragment>::@class::B::@constructor::new#element
-              parameters
+              formalParameters
                 super.x @75
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@class::B::@constructor::new::@parameter::x#element
                   metadata
                     Annotation
                       atSign: @ @66
@@ -9528,7 +9518,7 @@ library
       constructors
         new
           firstFragment: <testLibraryFragment>::@class::A::@constructor::new
-          parameters
+          formalParameters
             requiredPositional x
               type: int
     class B
@@ -9537,7 +9527,7 @@ library
       constructors
         new
           firstFragment: <testLibraryFragment>::@class::B::@constructor::new
-          parameters
+          formalParameters
             requiredPositional final x
               type: int
               metadata
@@ -9648,9 +9638,9 @@ library
         set v= @-1
           reference: <testLibraryFragment>::@setter::v
           element: <testLibraryFragment>::@setter::v#element
-          parameters
+          formalParameters
             _v @-1
-              element: <not-implemented>
+              element: <testLibraryFragment>::@setter::v::@parameter::_v#element
   topLevelVariables
     const a
       firstFragment: <testLibraryFragment>::@topLevelVariable::a
@@ -9669,7 +9659,7 @@ library
   setters
     synthetic static set v=
       firstFragment: <testLibraryFragment>::@setter::v
-      parameters
+      formalParameters
         requiredPositional _v
           type: int
 ''');
@@ -10259,9 +10249,9 @@ library
         set x= @-1
           reference: <testLibraryFragment>::@setter::x
           element: <testLibraryFragment>::@setter::x#element
-          parameters
+          formalParameters
             _x @-1
-              element: <not-implemented>
+              element: <testLibraryFragment>::@setter::x::@parameter::_x#element
   topLevelVariables
     const a
       firstFragment: <testLibraryFragment>::@topLevelVariable::a
@@ -10280,7 +10270,7 @@ library
   setters
     synthetic static set x=
       firstFragment: <testLibraryFragment>::@setter::x
-      parameters
+      formalParameters
         requiredPositional _x
           type: int
 ''');
@@ -10831,7 +10821,6 @@ library
       element: <testLibrary>
       libraryImports
         package:test/foo.dart
-          reference: <not-implemented>
       prefixes
         foo
           reference: <testLibraryFragment>::@prefix::foo
@@ -10917,9 +10906,9 @@ library
             const new @18
               reference: <testLibraryFragment>::@class::A::@constructor::new
               element: <testLibraryFragment>::@class::A::@constructor::new#element
-              parameters
+              formalParameters
                 _ @20
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@class::A::@constructor::new::@parameter::_#element
         class C @43
           reference: <testLibraryFragment>::@class::C
           element: <testLibraryFragment>::@class::C#element
@@ -10933,7 +10922,7 @@ library
       constructors
         const new
           firstFragment: <testLibraryFragment>::@class::A::@constructor::new
-          parameters
+          formalParameters
             requiredPositional _
               type: dynamic
     class C
@@ -11009,9 +10998,9 @@ library
             const new @18
               reference: <testLibraryFragment>::@class::A::@constructor::new
               element: <testLibraryFragment>::@class::A::@constructor::new#element
-              parameters
+              formalParameters
                 _ @20
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@class::A::@constructor::new::@parameter::_#element
         class C @42
           reference: <testLibraryFragment>::@class::C
           element: <testLibraryFragment>::@class::C#element
@@ -11025,7 +11014,7 @@ library
       constructors
         const new
           firstFragment: <testLibraryFragment>::@class::A::@constructor::new
-          parameters
+          formalParameters
             requiredPositional _
               type: dynamic
     class C
@@ -11282,7 +11271,6 @@ library
       element: <testLibrary>
       libraryImports
         dart:async
-          reference: <not-implemented>
       prefixes
         foo
           reference: <testLibraryFragment>::@prefix::foo
@@ -11441,7 +11429,6 @@ library
       element: <testLibrary>
       libraryImports
         dart:async
-          reference: <not-implemented>
       prefixes
         foo
           reference: <testLibraryFragment>::@prefix::foo
@@ -11531,7 +11518,6 @@ library
       element: <testLibrary>
       libraryImports
         dart:async
-          reference: <not-implemented>
       prefixes
         foo
           reference: <testLibraryFragment>::@prefix::foo
@@ -11678,7 +11664,6 @@ library
       element: <testLibrary>
       libraryImports
         dart:async
-          reference: <not-implemented>
       prefixes
         foo
           reference: <testLibraryFragment>::@prefix::foo
@@ -11802,9 +11787,7 @@ library
       element: <testLibrary>
       libraryImports
         package:test/a.dart
-          reference: <not-implemented>
         package:test/b.dart
-          reference: <not-implemented>
       classes
         class C @44
           reference: <testLibraryFragment>::@class::C

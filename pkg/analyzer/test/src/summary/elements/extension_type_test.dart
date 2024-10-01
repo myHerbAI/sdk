@@ -76,9 +76,9 @@ library
             const new @21
               reference: <testLibraryFragment>::@extensionType::A::@constructor::new
               element: <testLibraryFragment>::@extensionType::A::@constructor::new#element
-              parameters
+              formalParameters
                 this.it @27
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@extensionType::A::@constructor::new::@parameter::it#element
           getters
             get it @-1
               reference: <testLibraryFragment>::@extensionType::A::@getter::it
@@ -95,7 +95,7 @@ library
       constructors
         const new
           firstFragment: <testLibraryFragment>::@extensionType::A::@constructor::new
-          parameters
+          formalParameters
             requiredPositional final it
               type: int
       getters
@@ -175,9 +175,9 @@ library
               codeLength: 14
               periodOffset: 16
               nameEnd: 22
-              parameters
+              formalParameters
                 this.it @27
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@extensionType::A::@constructor::named::@parameter::it#element
           getters
             get it @-1
               reference: <testLibraryFragment>::@extensionType::A::@getter::it
@@ -185,8 +185,6 @@ library
   extensionTypes
     extension type A
       firstFragment: <testLibraryFragment>::@extensionType::A
-      codeOffset: 0
-      codeLength: 33
       typeErasure: int
       fields
         final it
@@ -196,7 +194,7 @@ library
       constructors
         named
           firstFragment: <testLibraryFragment>::@extensionType::A::@constructor::named
-          parameters
+          formalParameters
             requiredPositional final it
               type: int
       getters
@@ -272,17 +270,17 @@ library
             new @15
               reference: <testLibraryFragment>::@extensionType::A::@constructor::new
               element: <testLibraryFragment>::@extensionType::A::@constructor::new#element
-              parameters
+              formalParameters
                 this.it @21
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@extensionType::A::@constructor::new::@parameter::it#element
             named @31
               reference: <testLibraryFragment>::@extensionType::A::@constructor::named
               element: <testLibraryFragment>::@extensionType::A::@constructor::named#element
               periodOffset: 30
               nameEnd: 36
-              parameters
+              formalParameters
                 this.it @42
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@extensionType::A::@constructor::named::@parameter::it#element
           getters
             get it @-1
               reference: <testLibraryFragment>::@extensionType::A::@getter::it
@@ -299,12 +297,12 @@ library
       constructors
         new
           firstFragment: <testLibraryFragment>::@extensionType::A::@constructor::new
-          parameters
+          formalParameters
             requiredPositional final it
               type: num
         named
           firstFragment: <testLibraryFragment>::@extensionType::A::@constructor::named
-          parameters
+          formalParameters
             requiredPositional final it
               type: num
       getters
@@ -380,17 +378,17 @@ library
             new @15
               reference: <testLibraryFragment>::@extensionType::A::@constructor::new
               element: <testLibraryFragment>::@extensionType::A::@constructor::new#element
-              parameters
+              formalParameters
                 this.it @21
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@extensionType::A::@constructor::new::@parameter::it#element
             named @31
               reference: <testLibraryFragment>::@extensionType::A::@constructor::named
               element: <testLibraryFragment>::@extensionType::A::@constructor::named#element
               periodOffset: 30
               nameEnd: 36
-              parameters
+              formalParameters
                 this.it @46
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@extensionType::A::@constructor::named::@parameter::it#element
           getters
             get it @-1
               reference: <testLibraryFragment>::@extensionType::A::@getter::it
@@ -407,12 +405,12 @@ library
       constructors
         new
           firstFragment: <testLibraryFragment>::@extensionType::A::@constructor::new
-          parameters
+          formalParameters
             requiredPositional final it
               type: num
         named
           firstFragment: <testLibraryFragment>::@extensionType::A::@constructor::named
-          parameters
+          formalParameters
             requiredPositional final it
               type: int
       getters
@@ -474,7 +472,7 @@ library
                   expression: SimpleIdentifier
                     token: a @57
                     staticElement: <testLibraryFragment>::@extensionType::A::@constructor::named::@parameter::a
-                    element: <not-implemented>
+                    element: <testLibraryFragment>::@extensionType::A::@constructor::named::@parameter::a#element
                     staticType: int
           accessors
             synthetic get it @-1
@@ -500,17 +498,17 @@ library
             new @15
               reference: <testLibraryFragment>::@extensionType::A::@constructor::new
               element: <testLibraryFragment>::@extensionType::A::@constructor::new#element
-              parameters
+              formalParameters
                 this.it @21
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@extensionType::A::@constructor::new::@parameter::it#element
             const named @37
               reference: <testLibraryFragment>::@extensionType::A::@constructor::named
               element: <testLibraryFragment>::@extensionType::A::@constructor::named#element
               periodOffset: 36
               nameEnd: 42
-              parameters
+              formalParameters
                 a @47
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@extensionType::A::@constructor::named::@parameter::a#element
               constantInitializers
                 ConstructorFieldInitializer
                   fieldName: SimpleIdentifier
@@ -522,7 +520,7 @@ library
                   expression: SimpleIdentifier
                     token: a @57
                     staticElement: <testLibraryFragment>::@extensionType::A::@constructor::named::@parameter::a
-                    element: <not-implemented>
+                    element: <testLibraryFragment>::@extensionType::A::@constructor::named::@parameter::a#element
                     staticType: int
           getters
             get it @-1
@@ -540,12 +538,12 @@ library
       constructors
         new
           firstFragment: <testLibraryFragment>::@extensionType::A::@constructor::new
-          parameters
+          formalParameters
             requiredPositional final it
               type: num
         const named
           firstFragment: <testLibraryFragment>::@extensionType::A::@constructor::named
-          parameters
+          formalParameters
             requiredPositional a
               type: int
       getters
@@ -621,9 +619,9 @@ library
               element: <testLibraryFragment>::@extensionType::A::@constructor::new#element
               codeOffset: 16
               codeLength: 8
-              parameters
+              formalParameters
                 this.it @21
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@extensionType::A::@constructor::new::@parameter::it#element
           getters
             get it @-1
               reference: <testLibraryFragment>::@extensionType::A::@getter::it
@@ -631,8 +629,6 @@ library
   extensionTypes
     extension type A
       firstFragment: <testLibraryFragment>::@extensionType::A
-      codeOffset: 0
-      codeLength: 27
       typeErasure: int
       fields
         final it
@@ -642,7 +638,7 @@ library
       constructors
         new
           firstFragment: <testLibraryFragment>::@extensionType::A::@constructor::new
-          parameters
+          formalParameters
             requiredPositional final it
               type: int
       getters
@@ -710,9 +706,9 @@ library
             new @24
               reference: <testLibraryFragment>::@extensionType::A::@constructor::new
               element: <testLibraryFragment>::@extensionType::A::@constructor::new#element
-              parameters
+              formalParameters
                 this.it @30
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@extensionType::A::@constructor::new::@parameter::it#element
           getters
             get it @-1
               reference: <testLibraryFragment>::@extensionType::A::@getter::it
@@ -730,7 +726,7 @@ library
       constructors
         new
           firstFragment: <testLibraryFragment>::@extensionType::A::@constructor::new
-          parameters
+          formalParameters
             requiredPositional final it
               type: int
       getters
@@ -1077,7 +1073,6 @@ library
       element: <testLibrary>
       libraryImports
         package:test/a.dart
-          reference: <not-implemented>
       extensionTypes
         extension type A @32
           reference: <testLibraryFragment>::@extensionType::A
@@ -1091,9 +1086,9 @@ library
             new @32
               reference: <testLibraryFragment>::@extensionType::A::@constructor::new
               element: <testLibraryFragment>::@extensionType::A::@constructor::new#element
-              parameters
+              formalParameters
                 this.it @43
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@extensionType::A::@constructor::new::@parameter::it#element
           getters
             get it @-1
               reference: <testLibraryFragment>::@extensionType::A::@getter::it
@@ -1110,7 +1105,7 @@ library
       constructors
         new
           firstFragment: <testLibraryFragment>::@extensionType::A::@constructor::new
-          parameters
+          formalParameters
             requiredPositional final it
               type: int
       getters
@@ -1938,7 +1933,7 @@ library
       setters
         synthetic set _it=
           firstFragment: <testLibraryFragment>::@class::B::@setter::_it
-          parameters
+          formalParameters
             requiredPositional __it
               type: int
     class C
@@ -2039,7 +2034,6 @@ library
       element: <testLibrary>
       libraryImports
         package:test/a.dart
-          reference: <not-implemented>
       extensionTypes
         extension type A @37
           reference: <testLibraryFragment>::@extensionType::A
@@ -2053,9 +2047,9 @@ library
             new @37
               reference: <testLibraryFragment>::@extensionType::A::@constructor::new
               element: <testLibraryFragment>::@extensionType::A::@constructor::new#element
-              parameters
+              formalParameters
                 this.it @43
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@extensionType::A::@constructor::new::@parameter::it#element
           getters
             get it @-1
               reference: <testLibraryFragment>::@extensionType::A::@getter::it
@@ -2072,7 +2066,7 @@ library
       constructors
         new
           firstFragment: <testLibraryFragment>::@extensionType::A::@constructor::new
-          parameters
+          formalParameters
             requiredPositional final it
               type: int
       getters
@@ -2144,9 +2138,9 @@ library
             foo @34
               reference: <testLibraryFragment>::@extensionType::A::@method::foo
               element: <testLibraryFragment>::@extensionType::A::@method::foo#element
-              parameters
+              formalParameters
                 a @42
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@extensionType::A::@method::foo::@parameter::a#element
   extensionTypes
     extension type A
       firstFragment: <testLibraryFragment>::@extensionType::A
@@ -2162,7 +2156,7 @@ library
       methods
         foo
           firstFragment: <testLibraryFragment>::@extensionType::A::@method::foo
-          parameters
+          formalParameters
             requiredPositional a
               type: int
 ''');
@@ -2236,10 +2230,10 @@ library
             foo @34
               reference: <testLibraryFragment>::@extensionType::A::@method::foo
               element: <testLibraryFragment>::@extensionType::A::@method::foo#element
-              parameters
+              formalParameters
                 default a @43
                   reference: <testLibraryFragment>::@extensionType::A::@method::foo::@parameter::a
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@extensionType::A::@method::foo::@parameter::a#element
   extensionTypes
     extension type A
       firstFragment: <testLibraryFragment>::@extensionType::A
@@ -2255,7 +2249,7 @@ library
       methods
         foo
           firstFragment: <testLibraryFragment>::@extensionType::A::@method::foo
-          parameters
+          formalParameters
             optionalNamed a
               firstFragment: <testLibraryFragment>::@extensionType::A::@method::foo::@parameter::a
               type: int
@@ -2329,9 +2323,9 @@ library
               element: <testLibraryFragment>::@extensionType::A::@constructor::new#element
               codeOffset: 16
               codeLength: 2
-              parameters
+              formalParameters
                 this.<empty> @17
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@extensionType::A::@constructor::new::@parameter::<empty>#element
           getters
             get <empty> @-1
               reference: <testLibraryFragment>::@extensionType::A::@getter::<empty>
@@ -2339,8 +2333,6 @@ library
   extensionTypes
     extension type A
       firstFragment: <testLibraryFragment>::@extensionType::A
-      codeOffset: 0
-      codeLength: 21
       typeErasure: InvalidType
       fields
         final <empty>
@@ -2350,7 +2342,7 @@ library
       constructors
         new
           firstFragment: <testLibraryFragment>::@extensionType::A::@constructor::new
-          parameters
+          formalParameters
             requiredPositional final <empty>
               type: InvalidType
       getters
@@ -2503,9 +2495,9 @@ library
             set foo= @33
               reference: <testLibraryFragment>::@extensionType::A::@setter::foo
               element: <testLibraryFragment>::@extensionType::A::@setter::foo#element
-              parameters
+              formalParameters
                 _ @44
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@extensionType::A::@setter::foo::@parameter::_#element
   extensionTypes
     extension type A
       firstFragment: <testLibraryFragment>::@extensionType::A
@@ -2525,7 +2517,7 @@ library
       setters
         set foo=
           firstFragment: <testLibraryFragment>::@extensionType::A::@setter::foo
-          parameters
+          formalParameters
             requiredPositional _
               type: double
 ''');
@@ -3259,9 +3251,9 @@ library
             new @15
               reference: <testLibraryFragment>::@extensionType::A::@constructor::new
               element: <testLibraryFragment>::@extensionType::A::@constructor::new#element
-              parameters
+              formalParameters
                 this.it @45
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@extensionType::A::@constructor::new::@parameter::it#element
           getters
             get it @-1
               reference: <testLibraryFragment>::@extensionType::A::@getter::it
@@ -3282,7 +3274,7 @@ library
       constructors
         new
           firstFragment: <testLibraryFragment>::@extensionType::A::@constructor::new
-          parameters
+          formalParameters
             requiredPositional final it
               type: Map<T, U>
       getters
@@ -3403,9 +3395,9 @@ library
             new @30
               reference: <testLibraryFragment>::@extensionType::A::@constructor::new
               element: <testLibraryFragment>::@extensionType::A::@constructor::new#element
-              parameters
+              formalParameters
                 this.it @36
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@extensionType::A::@constructor::new::@parameter::it#element
           getters
             get it @-1
               reference: <testLibraryFragment>::@extensionType::A::@getter::it
@@ -3440,7 +3432,7 @@ library
       constructors
         new
           firstFragment: <testLibraryFragment>::@extensionType::A::@constructor::new
-          parameters
+          formalParameters
             requiredPositional final it
               type: int
       getters
@@ -3572,9 +3564,9 @@ library
             augment new @59
               reference: <testLibrary>::@fragment::package:test/a.dart::@extensionTypeAugmentation::A::@constructorAugmentation::new
               element: <testLibrary>::@fragment::package:test/a.dart::@extensionTypeAugmentation::A::@constructorAugmentation::new#element
-              parameters
+              formalParameters
                 this.it @65
-                  element: <not-implemented>
+                  element: <testLibrary>::@fragment::package:test/a.dart::@extensionTypeAugmentation::A::@constructorAugmentation::new::@parameter::it#element
           getters
             get it @-1
               reference: <testLibrary>::@fragment::package:test/a.dart::@extensionTypeAugmentation::A::@getter::it
@@ -3607,7 +3599,7 @@ library
       constructors
         new
           firstFragment: <testLibrary>::@fragment::package:test/a.dart::@extensionTypeAugmentation::A::@constructorAugmentation::new
-          parameters
+          formalParameters
             requiredPositional final it
               type: int
       getters
@@ -3716,9 +3708,9 @@ library
             new @30
               reference: <testLibraryFragment>::@extensionType::A::@constructor::new
               element: <testLibraryFragment>::@extensionType::A::@constructor::new#element
-              parameters
+              formalParameters
                 this.it @36
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@extensionType::A::@constructor::new::@parameter::it#element
           getters
             get it @-1
               reference: <testLibraryFragment>::@extensionType::A::@getter::it
@@ -3749,7 +3741,7 @@ library
       constructors
         new
           firstFragment: <testLibraryFragment>::@extensionType::A::@constructor::new
-          parameters
+          formalParameters
             requiredPositional final it
               type: int
         named
@@ -3869,9 +3861,9 @@ library
             new @30
               reference: <testLibraryFragment>::@extensionType::A::@constructor::new
               element: <testLibraryFragment>::@extensionType::A::@constructor::new#element
-              parameters
+              formalParameters
                 this.it @40
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@extensionType::A::@constructor::new::@parameter::it#element
           getters
             get it @-1
               reference: <testLibraryFragment>::@extensionType::A::@getter::it
@@ -3893,9 +3885,9 @@ library
               element: <testLibrary>::@fragment::package:test/a.dart::@extensionTypeAugmentation::A::@constructor::named#element
               periodOffset: 63
               nameEnd: 69
-              parameters
+              formalParameters
                 a @73
-                  element: <not-implemented>
+                  element: <testLibrary>::@fragment::package:test/a.dart::@extensionTypeAugmentation::A::@constructor::named::@parameter::a#element
   extensionTypes
     extension type A
       firstFragment: <testLibraryFragment>::@extensionType::A
@@ -3910,12 +3902,12 @@ library
       constructors
         new
           firstFragment: <testLibraryFragment>::@extensionType::A::@constructor::new
-          parameters
+          formalParameters
             requiredPositional final it
               type: int
         named
           firstFragment: <testLibrary>::@fragment::package:test/a.dart::@extensionTypeAugmentation::A::@constructor::named
-          parameters
+          formalParameters
             requiredPositional a
               type: T2
       getters
@@ -4021,9 +4013,9 @@ library
               element: <testLibraryFragment>::@extensionType::A::@constructor::named#element
               periodOffset: 31
               nameEnd: 37
-              parameters
+              formalParameters
                 this.it @42
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@extensionType::A::@constructor::named::@parameter::it#element
           getters
             get it @-1
               reference: <testLibraryFragment>::@extensionType::A::@getter::it
@@ -4052,7 +4044,7 @@ library
       constructors
         named
           firstFragment: <testLibraryFragment>::@extensionType::A::@constructor::named
-          parameters
+          formalParameters
             requiredPositional final it
               type: int
         new
@@ -4199,9 +4191,9 @@ library
             new @30
               reference: <testLibraryFragment>::@extensionType::A::@constructor::new
               element: <testLibraryFragment>::@extensionType::A::@constructor::new#element
-              parameters
+              formalParameters
                 this.it @36
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@extensionType::A::@constructor::new::@parameter::it#element
           getters
             get it @-1
               reference: <testLibraryFragment>::@extensionType::A::@getter::it
@@ -4213,9 +4205,9 @@ library
             set foo= @-1
               reference: <testLibraryFragment>::@extensionType::A::@setter::foo
               element: <testLibraryFragment>::@extensionType::A::@setter::foo#element
-              parameters
+              formalParameters
                 _foo @-1
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@extensionType::A::@setter::foo::@parameter::_foo#element
     <testLibrary>::@fragment::package:test/a.dart
       element: <testLibrary>
       previousFragment: <testLibraryFragment>
@@ -4246,7 +4238,7 @@ library
       constructors
         new
           firstFragment: <testLibraryFragment>::@extensionType::A::@constructor::new
-          parameters
+          formalParameters
             requiredPositional final it
               type: int
       getters
@@ -4257,7 +4249,7 @@ library
       setters
         synthetic static set foo=
           firstFragment: <testLibraryFragment>::@extensionType::A::@setter::foo
-          parameters
+          formalParameters
             requiredPositional _foo
               type: int
 ''');
@@ -4429,9 +4421,9 @@ library
             new @45
               reference: <testLibraryFragment>::@extensionType::A::@constructor::new
               element: <testLibraryFragment>::@extensionType::A::@constructor::new#element
-              parameters
+              formalParameters
                 this.it @51
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@extensionType::A::@constructor::new::@parameter::it#element
           getters
             get it @-1
               reference: <testLibraryFragment>::@extensionType::A::@getter::it
@@ -4443,9 +4435,9 @@ library
             set foo= @-1
               reference: <testLibraryFragment>::@extensionType::A::@setter::foo
               element: <testLibraryFragment>::@extensionType::A::@setter::foo#element
-              parameters
+              formalParameters
                 _foo @-1
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@extensionType::A::@setter::foo::@parameter::_foo#element
     <testLibrary>::@fragment::package:test/a.dart
       element: <testLibrary>
       previousFragment: <testLibraryFragment>
@@ -4492,7 +4484,7 @@ library
       constructors
         new
           firstFragment: <testLibraryFragment>::@extensionType::A::@constructor::new
-          parameters
+          formalParameters
             requiredPositional final it
               type: int
       getters
@@ -4503,7 +4495,7 @@ library
       setters
         synthetic static set foo=
           firstFragment: <testLibraryFragment>::@extensionType::A::@setter::foo
-          parameters
+          formalParameters
             requiredPositional _foo
               type: int
 ''');
@@ -4675,9 +4667,9 @@ library
             new @45
               reference: <testLibraryFragment>::@extensionType::A::@constructor::new
               element: <testLibraryFragment>::@extensionType::A::@constructor::new#element
-              parameters
+              formalParameters
                 this.it @51
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@extensionType::A::@constructor::new::@parameter::it#element
           getters
             get it @-1
               reference: <testLibraryFragment>::@extensionType::A::@getter::it
@@ -4690,9 +4682,9 @@ library
             set foo= @-1
               reference: <testLibraryFragment>::@extensionType::A::@setter::foo
               element: <testLibraryFragment>::@extensionType::A::@setter::foo#element
-              parameters
+              formalParameters
                 _foo @-1
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@extensionType::A::@setter::foo::@parameter::_foo#element
     <testLibrary>::@fragment::package:test/a.dart
       element: <testLibrary>
       previousFragment: <testLibraryFragment>
@@ -4738,7 +4730,7 @@ library
       constructors
         new
           firstFragment: <testLibraryFragment>::@extensionType::A::@constructor::new
-          parameters
+          formalParameters
             requiredPositional final it
               type: int
       getters
@@ -4749,7 +4741,7 @@ library
       setters
         synthetic static set foo=
           firstFragment: <testLibraryFragment>::@extensionType::A::@setter::foo
-          parameters
+          formalParameters
             requiredPositional _foo
               type: int
 ''');
@@ -4924,9 +4916,9 @@ library
             new @45
               reference: <testLibraryFragment>::@extensionType::A::@constructor::new
               element: <testLibraryFragment>::@extensionType::A::@constructor::new#element
-              parameters
+              formalParameters
                 this.it @51
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@extensionType::A::@constructor::new::@parameter::it#element
           getters
             get it @-1
               reference: <testLibraryFragment>::@extensionType::A::@getter::it
@@ -4938,9 +4930,9 @@ library
             set foo= @-1
               reference: <testLibraryFragment>::@extensionType::A::@setter::foo
               element: <testLibraryFragment>::@extensionType::A::@setter::foo#element
-              parameters
+              formalParameters
                 _foo @-1
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@extensionType::A::@setter::foo::@parameter::_foo#element
               nextFragment: <testLibrary>::@fragment::package:test/a.dart::@extensionTypeAugmentation::A::@setterAugmentation::foo
     <testLibrary>::@fragment::package:test/a.dart
       element: <testLibrary>
@@ -4956,9 +4948,9 @@ library
             augment set foo= @77
               reference: <testLibrary>::@fragment::package:test/a.dart::@extensionTypeAugmentation::A::@setterAugmentation::foo
               element: <testLibraryFragment>::@extensionType::A::@setter::foo#element
-              parameters
+              formalParameters
                 _ @85
-                  element: <not-implemented>
+                  element: <testLibrary>::@fragment::package:test/a.dart::@extensionTypeAugmentation::A::@setterAugmentation::foo::@parameter::_#element
               previousFragment: <testLibraryFragment>::@extensionType::A::@setter::foo
     <testLibrary>::@fragment::package:test/b.dart
       element: <testLibrary>
@@ -4990,7 +4982,7 @@ library
       constructors
         new
           firstFragment: <testLibraryFragment>::@extensionType::A::@constructor::new
-          parameters
+          formalParameters
             requiredPositional final it
               type: int
       getters
@@ -5001,7 +4993,7 @@ library
       setters
         synthetic static set foo=
           firstFragment: <testLibraryFragment>::@extensionType::A::@setter::foo
-          parameters
+          formalParameters
             requiredPositional _foo
               type: int
 ''');
@@ -5143,9 +5135,9 @@ library
             new @30
               reference: <testLibraryFragment>::@extensionType::A::@constructor::new
               element: <testLibraryFragment>::@extensionType::A::@constructor::new#element
-              parameters
+              formalParameters
                 this.it @36
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@extensionType::A::@constructor::new::@parameter::it#element
           getters
             get it @-1
               reference: <testLibraryFragment>::@extensionType::A::@getter::it
@@ -5157,9 +5149,9 @@ library
             set foo= @-1
               reference: <testLibraryFragment>::@extensionType::A::@setter::foo
               element: <testLibraryFragment>::@extensionType::A::@setter::foo#element
-              parameters
+              formalParameters
                 _foo @-1
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@extensionType::A::@setter::foo::@parameter::_foo#element
     <testLibrary>::@fragment::package:test/a.dart
       element: <testLibrary>
       previousFragment: <testLibraryFragment>
@@ -5190,7 +5182,7 @@ library
       constructors
         new
           firstFragment: <testLibraryFragment>::@extensionType::A::@constructor::new
-          parameters
+          formalParameters
             requiredPositional final it
               type: int
       getters
@@ -5201,7 +5193,7 @@ library
       setters
         synthetic static set foo=
           firstFragment: <testLibraryFragment>::@extensionType::A::@setter::foo
-          parameters
+          formalParameters
             requiredPositional _foo
               type: int
 ''');
@@ -5332,9 +5324,9 @@ library
             new @30
               reference: <testLibraryFragment>::@extensionType::A::@constructor::new
               element: <testLibraryFragment>::@extensionType::A::@constructor::new#element
-              parameters
+              formalParameters
                 this.it @36
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@extensionType::A::@constructor::new::@parameter::it#element
           getters
             get it @-1
               reference: <testLibraryFragment>::@extensionType::A::@getter::it
@@ -5371,7 +5363,7 @@ library
       constructors
         new
           firstFragment: <testLibraryFragment>::@extensionType::A::@constructor::new
-          parameters
+          formalParameters
             requiredPositional final it
               type: int
       getters
@@ -5536,9 +5528,9 @@ library
             new @30
               reference: <testLibraryFragment>::@extensionType::A::@constructor::new
               element: <testLibraryFragment>::@extensionType::A::@constructor::new#element
-              parameters
+              formalParameters
                 this.it @36
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@extensionType::A::@constructor::new::@parameter::it#element
           getters
             get it @-1
               reference: <testLibraryFragment>::@extensionType::A::@getter::it
@@ -5550,9 +5542,9 @@ library
             set foo1= @-1
               reference: <testLibraryFragment>::@extensionType::A::@setter::foo1
               element: <testLibraryFragment>::@extensionType::A::@setter::foo1#element
-              parameters
+              formalParameters
                 _foo1 @-1
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@extensionType::A::@setter::foo1::@parameter::_foo1#element
     <testLibrary>::@fragment::package:test/a.dart
       element: <testLibrary>
       previousFragment: <testLibraryFragment>
@@ -5575,9 +5567,9 @@ library
             set foo2= @-1
               reference: <testLibrary>::@fragment::package:test/a.dart::@extensionTypeAugmentation::A::@setter::foo2
               element: <testLibrary>::@fragment::package:test/a.dart::@extensionTypeAugmentation::A::@setter::foo2#element
-              parameters
+              formalParameters
                 _foo2 @-1
-                  element: <not-implemented>
+                  element: <testLibrary>::@fragment::package:test/a.dart::@extensionTypeAugmentation::A::@setter::foo2::@parameter::_foo2#element
   extensionTypes
     extension type A
       firstFragment: <testLibraryFragment>::@extensionType::A
@@ -5600,7 +5592,7 @@ library
       constructors
         new
           firstFragment: <testLibraryFragment>::@extensionType::A::@constructor::new
-          parameters
+          formalParameters
             requiredPositional final it
               type: int
       getters
@@ -5613,12 +5605,12 @@ library
       setters
         synthetic static set foo1=
           firstFragment: <testLibraryFragment>::@extensionType::A::@setter::foo1
-          parameters
+          formalParameters
             requiredPositional _foo1
               type: int
         synthetic static set foo2=
           firstFragment: <testLibrary>::@fragment::package:test/a.dart::@extensionTypeAugmentation::A::@setter::foo2
-          parameters
+          formalParameters
             requiredPositional _foo2
               type: int
 ''');
@@ -5753,9 +5745,9 @@ library
             new @30
               reference: <testLibraryFragment>::@extensionType::A::@constructor::new
               element: <testLibraryFragment>::@extensionType::A::@constructor::new#element
-              parameters
+              formalParameters
                 this.it @36
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@extensionType::A::@constructor::new::@parameter::it#element
           getters
             get it @-1
               reference: <testLibraryFragment>::@extensionType::A::@getter::it
@@ -5800,7 +5792,7 @@ library
       constructors
         new
           firstFragment: <testLibraryFragment>::@extensionType::A::@constructor::new
-          parameters
+          formalParameters
             requiredPositional final it
               type: int
       getters
@@ -5955,9 +5947,9 @@ library
             new @30
               reference: <testLibraryFragment>::@extensionType::A::@constructor::new
               element: <testLibraryFragment>::@extensionType::A::@constructor::new#element
-              parameters
+              formalParameters
                 this.it @40
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@extensionType::A::@constructor::new::@parameter::it#element
           getters
             get it @-1
               reference: <testLibraryFragment>::@extensionType::A::@getter::it
@@ -6007,7 +5999,7 @@ library
       constructors
         new
           firstFragment: <testLibraryFragment>::@extensionType::A::@constructor::new
-          parameters
+          formalParameters
             requiredPositional final it
               type: int
       getters
@@ -6155,9 +6147,9 @@ library
             new @30
               reference: <testLibraryFragment>::@extensionType::A::@constructor::new
               element: <testLibraryFragment>::@extensionType::A::@constructor::new#element
-              parameters
+              formalParameters
                 this.it @36
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@extensionType::A::@constructor::new::@parameter::it#element
           getters
             get it @-1
               reference: <testLibraryFragment>::@extensionType::A::@getter::it
@@ -6170,9 +6162,9 @@ library
             set foo= @-1
               reference: <testLibraryFragment>::@extensionType::A::@setter::foo
               element: <testLibraryFragment>::@extensionType::A::@setter::foo#element
-              parameters
+              formalParameters
                 _foo @-1
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@extensionType::A::@setter::foo::@parameter::_foo#element
     <testLibrary>::@fragment::package:test/a.dart
       element: <testLibrary>
       previousFragment: <testLibraryFragment>
@@ -6203,7 +6195,7 @@ library
       constructors
         new
           firstFragment: <testLibraryFragment>::@extensionType::A::@constructor::new
-          parameters
+          formalParameters
             requiredPositional final it
               type: int
       getters
@@ -6214,7 +6206,7 @@ library
       setters
         synthetic static set foo=
           firstFragment: <testLibraryFragment>::@extensionType::A::@setter::foo
-          parameters
+          formalParameters
             requiredPositional _foo
               type: int
 ''');
@@ -6385,9 +6377,9 @@ library
             new @45
               reference: <testLibraryFragment>::@extensionType::A::@constructor::new
               element: <testLibraryFragment>::@extensionType::A::@constructor::new#element
-              parameters
+              formalParameters
                 this.it @51
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@extensionType::A::@constructor::new::@parameter::it#element
           getters
             get it @-1
               reference: <testLibraryFragment>::@extensionType::A::@getter::it
@@ -6400,9 +6392,9 @@ library
             set foo= @-1
               reference: <testLibraryFragment>::@extensionType::A::@setter::foo
               element: <testLibraryFragment>::@extensionType::A::@setter::foo#element
-              parameters
+              formalParameters
                 _foo @-1
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@extensionType::A::@setter::foo::@parameter::_foo#element
     <testLibrary>::@fragment::package:test/a.dart
       element: <testLibrary>
       previousFragment: <testLibraryFragment>
@@ -6449,7 +6441,7 @@ library
       constructors
         new
           firstFragment: <testLibraryFragment>::@extensionType::A::@constructor::new
-          parameters
+          formalParameters
             requiredPositional final it
               type: int
       getters
@@ -6460,7 +6452,7 @@ library
       setters
         synthetic static set foo=
           firstFragment: <testLibraryFragment>::@extensionType::A::@setter::foo
-          parameters
+          formalParameters
             requiredPositional _foo
               type: int
 ''');
@@ -6607,9 +6599,9 @@ library
             new @30
               reference: <testLibraryFragment>::@extensionType::A::@constructor::new
               element: <testLibraryFragment>::@extensionType::A::@constructor::new#element
-              parameters
+              formalParameters
                 this.it @36
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@extensionType::A::@constructor::new::@parameter::it#element
           getters
             get it @-1
               reference: <testLibraryFragment>::@extensionType::A::@getter::it
@@ -6654,7 +6646,7 @@ library
       constructors
         new
           firstFragment: <testLibraryFragment>::@extensionType::A::@constructor::new
-          parameters
+          formalParameters
             requiredPositional final it
               type: int
       getters
@@ -6819,9 +6811,9 @@ library
             new @45
               reference: <testLibraryFragment>::@extensionType::A::@constructor::new
               element: <testLibraryFragment>::@extensionType::A::@constructor::new#element
-              parameters
+              formalParameters
                 this.it @51
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@extensionType::A::@constructor::new::@parameter::it#element
           getters
             get it @-1
               reference: <testLibraryFragment>::@extensionType::A::@getter::it
@@ -6875,7 +6867,7 @@ library
       constructors
         new
           firstFragment: <testLibraryFragment>::@extensionType::A::@constructor::new
-          parameters
+          formalParameters
             requiredPositional final it
               type: int
       getters
@@ -7263,9 +7255,9 @@ library
             new @30
               reference: <testLibraryFragment>::@extensionType::A::@constructor::new
               element: <testLibraryFragment>::@extensionType::A::@constructor::new#element
-              parameters
+              formalParameters
                 this.it @36
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@extensionType::A::@constructor::new::@parameter::it#element
           getters
             get it @-1
               reference: <testLibraryFragment>::@extensionType::A::@getter::it
@@ -7282,9 +7274,9 @@ library
             new @72
               reference: <testLibraryFragment>::@extensionType::I1::@constructor::new
               element: <testLibraryFragment>::@extensionType::I1::@constructor::new#element
-              parameters
+              formalParameters
                 this.it @79
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@extensionType::I1::@constructor::new::@parameter::it#element
           getters
             get it @-1
               reference: <testLibraryFragment>::@extensionType::I1::@getter::it
@@ -7311,9 +7303,9 @@ library
             new @101
               reference: <testLibrary>::@fragment::package:test/a.dart::@extensionType::I2::@constructor::new
               element: <testLibrary>::@fragment::package:test/a.dart::@extensionType::I2::@constructor::new#element
-              parameters
+              formalParameters
                 this.it @108
-                  element: <not-implemented>
+                  element: <testLibrary>::@fragment::package:test/a.dart::@extensionType::I2::@constructor::new::@parameter::it#element
           getters
             get it @-1
               reference: <testLibrary>::@fragment::package:test/a.dart::@extensionType::I2::@getter::it
@@ -7338,9 +7330,9 @@ library
             new @83
               reference: <testLibrary>::@fragment::package:test/b.dart::@extensionType::I3::@constructor::new
               element: <testLibrary>::@fragment::package:test/b.dart::@extensionType::I3::@constructor::new#element
-              parameters
+              formalParameters
                 this.it @90
-                  element: <not-implemented>
+                  element: <testLibrary>::@fragment::package:test/b.dart::@extensionType::I3::@constructor::new::@parameter::it#element
           getters
             get it @-1
               reference: <testLibrary>::@fragment::package:test/b.dart::@extensionType::I3::@getter::it
@@ -7357,7 +7349,7 @@ library
       constructors
         new
           firstFragment: <testLibraryFragment>::@extensionType::A::@constructor::new
-          parameters
+          formalParameters
             requiredPositional final it
               type: int
       getters
@@ -7374,7 +7366,7 @@ library
       constructors
         new
           firstFragment: <testLibraryFragment>::@extensionType::I1::@constructor::new
-          parameters
+          formalParameters
             requiredPositional final it
               type: int
       getters
@@ -7391,7 +7383,7 @@ library
       constructors
         new
           firstFragment: <testLibrary>::@fragment::package:test/a.dart::@extensionType::I2::@constructor::new
-          parameters
+          formalParameters
             requiredPositional final it
               type: int
       getters
@@ -7408,7 +7400,7 @@ library
       constructors
         new
           firstFragment: <testLibrary>::@fragment::package:test/b.dart::@extensionType::I3::@constructor::new
-          parameters
+          formalParameters
             requiredPositional final it
               type: int
       getters
@@ -7572,9 +7564,9 @@ library
             new @30
               reference: <testLibraryFragment>::@extensionType::A::@constructor::new
               element: <testLibraryFragment>::@extensionType::A::@constructor::new#element
-              parameters
+              formalParameters
                 this.it @39
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@extensionType::A::@constructor::new::@parameter::it#element
           getters
             get it @-1
               reference: <testLibraryFragment>::@extensionType::A::@getter::it
@@ -7591,9 +7583,9 @@ library
             new @75
               reference: <testLibraryFragment>::@extensionType::I1::@constructor::new
               element: <testLibraryFragment>::@extensionType::I1::@constructor::new#element
-              parameters
+              formalParameters
                 this.it @82
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@extensionType::I1::@constructor::new::@parameter::it#element
           getters
             get it @-1
               reference: <testLibraryFragment>::@extensionType::I1::@getter::it
@@ -7624,9 +7616,9 @@ library
             new @94
               reference: <testLibrary>::@fragment::package:test/a.dart::@extensionType::I2::@constructor::new
               element: <testLibrary>::@fragment::package:test/a.dart::@extensionType::I2::@constructor::new#element
-              parameters
+              formalParameters
                 this.it @104
-                  element: <not-implemented>
+                  element: <testLibrary>::@fragment::package:test/a.dart::@extensionType::I2::@constructor::new::@parameter::it#element
           getters
             get it @-1
               reference: <testLibrary>::@fragment::package:test/a.dart::@extensionType::I2::@getter::it
@@ -7645,7 +7637,7 @@ library
       constructors
         new
           firstFragment: <testLibraryFragment>::@extensionType::A::@constructor::new
-          parameters
+          formalParameters
             requiredPositional final it
               type: int
       getters
@@ -7662,7 +7654,7 @@ library
       constructors
         new
           firstFragment: <testLibraryFragment>::@extensionType::I1::@constructor::new
-          parameters
+          formalParameters
             requiredPositional final it
               type: int
       getters
@@ -7681,7 +7673,7 @@ library
       constructors
         new
           firstFragment: <testLibrary>::@fragment::package:test/a.dart::@extensionType::I2::@constructor::new
-          parameters
+          formalParameters
             requiredPositional final it
               type: int
       getters
@@ -7846,9 +7838,9 @@ library
             new @30
               reference: <testLibraryFragment>::@extensionType::A::@constructor::new
               element: <testLibraryFragment>::@extensionType::A::@constructor::new#element
-              parameters
+              formalParameters
                 this.it @39
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@extensionType::A::@constructor::new::@parameter::it#element
           getters
             get it @-1
               reference: <testLibraryFragment>::@extensionType::A::@getter::it
@@ -7865,9 +7857,9 @@ library
             new @75
               reference: <testLibraryFragment>::@extensionType::I1::@constructor::new
               element: <testLibraryFragment>::@extensionType::I1::@constructor::new#element
-              parameters
+              formalParameters
                 this.it @82
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@extensionType::I1::@constructor::new::@parameter::it#element
           getters
             get it @-1
               reference: <testLibraryFragment>::@extensionType::I1::@getter::it
@@ -7900,9 +7892,9 @@ library
             new @98
               reference: <testLibrary>::@fragment::package:test/a.dart::@extensionType::I2::@constructor::new
               element: <testLibrary>::@fragment::package:test/a.dart::@extensionType::I2::@constructor::new#element
-              parameters
+              formalParameters
                 this.it @108
-                  element: <not-implemented>
+                  element: <testLibrary>::@fragment::package:test/a.dart::@extensionType::I2::@constructor::new::@parameter::it#element
           getters
             get it @-1
               reference: <testLibrary>::@fragment::package:test/a.dart::@extensionType::I2::@getter::it
@@ -7921,7 +7913,7 @@ library
       constructors
         new
           firstFragment: <testLibraryFragment>::@extensionType::A::@constructor::new
-          parameters
+          formalParameters
             requiredPositional final it
               type: int
       getters
@@ -7938,7 +7930,7 @@ library
       constructors
         new
           firstFragment: <testLibraryFragment>::@extensionType::I1::@constructor::new
-          parameters
+          formalParameters
             requiredPositional final it
               type: int
       getters
@@ -7957,7 +7949,7 @@ library
       constructors
         new
           firstFragment: <testLibrary>::@fragment::package:test/a.dart::@extensionType::I2::@constructor::new
-          parameters
+          formalParameters
             requiredPositional final it
               type: int
       getters
@@ -8069,9 +8061,9 @@ library
             new @30
               reference: <testLibraryFragment>::@extensionType::A::@constructor::new
               element: <testLibraryFragment>::@extensionType::A::@constructor::new#element
-              parameters
+              formalParameters
                 this.it @36
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@extensionType::A::@constructor::new::@parameter::it#element
           getters
             get it @-1
               reference: <testLibraryFragment>::@extensionType::A::@getter::it
@@ -8104,7 +8096,7 @@ library
       constructors
         new
           firstFragment: <testLibraryFragment>::@extensionType::A::@constructor::new
-          parameters
+          formalParameters
             requiredPositional final it
               type: int
       getters
@@ -8228,9 +8220,9 @@ library
             new @30
               reference: <testLibraryFragment>::@extensionType::A::@constructor::new
               element: <testLibraryFragment>::@extensionType::A::@constructor::new#element
-              parameters
+              formalParameters
                 this.it @36
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@extensionType::A::@constructor::new::@parameter::it#element
           getters
             get it @-1
               reference: <testLibraryFragment>::@extensionType::A::@getter::it
@@ -8268,7 +8260,7 @@ library
       constructors
         new
           firstFragment: <testLibraryFragment>::@extensionType::A::@constructor::new
-          parameters
+          formalParameters
             requiredPositional final it
               type: int
       getters
@@ -8414,9 +8406,9 @@ library
             new @30
               reference: <testLibraryFragment>::@extensionType::A::@constructor::new
               element: <testLibraryFragment>::@extensionType::A::@constructor::new#element
-              parameters
+              formalParameters
                 this.it @36
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@extensionType::A::@constructor::new::@parameter::it#element
           getters
             get it @-1
               reference: <testLibraryFragment>::@extensionType::A::@getter::it
@@ -8467,7 +8459,7 @@ library
       constructors
         new
           firstFragment: <testLibraryFragment>::@extensionType::A::@constructor::new
-          parameters
+          formalParameters
             requiredPositional final it
               type: int
       getters
@@ -8593,9 +8585,9 @@ library
             new @30
               reference: <testLibraryFragment>::@extensionType::A::@constructor::new
               element: <testLibraryFragment>::@extensionType::A::@constructor::new#element
-              parameters
+              formalParameters
                 this.it @39
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@extensionType::A::@constructor::new::@parameter::it#element
           getters
             get it @-1
               reference: <testLibraryFragment>::@extensionType::A::@getter::it
@@ -8633,7 +8625,7 @@ library
       constructors
         new
           firstFragment: <testLibraryFragment>::@extensionType::A::@constructor::new
-          parameters
+          formalParameters
             requiredPositional final it
               type: int
       getters
@@ -8762,9 +8754,9 @@ library
             new @30
               reference: <testLibraryFragment>::@extensionType::A::@constructor::new
               element: <testLibraryFragment>::@extensionType::A::@constructor::new#element
-              parameters
+              formalParameters
                 this.it @39
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@extensionType::A::@constructor::new::@parameter::it#element
           getters
             get it @-1
               reference: <testLibraryFragment>::@extensionType::A::@getter::it
@@ -8804,7 +8796,7 @@ library
       constructors
         new
           firstFragment: <testLibraryFragment>::@extensionType::A::@constructor::new
-          parameters
+          formalParameters
             requiredPositional final it
               type: int
       getters
@@ -8931,9 +8923,9 @@ library
             new @30
               reference: <testLibraryFragment>::@extensionType::A::@constructor::new
               element: <testLibraryFragment>::@extensionType::A::@constructor::new#element
-              parameters
+              formalParameters
                 this.it @36
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@extensionType::A::@constructor::new::@parameter::it#element
           getters
             get it @-1
               reference: <testLibraryFragment>::@extensionType::A::@getter::it
@@ -8974,7 +8966,7 @@ library
       constructors
         new
           firstFragment: <testLibraryFragment>::@extensionType::A::@constructor::new
-          parameters
+          formalParameters
             requiredPositional final it
               type: int
       getters
@@ -9123,9 +9115,9 @@ library
             new @30
               reference: <testLibraryFragment>::@extensionType::A::@constructor::new
               element: <testLibraryFragment>::@extensionType::A::@constructor::new#element
-              parameters
+              formalParameters
                 this.it @36
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@extensionType::A::@constructor::new::@parameter::it#element
           getters
             get it @-1
               reference: <testLibraryFragment>::@extensionType::A::@getter::it
@@ -9134,9 +9126,9 @@ library
             set foo1= @48
               reference: <testLibraryFragment>::@extensionType::A::@setter::foo1
               element: <testLibraryFragment>::@extensionType::A::@setter::foo1#element
-              parameters
+              formalParameters
                 _ @57
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@extensionType::A::@setter::foo1::@parameter::_#element
     <testLibrary>::@fragment::package:test/a.dart
       element: <testLibrary>
       previousFragment: <testLibraryFragment>
@@ -9154,9 +9146,9 @@ library
             set foo2= @62
               reference: <testLibrary>::@fragment::package:test/a.dart::@extensionTypeAugmentation::A::@setter::foo2
               element: <testLibrary>::@fragment::package:test/a.dart::@extensionTypeAugmentation::A::@setter::foo2#element
-              parameters
+              formalParameters
                 _ @71
-                  element: <not-implemented>
+                  element: <testLibrary>::@fragment::package:test/a.dart::@extensionTypeAugmentation::A::@setter::foo2::@parameter::_#element
   extensionTypes
     extension type A
       firstFragment: <testLibraryFragment>::@extensionType::A
@@ -9177,7 +9169,7 @@ library
       constructors
         new
           firstFragment: <testLibraryFragment>::@extensionType::A::@constructor::new
-          parameters
+          formalParameters
             requiredPositional final it
               type: int
       getters
@@ -9186,12 +9178,12 @@ library
       setters
         set foo1=
           firstFragment: <testLibraryFragment>::@extensionType::A::@setter::foo1
-          parameters
+          formalParameters
             requiredPositional _
               type: int
         set foo2=
           firstFragment: <testLibrary>::@fragment::package:test/a.dart::@extensionTypeAugmentation::A::@setter::foo2
-          parameters
+          formalParameters
             requiredPositional _
               type: int
 ''');
@@ -9335,9 +9327,9 @@ library
             new @30
               reference: <testLibraryFragment>::@extensionType::A::@constructor::new
               element: <testLibraryFragment>::@extensionType::A::@constructor::new#element
-              parameters
+              formalParameters
                 this.it @36
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@extensionType::A::@constructor::new::@parameter::it#element
           getters
             get it @-1
               reference: <testLibraryFragment>::@extensionType::A::@getter::it
@@ -9349,9 +9341,9 @@ library
             set foo= @-1
               reference: <testLibraryFragment>::@extensionType::A::@setter::foo
               element: <testLibraryFragment>::@extensionType::A::@setter::foo#element
-              parameters
+              formalParameters
                 _foo @-1
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@extensionType::A::@setter::foo::@parameter::_foo#element
               nextFragment: <testLibrary>::@fragment::package:test/a.dart::@extensionTypeAugmentation::A::@setterAugmentation::foo
     <testLibrary>::@fragment::package:test/a.dart
       element: <testLibrary>
@@ -9365,9 +9357,9 @@ library
             augment set foo= @77
               reference: <testLibrary>::@fragment::package:test/a.dart::@extensionTypeAugmentation::A::@setterAugmentation::foo
               element: <testLibraryFragment>::@extensionType::A::@setter::foo#element
-              parameters
+              formalParameters
                 _ @85
-                  element: <not-implemented>
+                  element: <testLibrary>::@fragment::package:test/a.dart::@extensionTypeAugmentation::A::@setterAugmentation::foo::@parameter::_#element
               previousFragment: <testLibraryFragment>::@extensionType::A::@setter::foo
   extensionTypes
     extension type A
@@ -9386,7 +9378,7 @@ library
       constructors
         new
           firstFragment: <testLibraryFragment>::@extensionType::A::@constructor::new
-          parameters
+          formalParameters
             requiredPositional final it
               type: int
       getters
@@ -9397,7 +9389,7 @@ library
       setters
         synthetic static set foo=
           firstFragment: <testLibraryFragment>::@extensionType::A::@setter::foo
-          parameters
+          formalParameters
             requiredPositional _foo
               type: int
 ''');
@@ -9553,9 +9545,9 @@ library
             new @30
               reference: <testLibraryFragment>::@extensionType::A::@constructor::new
               element: <testLibraryFragment>::@extensionType::A::@constructor::new#element
-              parameters
+              formalParameters
                 this.it @36
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@extensionType::A::@constructor::new::@parameter::it#element
           getters
             get it @-1
               reference: <testLibraryFragment>::@extensionType::A::@getter::it
@@ -9564,16 +9556,16 @@ library
             set foo1= @48
               reference: <testLibraryFragment>::@extensionType::A::@setter::foo1
               element: <testLibraryFragment>::@extensionType::A::@setter::foo1#element
-              parameters
+              formalParameters
                 _ @57
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@extensionType::A::@setter::foo1::@parameter::_#element
               nextFragment: <testLibrary>::@fragment::package:test/a.dart::@extensionTypeAugmentation::A::@setterAugmentation::foo1
             set foo2= @69
               reference: <testLibraryFragment>::@extensionType::A::@setter::foo2
               element: <testLibraryFragment>::@extensionType::A::@setter::foo2#element
-              parameters
+              formalParameters
                 _ @78
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@extensionType::A::@setter::foo2::@parameter::_#element
     <testLibrary>::@fragment::package:test/a.dart
       element: <testLibrary>
       previousFragment: <testLibraryFragment>
@@ -9586,9 +9578,9 @@ library
             augment set foo1= @70
               reference: <testLibrary>::@fragment::package:test/a.dart::@extensionTypeAugmentation::A::@setterAugmentation::foo1
               element: <testLibraryFragment>::@extensionType::A::@setter::foo1#element
-              parameters
+              formalParameters
                 _ @79
-                  element: <not-implemented>
+                  element: <testLibrary>::@fragment::package:test/a.dart::@extensionTypeAugmentation::A::@setterAugmentation::foo1::@parameter::_#element
               previousFragment: <testLibraryFragment>::@extensionType::A::@setter::foo1
   extensionTypes
     extension type A
@@ -9610,7 +9602,7 @@ library
       constructors
         new
           firstFragment: <testLibraryFragment>::@extensionType::A::@constructor::new
-          parameters
+          formalParameters
             requiredPositional final it
               type: int
       getters
@@ -9619,12 +9611,12 @@ library
       setters
         set foo2=
           firstFragment: <testLibraryFragment>::@extensionType::A::@setter::foo2
-          parameters
+          formalParameters
             requiredPositional _
               type: int
         set foo1=
           firstFragment: <testLibraryFragment>::@extensionType::A::@setter::foo1
-          parameters
+          formalParameters
             requiredPositional _
               type: int
 ''');

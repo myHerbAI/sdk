@@ -60,7 +60,7 @@ final class ClassSuggestion extends ImportableSuggestion
 }
 
 /// The information about a candidate suggestion based on a constructor.
-final class ClosureSuggestion extends CandidateSuggestion {
+final class ClosureSuggestion extends CandidateSuggestion with SuggestionData {
   /// The type that the closure must conform to.
   final FunctionType functionType;
 
@@ -75,15 +75,6 @@ final class ClosureSuggestion extends CandidateSuggestion {
 
   /// The identation to be used for a multi-line completion.
   final String indent;
-
-  // Indicates whether _completion, _displayText, and _selectionOffset have been initialized.
-  bool _initialized = false;
-
-  late String _displayText;
-
-  late int _selectionOffset;
-
-  late String _completion;
 
   /// Initialize a newly created candidate suggestion to suggest a closure that
   /// conforms to the given [functionType].
@@ -102,24 +93,12 @@ final class ClosureSuggestion extends CandidateSuggestion {
   @override
   String get completion {
     _init();
-    return _completion;
+    return _data!.completion;
   }
 
-  /// Text to be displayed in a completion pop-up.
-  String get displayText {
-    _init();
-    return _displayText;
-  }
-
-  /// The offset, from the beginning of the inserted text, where the cursor
-  /// should be positioned.
-  int get selectionOffset {
-    _init();
-    return _selectionOffset;
-  }
-
+  @override
   void _init() {
-    if (_initialized) {
+    if (_data != null) {
       return;
     }
     var parametersString = buildClosureParameters(functionType,
@@ -131,28 +110,30 @@ final class ClosureSuggestion extends CandidateSuggestion {
         includeKeywords: false, includeTypes: false);
 
     var stringBuffer = StringBuffer(parametersString);
+    String displayText;
+    int selectionOffset;
     if (useBlockStatement) {
-      _displayText = '$parametersDisplayString {}';
+      displayText = '$parametersDisplayString {}';
       stringBuffer.writeln(' {');
       stringBuffer.write('$indent  ');
-      _selectionOffset = stringBuffer.length;
+      selectionOffset = stringBuffer.length;
       stringBuffer.writeln();
       stringBuffer.write('$indent}');
     } else {
-      _displayText = '$parametersDisplayString =>';
+      displayText = '$parametersDisplayString =>';
       stringBuffer.write(' => ');
-      _selectionOffset = stringBuffer.length;
+      selectionOffset = stringBuffer.length;
     }
     if (includeTrailingComma) {
       stringBuffer.write(',');
     }
-    _completion = stringBuffer.toString();
-    _initialized = true;
+    var completion = stringBuffer.toString();
+    _data = _Data(completion, selectionOffset, displayText: displayText);
   }
 }
 
 /// The information about a candidate suggestion based on a constructor.
-final class ConstructorSuggestion extends ImportableSuggestion
+final class ConstructorSuggestion extends ExecutableSuggestion
     implements ElementBasedSuggestion {
   @override
   final ConstructorElement element;
@@ -184,7 +165,11 @@ final class ConstructorSuggestion extends ImportableSuggestion
     required this.isRedirect,
     required this.suggestUnnamedAsNew,
     required super.matcherScore,
-  }) : assert((isTearOff ? 1 : 0) | (isRedirect ? 1 : 0) < 2);
+  })  : assert((isTearOff ? 1 : 0) | (isRedirect ? 1 : 0) < 2),
+        super(
+            kind: isTearOff || isRedirect
+                ? CompletionSuggestionKind.IDENTIFIER
+                : CompletionSuggestionKind.INVOCATION);
 
   @override
   String get completion {
@@ -277,7 +262,7 @@ sealed class ExecutableSuggestion extends ImportableSuggestion {
 }
 
 /// The information about a candidate suggestion based on an extension.
-final class ExtensionSuggestion extends ImportableSuggestion
+final class ExtensionSuggestion extends ExecutableSuggestion
     implements ElementBasedSuggestion {
   @override
   final ExtensionElement element;
@@ -286,7 +271,8 @@ final class ExtensionSuggestion extends ImportableSuggestion
   ExtensionSuggestion(
       {required super.importData,
       required this.element,
-      required super.matcherScore});
+      required super.matcherScore,
+      super.kind = CompletionSuggestionKind.INVOCATION});
 
   @override
   String get completion => '$completionPrefix${element.name!}';
@@ -654,7 +640,8 @@ final class MixinSuggestion extends ImportableSuggestion
 }
 
 /// Suggest the name of a named parameter in the argument list of an invocation.
-final class NamedArgumentSuggestion extends CandidateSuggestion {
+final class NamedArgumentSuggestion extends CandidateSuggestion
+    with SuggestionData {
   /// The parameter whose name is to be suggested.
   final ParameterElement parameter;
 
@@ -672,13 +659,6 @@ final class NamedArgumentSuggestion extends CandidateSuggestion {
 
   String preferredQuoteForStrings;
 
-  late String _completion;
-
-  // Indicates whether _completion and _selectionOffset have been initialized.
-  bool _initialized = false;
-
-  late int _selectionOffset;
-
   NamedArgumentSuggestion({
     required this.parameter,
     required this.appendColon,
@@ -692,18 +672,15 @@ final class NamedArgumentSuggestion extends CandidateSuggestion {
   @override
   String get completion {
     _init();
-    return _completion;
+    return _data!.completion;
   }
 
-  /// The offset, from the beginning of the inserted text, where the cursor
-  /// should be positioned.
-  int get selectionOffset {
-    _init();
-    return _selectionOffset;
-  }
+  @override
+  String get displayText => completion;
 
+  @override
   void _init() {
-    if (_initialized) {
+    if (_data != null) {
       return;
     }
     var completion = parameter.name;
@@ -731,9 +708,7 @@ final class NamedArgumentSuggestion extends CandidateSuggestion {
     if (appendComma) {
       completion += ',';
     }
-    _completion = completion;
-    _selectionOffset = selectionOffset;
-    _initialized = true;
+    _data = _Data(completion, selectionOffset);
   }
 }
 
@@ -858,16 +833,11 @@ final class RecordFieldSuggestion extends CandidateSuggestion {
 
 /// The information about a candidate suggestion based on a named field of
 /// a record type.
-final class RecordLiteralNamedFieldSuggestion extends CandidateSuggestion {
+final class RecordLiteralNamedFieldSuggestion extends CandidateSuggestion
+    with SuggestionData {
   final RecordTypeNamedField field;
   final bool appendColon;
   final bool appendComma;
-
-  late String _completion;
-  late int _selectionOffset;
-
-  // Whether _completion, _displayText, and _selectionOffset have been initialized.
-  bool _initialized = false;
 
   RecordLiteralNamedFieldSuggestion.newField({
     required this.field,
@@ -884,18 +854,15 @@ final class RecordLiteralNamedFieldSuggestion extends CandidateSuggestion {
   @override
   String get completion {
     _init();
-    return _completion;
+    return _data!.completion;
   }
 
-  /// The offset, from the beginning of the inserted text, where the cursor
-  /// should be positioned.
-  int get selectionOffset {
-    _init();
-    return _selectionOffset;
-  }
+  @override
+  String get displayText => completion;
 
+  @override
   void _init() {
-    if (_initialized) {
+    if (_data != null) {
       return;
     }
     var name = field.name;
@@ -904,23 +871,20 @@ final class RecordLiteralNamedFieldSuggestion extends CandidateSuggestion {
     if (appendColon) {
       completion += ': ';
     }
-    _selectionOffset = completion.length;
+    var selectionOffset = completion.length;
 
     if (appendComma) {
       completion += ',';
     }
-    _completion = completion;
-    _initialized = true;
+    _data = _Data(completion, selectionOffset);
   }
 }
 
 /// The information about a candidate suggestion for Flutter's `setState` method.
 final class SetStateMethodSuggestion extends ExecutableSuggestion
-    with MemberSuggestion {
+    with MemberSuggestion, SuggestionData {
   @override
   final MethodElement element;
-
-  late String _completion;
 
   /// The element defined by the declaration in which the suggestion is to be
   /// applied, or `null` if the completion is in a static context.
@@ -929,13 +893,6 @@ final class SetStateMethodSuggestion extends ExecutableSuggestion
 
   /// The identation to be used for a multi-line completion.
   final String indent;
-
-  // Indicates whether _completion, _displayText, and _selectionOffset have been initialized.
-  bool _initialized = false;
-
-  late int _selectionOffset;
-
-  late String _displayText;
 
   /// Initialize a newly created candidate suggestion to suggest the [element].
   SetStateMethodSuggestion(
@@ -949,37 +906,23 @@ final class SetStateMethodSuggestion extends ExecutableSuggestion
   @override
   String get completion {
     _init();
-    return _completion;
+    return _data!.completion;
   }
 
-  /// Text to be displayed in a completion pop-up.
-  String get displayText {
-    _init();
-    return _displayText;
-  }
-
-  /// The offset, from the beginning of the inserted text, where the cursor
-  /// should be positioned.
-  int get selectionOffset {
-    _init();
-    return _selectionOffset;
-  }
-
+  @override
   void _init() {
-    if (_initialized) {
+    if (_data != null) {
       return;
     }
     // Build the completion and the selection offset.
     var buffer = StringBuffer();
     buffer.writeln('setState(() {');
     buffer.write('$indent  ');
-    _selectionOffset = buffer.length;
+    var selectionOffset = buffer.length;
     buffer.writeln();
     buffer.write('$indent});');
-    _completion = buffer.toString();
-    _displayText = 'setState(() {});';
-
-    _initialized = true;
+    var completion = buffer.toString();
+    _data = _Data(completion, selectionOffset, displayText: 'setState(() {});');
   }
 }
 
@@ -1004,6 +947,27 @@ final class StaticFieldSuggestion extends ImportableSuggestion
   }
 }
 
+/// Behavior common to suggestions where completion text, [selectionOffset],
+/// and [displayText] is computed.
+mixin SuggestionData {
+  _Data? _data;
+
+  /// Text to be displayed in a completion pop-up.
+  String get displayText {
+    _init();
+    return _data!.displayText;
+  }
+
+  /// The offset, from the beginning of the inserted text, where the cursor
+  /// should be positioned.
+  int get selectionOffset {
+    _init();
+    return _data!.selectionOffset;
+  }
+
+  void _init();
+}
+
 /// The information about a candidate suggestion based on a parameter from a
 /// super constructor.
 final class SuperParameterSuggestion extends CandidateSuggestion
@@ -1021,24 +985,17 @@ final class SuperParameterSuggestion extends CandidateSuggestion
 
 /// The information about a candidate suggestion based on a top-level getter or
 /// setter.
-final class TopLevelFunctionSuggestion extends ImportableSuggestion
+final class TopLevelFunctionSuggestion extends ExecutableSuggestion
     implements ElementBasedSuggestion {
   @override
   final FunctionElement element;
-
-  /// The kind of suggestion to be made, either
-  /// [CompletionSuggestionKind.IDENTIFIER] or
-  /// [CompletionSuggestionKind.INVOCATION].
-  final CompletionSuggestionKind kind;
 
   /// Initialize a newly created candidate suggestion to suggest the [element].
   TopLevelFunctionSuggestion(
       {required super.importData,
       required this.element,
-      required this.kind,
-      required super.matcherScore})
-      : assert(kind == CompletionSuggestionKind.IDENTIFIER ||
-            kind == CompletionSuggestionKind.INVOCATION);
+      required super.kind,
+      required super.matcherScore});
 
   @override
   String get completion => '$completionPrefix${element.name}';
@@ -1119,6 +1076,17 @@ final class UriSuggestion extends CandidateSuggestion {
   String get completion => uriStr;
 }
 
+/// Information computed for some the code completion suggestions.
+class _Data {
+  String displayText;
+
+  int selectionOffset;
+
+  String completion;
+
+  _Data(this.completion, this.selectionOffset, {this.displayText = ''});
+}
+
 extension on String {
   (String, int?) get withoutCaret {
     var caretIndex = indexOf('^');
@@ -1167,9 +1135,7 @@ extension SuggestionBuilderExtension on SuggestionBuilder {
         suggestConstructor(suggestion.element,
             hasClassName: suggestion.hasClassName,
             completion: completion,
-            kind: suggestion.isRedirect || suggestion.isTearOff
-                ? CompletionSuggestionKind.IDENTIFIER
-                : CompletionSuggestionKind.INVOCATION,
+            kind: suggestion.kind,
             prefix: suggestion.prefix,
             suggestUnnamedAsNew: suggestion.suggestUnnamedAsNew,
             relevance: relevance);
@@ -1186,7 +1152,9 @@ extension SuggestionBuilderExtension on SuggestionBuilder {
         }
       case ExtensionSuggestion():
         suggestExtension(suggestion.element,
-            prefix: suggestion.prefix, relevance: relevance);
+            prefix: suggestion.prefix,
+            relevance: relevance,
+            kind: suggestion.kind);
       case ExtensionTypeSuggestion():
         suggestInterface(suggestion.element,
             prefix: suggestion.prefix, relevance: relevance);
@@ -1231,9 +1199,11 @@ extension SuggestionBuilderExtension on SuggestionBuilder {
       case LoadLibraryFunctionSuggestion():
         suggestLoadLibraryFunction(
           suggestion.element,
+          kind: suggestion.kind,
         );
       case LocalFunctionSuggestion():
-        suggestTopLevelFunction(suggestion.element, relevance: relevance);
+        suggestTopLevelFunction(suggestion.element,
+            relevance: relevance, kind: suggestion.kind);
       case LocalVariableSuggestion():
         suggestLocalVariable(
           element: suggestion.element,

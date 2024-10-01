@@ -16,6 +16,34 @@ final MessagesData messagesYaml = () {
 final String _messagesYamlPath = pathRelativeToPackageRoot(['messages.yaml']);
 
 extension type MessagesData(YamlMap _map) {
+  Map<String, String> get addedIn {
+    var result = <String, String>{};
+
+    for (var MapEntry(key: String name, value: YamlMap data)
+        in lintCodes.entries) {
+      if (data['addedIn'] case String addedInString) {
+        if (data.containsKey('sharedName')) {
+          name = data['sharedName'] as String;
+        }
+
+        if (addedInString.split('.').length < 2) {
+          throw StateError("Lint $name's 'addedIn' version must be "
+              'at least a major.minor version.');
+        }
+
+        var oldResult = result[name];
+        if (oldResult != null && oldResult == addedInString) {
+          throw StateError("Lint $name has a different 'addedIn' value "
+              'between its shared codes!');
+        }
+
+        result[name] = addedInString;
+      }
+    }
+
+    return result;
+  }
+
   Map<String, Set<String>> get categoryMappings {
     var result = <String, Set<String>>{};
 
@@ -31,6 +59,24 @@ extension type MessagesData(YamlMap _map) {
       var categoriesData = data['categories'] as List?;
       var categories = (categoriesData ?? []).toSet().cast<String>();
       result.putIfAbsent(name, () => categories);
+    }
+
+    return result;
+  }
+
+  Map<String, String> get deprecatedDetails {
+    var result = <String, String>{};
+
+    for (var code in lintCodes.keys) {
+      var name = code as String;
+      var data = lintCodes[name] as YamlMap;
+      if (data['deprecatedDetails'] case String deprecatedDetails) {
+        if (data.containsKey('sharedName')) {
+          name = data['sharedName'] as String;
+        }
+
+        result.putIfAbsent(name, () => deprecatedDetails);
+      }
     }
 
     return result;

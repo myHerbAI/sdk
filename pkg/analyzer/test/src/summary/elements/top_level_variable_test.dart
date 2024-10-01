@@ -105,7 +105,6 @@ library
       element: <testLibrary>
       libraryImports
         dart:async
-          reference: <not-implemented>
       topLevelVariables
         synthetic foo @-1
           reference: <testLibraryFragment>::@topLevelVariable::foo
@@ -511,9 +510,9 @@ library
         set x= @25
           reference: <testLibraryFragment>::@setter::x
           element: <testLibraryFragment>::@setter::x#element
-          parameters
+          formalParameters
             value @31
-              element: <not-implemented>
+              element: <testLibraryFragment>::@setter::x::@parameter::value#element
   topLevelVariables
     synthetic x
       firstFragment: <testLibraryFragment>::@topLevelVariable::x
@@ -526,7 +525,7 @@ library
   setters
     static set x=
       firstFragment: <testLibraryFragment>::@setter::x
-      parameters
+      formalParameters
         requiredPositional value
           type: int
 ''');
@@ -579,9 +578,9 @@ library
         set x= @9
           reference: <testLibraryFragment>::@setter::x
           element: <testLibraryFragment>::@setter::x#element
-          parameters
+          formalParameters
             value @15
-              element: <not-implemented>
+              element: <testLibraryFragment>::@setter::x::@parameter::value#element
   topLevelVariables
     synthetic x
       firstFragment: <testLibraryFragment>::@topLevelVariable::x
@@ -594,7 +593,7 @@ library
   setters
     static set x=
       firstFragment: <testLibraryFragment>::@setter::x
-      parameters
+      formalParameters
         requiredPositional value
           type: int
 ''');
@@ -644,9 +643,9 @@ library
           reference: <testLibraryFragment>::@setter::x
           element: <testLibraryFragment>::@setter::x#element
           documentationComment: /**\n * Docs\n */
-          parameters
+          formalParameters
             value @71
-              element: <not-implemented>
+              element: <testLibraryFragment>::@setter::x::@parameter::value#element
   topLevelVariables
     synthetic x
       firstFragment: <testLibraryFragment>::@topLevelVariable::x
@@ -656,7 +655,7 @@ library
     static set x=
       firstFragment: <testLibraryFragment>::@setter::x
       documentationComment: /**\n * Docs\n */
-      parameters
+      formalParameters
         requiredPositional value
           type: dynamic
 ''');
@@ -699,9 +698,9 @@ library
         set x= @18
           reference: <testLibraryFragment>::@setter::x
           element: <testLibraryFragment>::@setter::x#element
-          parameters
+          formalParameters
             value @24
-              element: <not-implemented>
+              element: <testLibraryFragment>::@setter::x::@parameter::value#element
   topLevelVariables
     synthetic x
       firstFragment: <testLibraryFragment>::@topLevelVariable::x
@@ -710,7 +709,7 @@ library
   setters
     static external set x=
       firstFragment: <testLibraryFragment>::@setter::x
-      parameters
+      formalParameters
         requiredPositional value
           type: int
 ''');
@@ -753,9 +752,9 @@ library
         set f= @4
           reference: <testLibraryFragment>::@setter::f
           element: <testLibraryFragment>::@setter::f#element
-          parameters
+          formalParameters
             value @10
-              element: <not-implemented>
+              element: <testLibraryFragment>::@setter::f::@parameter::value#element
   topLevelVariables
     synthetic f
       firstFragment: <testLibraryFragment>::@topLevelVariable::f
@@ -764,7 +763,7 @@ library
   setters
     static set f=
       firstFragment: <testLibraryFragment>::@setter::f
-      parameters
+      formalParameters
         requiredPositional value
           type: int
 ''');
@@ -823,15 +822,15 @@ library
         set x= @9
           reference: <testLibraryFragment>::@setter::x
           element: <testLibraryFragment>::@setter::x#element
-          parameters
+          formalParameters
             value @15
-              element: <not-implemented>
+              element: <testLibraryFragment>::@setter::x::@parameter::value#element
         set y= @29
           reference: <testLibraryFragment>::@setter::y
           element: <testLibraryFragment>::@setter::y#element
-          parameters
+          formalParameters
             value @31
-              element: <not-implemented>
+              element: <testLibraryFragment>::@setter::y::@parameter::value#element
   topLevelVariables
     synthetic x
       firstFragment: <testLibraryFragment>::@topLevelVariable::x
@@ -844,12 +843,12 @@ library
   setters
     static set x=
       firstFragment: <testLibraryFragment>::@setter::x
-      parameters
+      formalParameters
         requiredPositional value
           type: int
     static set y=
       firstFragment: <testLibraryFragment>::@setter::y
-      parameters
+      formalParameters
         requiredPositional value
           type: dynamic
 ''');
@@ -903,9 +902,9 @@ library
         set i= @-1
           reference: <testLibraryFragment>::@setter::i
           element: <testLibraryFragment>::@setter::i#element
-          parameters
+          formalParameters
             _i @-1
-              element: <not-implemented>
+              element: <testLibraryFragment>::@setter::i::@parameter::_i#element
   topLevelVariables
     i
       firstFragment: <testLibraryFragment>::@topLevelVariable::i
@@ -918,7 +917,7 @@ library
   setters
     synthetic static set i=
       firstFragment: <testLibraryFragment>::@setter::i
-      parameters
+      formalParameters
         requiredPositional _i
           type: int
 ''');
@@ -973,9 +972,9 @@ library
         set x= @25
           reference: <testLibraryFragment>::@setter::x
           element: <testLibraryFragment>::@setter::x#element
-          parameters
+          formalParameters
             value @31
-              element: <not-implemented>
+              element: <testLibraryFragment>::@setter::x::@parameter::value#element
   topLevelVariables
     synthetic x
       firstFragment: <testLibraryFragment>::@topLevelVariable::x
@@ -988,7 +987,7 @@ library
   setters
     static set x=
       firstFragment: <testLibraryFragment>::@setter::x
-      parameters
+      formalParameters
         requiredPositional value
           type: int
 ''');
@@ -1043,9 +1042,9 @@ library
         set x= @9
           reference: <testLibraryFragment>::@setter::x
           element: <testLibraryFragment>::@setter::x#element
-          parameters
+          formalParameters
             value @15
-              element: <not-implemented>
+              element: <testLibraryFragment>::@setter::x::@parameter::value#element
   topLevelVariables
     synthetic x
       firstFragment: <testLibraryFragment>::@topLevelVariable::x
@@ -1058,7 +1057,7 @@ library
   setters
     static set x=
       firstFragment: <testLibraryFragment>::@setter::x
-      parameters
+      formalParameters
         requiredPositional value
           type: int
 ''');
@@ -1141,9 +1140,9 @@ library
         set foo= @-1
           reference: <testLibraryFragment>::@setter::foo
           element: <testLibraryFragment>::@setter::foo#element
-          parameters
+          formalParameters
             _foo @-1
-              element: <not-implemented>
+              element: <testLibraryFragment>::@setter::foo::@parameter::_foo#element
   topLevelVariables
     foo
       firstFragment: <testLibraryFragment>::@topLevelVariable::foo::@def::0
@@ -1162,7 +1161,7 @@ library
   setters
     synthetic static set foo=
       firstFragment: <testLibraryFragment>::@setter::foo
-      parameters
+      formalParameters
         requiredPositional _foo
           type: int
 ''');
@@ -1245,15 +1244,15 @@ library
         set foo= @-1
           reference: <testLibraryFragment>::@setter::foo::@def::0
           element: <testLibraryFragment>::@setter::foo::@def::0#element
-          parameters
+          formalParameters
             _foo @-1
-              element: <not-implemented>
+              element: <testLibraryFragment>::@setter::foo::@def::0::@parameter::_foo#element
         set foo= @17
           reference: <testLibraryFragment>::@setter::foo::@def::1
           element: <testLibraryFragment>::@setter::foo::@def::1#element
-          parameters
+          formalParameters
             _ @25
-              element: <not-implemented>
+              element: <testLibraryFragment>::@setter::foo::@def::1::@parameter::_#element
   topLevelVariables
     foo
       firstFragment: <testLibraryFragment>::@topLevelVariable::foo::@def::0
@@ -1270,12 +1269,12 @@ library
   setters
     synthetic static set foo=
       firstFragment: <testLibraryFragment>::@setter::foo::@def::0
-      parameters
+      formalParameters
         requiredPositional _foo
           type: int
     static set foo=
       firstFragment: <testLibraryFragment>::@setter::foo::@def::1
-      parameters
+      formalParameters
         requiredPositional _
           type: int
 ''');
@@ -1339,9 +1338,9 @@ library
         set foo= @23
           reference: <testLibraryFragment>::@setter::foo
           element: <testLibraryFragment>::@setter::foo#element
-          parameters
+          formalParameters
             newValue @31
-              element: <not-implemented>
+              element: <testLibraryFragment>::@setter::foo::@parameter::newValue#element
   topLevelVariables
     final foo
       firstFragment: <testLibraryFragment>::@topLevelVariable::foo
@@ -1354,7 +1353,7 @@ library
   setters
     static set foo=
       firstFragment: <testLibraryFragment>::@setter::foo
-      parameters
+      formalParameters
         requiredPositional newValue
           type: int
 ''');
@@ -1407,9 +1406,9 @@ library
         set x= @-1
           reference: <testLibraryFragment>::@setter::x
           element: <testLibraryFragment>::@setter::x#element
-          parameters
+          formalParameters
             _x @-1
-              element: <not-implemented>
+              element: <testLibraryFragment>::@setter::x::@parameter::_x#element
   topLevelVariables
     x
       firstFragment: <testLibraryFragment>::@topLevelVariable::x
@@ -1422,7 +1421,7 @@ library
   setters
     synthetic static set x=
       firstFragment: <testLibraryFragment>::@setter::x
-      parameters
+      formalParameters
         requiredPositional _x
           type: int
 ''');
@@ -1581,9 +1580,9 @@ library
         set x= @-1
           reference: <testLibraryFragment>::@setter::x
           element: <testLibraryFragment>::@setter::x#element
-          parameters
+          formalParameters
             _x @-1
-              element: <not-implemented>
+              element: <testLibraryFragment>::@setter::x::@parameter::_x#element
   topLevelVariables
     x
       firstFragment: <testLibraryFragment>::@topLevelVariable::x
@@ -1596,7 +1595,7 @@ library
   setters
     synthetic static set x=
       firstFragment: <testLibraryFragment>::@setter::x
-      parameters
+      formalParameters
         requiredPositional _x
           type: dynamic
 ''');
@@ -1727,9 +1726,9 @@ library
         set x= @25
           reference: <testLibrary>::@fragment::package:test/a.dart::@setter::x
           element: <testLibrary>::@fragment::package:test/a.dart::@setter::x#element
-          parameters
+          formalParameters
             _ @31
-              element: <not-implemented>
+              element: <testLibrary>::@fragment::package:test/a.dart::@setter::x::@parameter::_#element
   topLevelVariables
     synthetic x
       firstFragment: <testLibraryFragment>::@topLevelVariable::x
@@ -1745,7 +1744,7 @@ library
   setters
     static set x=
       firstFragment: <testLibrary>::@fragment::package:test/a.dart::@setter::x
-      parameters
+      formalParameters
         requiredPositional _
           type: int
 ''');
@@ -1819,9 +1818,9 @@ library
         set x= @40
           reference: <testLibraryFragment>::@setter::x
           element: <testLibraryFragment>::@setter::x#element
-          parameters
+          formalParameters
             _ @46
-              element: <not-implemented>
+              element: <testLibraryFragment>::@setter::x::@parameter::_#element
     <testLibrary>::@fragment::package:test/a.dart
       element: <testLibrary>
       previousFragment: <testLibraryFragment>
@@ -1849,7 +1848,7 @@ library
   setters
     static set x=
       firstFragment: <testLibraryFragment>::@setter::x
-      parameters
+      formalParameters
         requiredPositional _
           type: int
 ''');
@@ -1942,9 +1941,9 @@ library
         set x= @25
           reference: <testLibrary>::@fragment::package:test/b.dart::@setter::x
           element: <testLibrary>::@fragment::package:test/b.dart::@setter::x#element
-          parameters
+          formalParameters
             _ @31
-              element: <not-implemented>
+              element: <testLibrary>::@fragment::package:test/b.dart::@setter::x::@parameter::_#element
   topLevelVariables
     synthetic x
       firstFragment: <testLibrary>::@fragment::package:test/a.dart::@topLevelVariable::x
@@ -1960,7 +1959,7 @@ library
   setters
     static set x=
       firstFragment: <testLibrary>::@fragment::package:test/b.dart::@setter::x
-      parameters
+      formalParameters
         requiredPositional _
           type: int
 ''');
@@ -2032,9 +2031,9 @@ library
         set x= @-1
           reference: <testLibraryFragment>::@setter::x
           element: <testLibraryFragment>::@setter::x#element
-          parameters
+          formalParameters
             _x @-1
-              element: <not-implemented>
+              element: <testLibraryFragment>::@setter::x::@parameter::_x#element
   topLevelVariables
     x
       firstFragment: <testLibraryFragment>::@topLevelVariable::x
@@ -2047,7 +2046,7 @@ library
   setters
     synthetic static set x=
       firstFragment: <testLibraryFragment>::@setter::x
-      parameters
+      formalParameters
         requiredPositional _x
           type: dynamic
 ''');
@@ -2100,9 +2099,9 @@ library
         set v= @-1
           reference: <testLibraryFragment>::@setter::v
           element: <testLibraryFragment>::@setter::v#element
-          parameters
+          formalParameters
             _v @-1
-              element: <not-implemented>
+              element: <testLibraryFragment>::@setter::v::@parameter::_v#element
   topLevelVariables
     v
       firstFragment: <testLibraryFragment>::@topLevelVariable::v
@@ -2115,7 +2114,7 @@ library
   setters
     synthetic static set v=
       firstFragment: <testLibraryFragment>::@setter::v
-      parameters
+      formalParameters
         requiredPositional _v
           type: int
 ''');
@@ -2360,9 +2359,9 @@ library
         set x= @-1
           reference: <testLibraryFragment>::@setter::x
           element: <testLibraryFragment>::@setter::x#element
-          parameters
+          formalParameters
             _x @-1
-              element: <not-implemented>
+              element: <testLibraryFragment>::@setter::x::@parameter::_x#element
   classes
     class A
       firstFragment: <testLibraryFragment>::@class::A
@@ -2387,7 +2386,7 @@ library
   setters
     synthetic static set x=
       firstFragment: <testLibraryFragment>::@setter::x
-      parameters
+      formalParameters
         requiredPositional _x
           type: int
 ''');
@@ -2440,9 +2439,9 @@ library
         set v= @-1
           reference: <testLibraryFragment>::@setter::v
           element: <testLibraryFragment>::@setter::v#element
-          parameters
+          formalParameters
             _v @-1
-              element: <not-implemented>
+              element: <testLibraryFragment>::@setter::v::@parameter::_v#element
   topLevelVariables
     v
       firstFragment: <testLibraryFragment>::@topLevelVariable::v
@@ -2455,7 +2454,7 @@ library
   setters
     synthetic static set v=
       firstFragment: <testLibraryFragment>::@setter::v
-      parameters
+      formalParameters
         requiredPositional _v
           type: int
 ''');
@@ -2508,9 +2507,9 @@ library
         set x= @-1
           reference: <testLibraryFragment>::@setter::x
           element: <testLibraryFragment>::@setter::x#element
-          parameters
+          formalParameters
             _x @-1
-              element: <not-implemented>
+              element: <testLibraryFragment>::@setter::x::@parameter::_x#element
   topLevelVariables
     late x
       firstFragment: <testLibraryFragment>::@topLevelVariable::x
@@ -2523,7 +2522,7 @@ library
   setters
     synthetic static set x=
       firstFragment: <testLibraryFragment>::@setter::x
-      parameters
+      formalParameters
         requiredPositional _x
           type: int
 ''');
@@ -2575,9 +2574,9 @@ library
         set x= @-1
           reference: <testLibraryFragment>::@setter::x
           element: <testLibraryFragment>::@setter::x#element
-          parameters
+          formalParameters
             _x @-1
-              element: <not-implemented>
+              element: <testLibraryFragment>::@setter::x::@parameter::_x#element
   topLevelVariables
     late final x
       firstFragment: <testLibraryFragment>::@topLevelVariable::x
@@ -2590,7 +2589,7 @@ library
   setters
     synthetic static set x=
       firstFragment: <testLibraryFragment>::@setter::x
-      parameters
+      formalParameters
         requiredPositional _x
           type: int
 ''');
@@ -2727,7 +2726,6 @@ library
       element: <testLibrary>
       libraryImports
         package:test/a.dart
-          reference: <not-implemented>
       topLevelVariables
         final b @23
           reference: <testLibraryFragment>::@topLevelVariable::b
@@ -2921,7 +2919,6 @@ library
       element: <testLibrary>
       libraryImports
         package:test/b.dart
-          reference: <not-implemented>
       topLevelVariables
         final x @23
           reference: <testLibraryFragment>::@topLevelVariable::x
@@ -3017,9 +3014,9 @@ library
         set x= @25
           reference: <testLibrary>::@fragment::package:test/a.dart::@setter::x
           element: <testLibrary>::@fragment::package:test/a.dart::@setter::x#element
-          parameters
+          formalParameters
             _ @31
-              element: <not-implemented>
+              element: <testLibrary>::@fragment::package:test/a.dart::@setter::x::@parameter::_#element
     <testLibrary>::@fragment::package:test/b.dart
       element: <testLibrary>
       previousFragment: <testLibrary>::@fragment::package:test/a.dart
@@ -3047,7 +3044,7 @@ library
   setters
     static set x=
       firstFragment: <testLibrary>::@fragment::package:test/a.dart::@setter::x
-      parameters
+      formalParameters
         requiredPositional _
           type: int
 ''');
@@ -3100,9 +3097,9 @@ library
         set v= @-1
           reference: <testLibraryFragment>::@setter::v
           element: <testLibraryFragment>::@setter::v#element
-          parameters
+          formalParameters
             _v @-1
-              element: <not-implemented>
+              element: <testLibraryFragment>::@setter::v::@parameter::_v#element
   topLevelVariables
     v
       firstFragment: <testLibraryFragment>::@topLevelVariable::v
@@ -3115,7 +3112,7 @@ library
   setters
     synthetic static set v=
       firstFragment: <testLibraryFragment>::@setter::v
-      parameters
+      formalParameters
         requiredPositional _v
           type: int
 ''');
@@ -3171,9 +3168,9 @@ library
         set a= @-1
           reference: <testLibraryFragment>::@setter::a
           element: <testLibraryFragment>::@setter::a#element
-          parameters
+          formalParameters
             _a @-1
-              element: <not-implemented>
+              element: <testLibraryFragment>::@setter::a::@parameter::_a#element
   topLevelVariables
     a
       firstFragment: <testLibraryFragment>::@topLevelVariable::a
@@ -3186,7 +3183,7 @@ library
   setters
     synthetic static set a=
       firstFragment: <testLibraryFragment>::@setter::a
-      parameters
+      formalParameters
         requiredPositional _a
           type: Never
 ''');
@@ -3241,9 +3238,9 @@ library
         set a= @-1
           reference: <testLibraryFragment>::@setter::a
           element: <testLibraryFragment>::@setter::a#element
-          parameters
+          formalParameters
             _a @-1
-              element: <not-implemented>
+              element: <testLibraryFragment>::@setter::a::@parameter::_a#element
   topLevelVariables
     a
       firstFragment: <testLibraryFragment>::@topLevelVariable::a
@@ -3256,7 +3253,7 @@ library
   setters
     synthetic static set a=
       firstFragment: <testLibraryFragment>::@setter::a
-      parameters
+      formalParameters
         requiredPositional _a
           type: dynamic
 ''');
@@ -3428,15 +3425,15 @@ library
         set i= @-1
           reference: <testLibraryFragment>::@setter::i
           element: <testLibraryFragment>::@setter::i#element
-          parameters
+          formalParameters
             _i @-1
-              element: <not-implemented>
+              element: <testLibraryFragment>::@setter::i::@parameter::_i#element
         set j= @-1
           reference: <testLibraryFragment>::@setter::j
           element: <testLibraryFragment>::@setter::j#element
-          parameters
+          formalParameters
             _j @-1
-              element: <not-implemented>
+              element: <testLibraryFragment>::@setter::j::@parameter::_j#element
   topLevelVariables
     i
       firstFragment: <testLibraryFragment>::@topLevelVariable::i
@@ -3456,12 +3453,12 @@ library
   setters
     synthetic static set i=
       firstFragment: <testLibraryFragment>::@setter::i
-      parameters
+      formalParameters
         requiredPositional _i
           type: int
     synthetic static set j=
       firstFragment: <testLibraryFragment>::@setter::j
-      parameters
+      formalParameters
         requiredPositional _j
           type: int
 ''');
@@ -3595,9 +3592,9 @@ library
         set A= @-1
           reference: <testLibrary>::@fragment::package:test/a.dart::@setter::A
           element: <testLibrary>::@fragment::package:test/a.dart::@setter::A#element
-          parameters
+          formalParameters
             _A @-1
-              element: <not-implemented>
+              element: <testLibrary>::@fragment::package:test/a.dart::@setter::A::@parameter::_A#element
   classes
     class A
       firstFragment: <testLibraryFragment>::@class::A
@@ -3616,7 +3613,7 @@ library
   setters
     synthetic static set A=
       firstFragment: <testLibrary>::@fragment::package:test/a.dart::@setter::A
-      parameters
+      formalParameters
         requiredPositional _A
           type: int
   exportedReferences
@@ -3723,9 +3720,9 @@ library
         set foo= @-1
           reference: <testLibrary>::@fragment::package:test/a.dart::@setter::foo
           element: <testLibrary>::@fragment::package:test/a.dart::@setter::foo#element
-          parameters
+          formalParameters
             _foo @-1
-              element: <not-implemented>
+              element: <testLibrary>::@fragment::package:test/a.dart::@setter::foo::@parameter::_foo#element
   topLevelVariables
     foo
       firstFragment: <testLibrary>::@fragment::package:test/a.dart::@topLevelVariableAugmentation::foo
@@ -3738,7 +3735,7 @@ library
   setters
     synthetic static set foo=
       firstFragment: <testLibrary>::@fragment::package:test/a.dart::@setter::foo
-      parameters
+      formalParameters
         requiredPositional _foo
           type: int
   functions
@@ -3863,9 +3860,9 @@ library
         set foo= @-1
           reference: <testLibrary>::@fragment::package:test/a.dart::@setter::foo
           element: <testLibrary>::@fragment::package:test/a.dart::@setter::foo#element
-          parameters
+          formalParameters
             _foo @-1
-              element: <not-implemented>
+              element: <testLibrary>::@fragment::package:test/a.dart::@setter::foo::@parameter::_foo#element
   topLevelVariables
     synthetic foo
       firstFragment: <testLibraryFragment>::@topLevelVariable::foo
@@ -3884,7 +3881,7 @@ library
   setters
     synthetic static set foo=
       firstFragment: <testLibrary>::@fragment::package:test/a.dart::@setter::foo
-      parameters
+      formalParameters
         requiredPositional _foo
           type: int
   exportedReferences
@@ -3991,9 +3988,9 @@ library
         set foo= @19
           reference: <testLibraryFragment>::@setter::foo
           element: <testLibraryFragment>::@setter::foo#element
-          parameters
+          formalParameters
             _ @27
-              element: <not-implemented>
+              element: <testLibraryFragment>::@setter::foo::@parameter::_#element
     <testLibrary>::@fragment::package:test/a.dart
       element: <testLibrary>
       previousFragment: <testLibraryFragment>
@@ -4011,9 +4008,9 @@ library
         set foo= @-1
           reference: <testLibrary>::@fragment::package:test/a.dart::@setter::foo
           element: <testLibrary>::@fragment::package:test/a.dart::@setter::foo#element
-          parameters
+          formalParameters
             _foo @-1
-              element: <not-implemented>
+              element: <testLibrary>::@fragment::package:test/a.dart::@setter::foo::@parameter::_foo#element
   topLevelVariables
     synthetic foo
       firstFragment: <testLibraryFragment>::@topLevelVariable::foo
@@ -4030,12 +4027,12 @@ library
   setters
     static set foo=
       firstFragment: <testLibraryFragment>::@setter::foo
-      parameters
+      formalParameters
         requiredPositional _
           type: int
     synthetic static set foo=
       firstFragment: <testLibrary>::@fragment::package:test/a.dart::@setter::foo
-      parameters
+      formalParameters
         requiredPositional _foo
           type: int
   exportedReferences
@@ -4157,9 +4154,9 @@ library
         set foo= @-1
           reference: <testLibraryFragment>::@setter::foo
           element: <testLibraryFragment>::@setter::foo#element
-          parameters
+          formalParameters
             _foo @-1
-              element: <not-implemented>
+              element: <testLibraryFragment>::@setter::foo::@parameter::_foo#element
     <testLibrary>::@fragment::package:test/a.dart
       element: <testLibrary>
       previousFragment: <testLibraryFragment>
@@ -4178,9 +4175,9 @@ library
         set foo= @-1
           reference: <testLibrary>::@fragment::package:test/a.dart::@setter::foo
           element: <testLibrary>::@fragment::package:test/a.dart::@setter::foo#element
-          parameters
+          formalParameters
             _foo @-1
-              element: <not-implemented>
+              element: <testLibrary>::@fragment::package:test/a.dart::@setter::foo::@parameter::_foo#element
   topLevelVariables
     foo
       firstFragment: <testLibraryFragment>::@topLevelVariable::foo
@@ -4195,12 +4192,12 @@ library
   setters
     synthetic static set foo=
       firstFragment: <testLibraryFragment>::@setter::foo
-      parameters
+      formalParameters
         requiredPositional _foo
           type: int
     synthetic static set foo=
       firstFragment: <testLibrary>::@fragment::package:test/a.dart::@setter::foo
-      parameters
+      formalParameters
         requiredPositional _foo
           type: int
   exportedReferences

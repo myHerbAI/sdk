@@ -69,14 +69,7 @@ class BuilderFactoryImpl implements BuilderFactory, BuilderFactoryResult {
 
   /// The object used as the root for creating augmentation libraries.
   // TODO(johnniwinther): Remove this once parts support augmentations.
-  final SourceLibraryBuilder _augmentationRoot;
-
-  /// [SourceLibraryBuilder] used for passing a parent [Builder] to created
-  /// [Builder]s. These uses are only needed because we creating [Builder]s
-  /// instead of fragments.
-  // TODO(johnniwinther): Remove this when we no longer create [Builder]s in
-  // the outline builder.
-  final SourceLibraryBuilder _parent;
+  final SourceCompilationUnit _augmentationRoot;
 
   final LibraryNameSpaceBuilder _libraryNameSpaceBuilder;
 
@@ -145,8 +138,7 @@ class BuilderFactoryImpl implements BuilderFactory, BuilderFactoryResult {
 
   BuilderFactoryImpl(
       {required SourceCompilationUnit compilationUnit,
-      required SourceLibraryBuilder augmentationRoot,
-      required SourceLibraryBuilder parent,
+      required SourceCompilationUnit augmentationRoot,
       required LibraryNameSpaceBuilder libraryNameSpaceBuilder,
       required ProblemReporting problemReporting,
       required LookupScope scope,
@@ -157,7 +149,6 @@ class BuilderFactoryImpl implements BuilderFactory, BuilderFactoryResult {
         _augmentationRoot = augmentationRoot,
         _libraryNameSpaceBuilder = libraryNameSpaceBuilder,
         _problemReporting = problemReporting,
-        _parent = parent,
         _compilationUnitScope = scope,
         libraryName = libraryName,
         indexedLibrary = indexedLibrary,
@@ -723,10 +714,8 @@ class BuilderFactoryImpl implements BuilderFactory, BuilderFactoryResult {
     // through the file uri of this library. See issue #52964.
     Uri newFileUri = loader.target.uriTranslator.translate(resolvedUri) ??
         _resolve(_compilationUnit.fileUri, uri, charOffset);
-    // TODO(johnniwinther): Add a LibraryPartBuilder instead of using
-    // [LibraryBuilder] to represent both libraries and parts.
     CompilationUnit compilationUnit = loader.read(resolvedUri, charOffset,
-        origin: _compilationUnit.isAugmenting ? _augmentationRoot.origin : null,
+        origin: _compilationUnit.isAugmenting ? _augmentationRoot : null,
         originImportUri: _compilationUnit.originImportUri,
         fileUri: newFileUri,
         accessor: _compilationUnit,
@@ -784,8 +773,7 @@ class BuilderFactoryImpl implements BuilderFactory, BuilderFactoryResult {
       required bool deferred,
       required int charOffset,
       required int prefixCharOffset,
-      required int uriOffset,
-      required int importIndex}) {
+      required int uriOffset}) {
     if (configurations != null) {
       for (Configuration config in configurations) {
         if (loader.getLibrarySupportValue(config.dottedName) ==
@@ -824,16 +812,16 @@ class BuilderFactoryImpl implements BuilderFactory, BuilderFactoryResult {
     }
 
     Import import = new Import(
-        _parent,
+        _compilationUnit,
         compilationUnit,
         isAugmentationImport,
         deferred,
         prefix,
         combinators,
         configurations,
+        _compilationUnit.fileUri,
         charOffset,
         prefixCharOffset,
-        importIndex,
         nativeImportPath: nativePath);
     imports.add(import);
     offsetMap?.registerImport(importKeyword!, import);
@@ -979,7 +967,8 @@ class BuilderFactoryImpl implements BuilderFactory, BuilderFactoryResult {
 
     _constructorReferences.clear();
 
-    _addFragment(declarationFragment);
+    _addFragment(declarationFragment,
+        getterReference: referencesFromIndexedClass?.reference);
 
     offsetMap.registerNamedDeclarationFragment(identifier, declarationFragment);
   }
@@ -1044,7 +1033,8 @@ class BuilderFactoryImpl implements BuilderFactory, BuilderFactoryResult {
 
     _constructorReferences.clear();
 
-    _addFragment(declarationFragment);
+    _addFragment(declarationFragment,
+        getterReference: _indexedContainer?.reference);
 
     offsetMap.registerNamedDeclarationFragment(identifier, declarationFragment);
   }
@@ -1085,28 +1075,32 @@ class BuilderFactoryImpl implements BuilderFactory, BuilderFactoryResult {
         _problemReporting, typeVariables,
         ownerName: name, allowNameConflict: false);
 
-    _addFragment(new NamedMixinApplicationFragment(
-      name: name,
-      fileUri: _compilationUnit.fileUri,
-      startCharOffset: startCharOffset,
-      charOffset: charOffset,
-      charEndOffset: charEndOffset,
-      modifiers: modifiers,
-      metadata: metadata,
-      typeParameters: typeVariables,
-      supertype: supertype,
-      mixins: mixinApplication,
-      interfaces: interfaces,
-      isAugmentation: isAugmentation,
-      isBase: isBase,
-      isFinal: isFinal,
-      isInterface: isInterface,
-      isMacro: isMacro,
-      isMixinClass: isMixinClass,
-      isSealed: isSealed,
-      compilationUnitScope: _compilationUnitScope,
-      indexedLibrary: indexedLibrary,
-    ));
+    _addFragment(
+        new NamedMixinApplicationFragment(
+          name: name,
+          fileUri: _compilationUnit.fileUri,
+          startCharOffset: startCharOffset,
+          charOffset: charOffset,
+          charEndOffset: charEndOffset,
+          modifiers: modifiers,
+          metadata: metadata,
+          typeParameters: typeVariables,
+          supertype: supertype,
+          mixins: mixinApplication,
+          interfaces: interfaces,
+          isAugmentation: isAugmentation,
+          isBase: isBase,
+          isFinal: isFinal,
+          isInterface: isInterface,
+          isMacro: isMacro,
+          isMixinClass: isMixinClass,
+          isSealed: isSealed,
+          compilationUnitScope: _compilationUnitScope,
+          indexedLibrary: indexedLibrary,
+        ),
+        // References are looked up in [BuilderFactoryImpl.applyMixin] when the
+        // [SourceClassBuilder] is created.
+        getterReference: null);
   }
 
   static TypeBuilder? applyMixins(
@@ -1481,10 +1475,7 @@ class BuilderFactoryImpl implements BuilderFactory, BuilderFactoryResult {
         fileUri: _compilationUnit.fileUri,
         fileOffset: charOffset,
         reference: reference);
-    _addFragment(fragment);
-    if (reference != null) {
-      loader.fragmentsCreatedWithReferences[reference] = fragment;
-    }
+    _addFragment(fragment, getterReference: reference);
   }
 
   @override
@@ -2603,7 +2594,7 @@ class BuilderFactoryImpl implements BuilderFactory, BuilderFactoryResult {
   }
 
   void _addFragment(Fragment fragment,
-      {Reference? getterReference, Reference? setterReference}) {
+      {required Reference? getterReference, Reference? setterReference}) {
     if (getterReference != null) {
       loader.fragmentsCreatedWithReferences[getterReference] = fragment;
     }

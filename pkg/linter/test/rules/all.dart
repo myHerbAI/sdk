@@ -5,10 +5,13 @@
 // ignore_for_file: library_prefixes
 
 import 'always_declare_return_types_test.dart' as always_declare_return_types;
+import 'always_put_control_body_on_new_line_test.dart'
+    as always_put_control_body_on_new_line;
 import 'always_put_required_named_parameters_first_test.dart'
     as always_put_required_named_parameters_first;
 import 'always_specify_types_test.dart' as always_specify_types;
 import 'always_use_package_imports_test.dart' as always_use_package_imports;
+import 'analyzer_use_new_elements_test.dart' as analyzer_use_new_elements;
 import 'annotate_overrides_test.dart' as annotate_overrides;
 import 'annotate_redeclares_test.dart' as annotate_redeclares;
 import 'avoid_annotating_with_dynamic_test.dart'
@@ -84,6 +87,7 @@ import 'cast_nullable_to_non_nullable_test.dart'
 import 'close_sinks_test.dart' as close_sinks;
 import 'collection_methods_unrelated_type_test.dart'
     as collection_methods_unrelated_type;
+import 'combinators_ordering_test.dart' as combinators_ordering;
 import 'comment_references_test.dart' as comment_references;
 import 'conditional_uri_does_not_exist_test.dart'
     as conditional_uri_does_not_exist;
@@ -119,7 +123,7 @@ import 'implicit_call_tearoffs_test.dart' as implicit_call_tearoffs;
 import 'implicit_reopen_test.dart' as implicit_reopen;
 import 'invalid_case_patterns_test.dart' as invalid_case_patterns;
 import 'invalid_runtime_check_with_js_interop_types_test.dart'
-    as invalid_runtime_check_with_js_interop_types_test;
+    as invalid_runtime_check_with_js_interop_types;
 import 'join_return_with_assignment_test.dart' as join_return_with_assignment;
 import 'leading_newlines_in_multiline_strings_test.dart'
     as leading_newlines_in_multiline_strings;
@@ -159,6 +163,7 @@ import 'omit_obvious_local_variable_types_test.dart'
 import 'one_member_abstracts_test.dart' as one_member_abstracts;
 import 'only_throw_errors_test.dart' as only_throw_errors;
 import 'overridden_fields_test.dart' as overridden_fields;
+import 'package_api_docs_test.dart' as package_api_docs;
 import 'package_names_test.dart' as package_names;
 import 'package_prefixed_library_names_test.dart'
     as package_prefixed_library_names;
@@ -196,11 +201,13 @@ import 'prefer_generic_function_type_aliases_test.dart'
     as prefer_generic_function_type_aliases;
 import 'prefer_if_elements_to_conditional_expressions_test.dart'
     as prefer_if_elements_to_conditional_expressions;
+import 'prefer_if_null_operators_test.dart' as prefer_if_null_operators;
 import 'prefer_initializing_formals_test.dart' as prefer_initializing_formals;
 import 'prefer_inlined_adds_test.dart' as prefer_inlined_adds;
 import 'prefer_int_literals_test.dart' as prefer_int_literals;
 import 'prefer_interpolation_to_compose_strings_test.dart'
     as prefer_interpolation_to_compose_strings;
+import 'prefer_is_empty_test.dart' as prefer_is_empty;
 import 'prefer_iterable_whereType_test.dart' as prefer_iterable_whereType;
 import 'prefer_mixin_test.dart' as prefer_mixin;
 import 'prefer_null_aware_method_calls_test.dart'
@@ -309,9 +316,11 @@ import 'void_checks_test.dart' as void_checks;
 
 void main() {
   always_declare_return_types.main();
+  always_put_control_body_on_new_line.main();
   always_put_required_named_parameters_first.main();
   always_specify_types.main();
   always_use_package_imports.main();
+  analyzer_use_new_elements.main();
   annotate_overrides.main();
   annotate_redeclares.main();
   avoid_annotating_with_dynamic.main();
@@ -362,6 +371,7 @@ void main() {
   cast_nullable_to_non_nullable.main();
   close_sinks.main();
   collection_methods_unrelated_type.main();
+  combinators_ordering.main();
   comment_references.main();
   conditional_uri_does_not_exist.main();
   constant_identifier_names.main();
@@ -389,7 +399,7 @@ void main() {
   implicit_call_tearoffs.main();
   implicit_reopen.main();
   invalid_case_patterns.main();
-  invalid_runtime_check_with_js_interop_types_test.main();
+  invalid_runtime_check_with_js_interop_types.main();
   join_return_with_assignment.main();
   leading_newlines_in_multiline_strings.main();
   library_annotations.main();
@@ -419,6 +429,7 @@ void main() {
   one_member_abstracts.main();
   only_throw_errors.main();
   overridden_fields.main();
+  package_api_docs.main();
   package_names.main();
   package_prefixed_library_names.main();
   parameter_assignments.main();
@@ -444,10 +455,12 @@ void main() {
   prefer_function_declarations_over_variables.main();
   prefer_generic_function_type_aliases.main();
   prefer_if_elements_to_conditional_expressions.main();
+  prefer_if_null_operators.main();
   prefer_initializing_formals.main();
   prefer_inlined_adds.main();
   prefer_int_literals.main();
   prefer_interpolation_to_compose_strings.main();
+  prefer_is_empty.main();
   prefer_iterable_whereType.main();
   prefer_mixin.main();
   prefer_null_aware_method_calls.main();

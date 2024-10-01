@@ -623,9 +623,9 @@ library
             set foo= @27
               reference: <testLibraryFragment>::@extension::E::@setter::foo
               element: <testLibraryFragment>::@extension::E::@setter::foo#element
-              parameters
+              formalParameters
                 value @35
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@extension::E::@setter::foo::@parameter::value#element
   extensions
     extension E
       firstFragment: <testLibraryFragment>::@extension::E
@@ -637,7 +637,7 @@ library
       setters
         set foo=
           firstFragment: <testLibraryFragment>::@extension::E::@setter::foo
-          parameters
+          formalParameters
             requiredPositional value
               type: int
 ''');
@@ -969,9 +969,9 @@ library
             set foo= @-1
               reference: <testLibraryFragment>::@extension::A::@setter::foo
               element: <testLibraryFragment>::@extension::A::@setter::foo#element
-              parameters
+              formalParameters
                 _foo @-1
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@extension::A::@setter::foo::@parameter::_foo#element
     <testLibrary>::@fragment::package:test/a.dart
       element: <testLibrary>
       previousFragment: <testLibraryFragment>
@@ -1000,7 +1000,7 @@ library
       setters
         synthetic static set foo=
           firstFragment: <testLibraryFragment>::@extension::A::@setter::foo
-          parameters
+          formalParameters
             requiredPositional _foo
               type: int
 ''');
@@ -1146,9 +1146,9 @@ library
             set foo= @-1
               reference: <testLibraryFragment>::@extension::A::@setter::foo
               element: <testLibraryFragment>::@extension::A::@setter::foo#element
-              parameters
+              formalParameters
                 _foo @-1
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@extension::A::@setter::foo::@parameter::_foo#element
     <testLibrary>::@fragment::package:test/a.dart
       element: <testLibrary>
       previousFragment: <testLibraryFragment>
@@ -1193,7 +1193,7 @@ library
       setters
         synthetic static set foo=
           firstFragment: <testLibraryFragment>::@extension::A::@setter::foo
-          parameters
+          formalParameters
             requiredPositional _foo
               type: int
 ''');
@@ -1340,9 +1340,9 @@ library
             set foo= @-1
               reference: <testLibraryFragment>::@extension::A::@setter::foo
               element: <testLibraryFragment>::@extension::A::@setter::foo#element
-              parameters
+              formalParameters
                 _foo @-1
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@extension::A::@setter::foo::@parameter::_foo#element
     <testLibrary>::@fragment::package:test/a.dart
       element: <testLibrary>
       previousFragment: <testLibraryFragment>
@@ -1386,7 +1386,7 @@ library
       setters
         synthetic static set foo=
           firstFragment: <testLibraryFragment>::@extension::A::@setter::foo
-          parameters
+          formalParameters
             requiredPositional _foo
               type: int
 ''');
@@ -1535,9 +1535,9 @@ library
             set foo= @-1
               reference: <testLibraryFragment>::@extension::A::@setter::foo
               element: <testLibraryFragment>::@extension::A::@setter::foo#element
-              parameters
+              formalParameters
                 _foo @-1
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@extension::A::@setter::foo::@parameter::_foo#element
               nextFragment: <testLibrary>::@fragment::package:test/a.dart::@extensionAugmentation::A::@setterAugmentation::foo
     <testLibrary>::@fragment::package:test/a.dart
       element: <testLibrary>
@@ -1553,9 +1553,9 @@ library
             augment set foo= @64
               reference: <testLibrary>::@fragment::package:test/a.dart::@extensionAugmentation::A::@setterAugmentation::foo
               element: <testLibraryFragment>::@extension::A::@setter::foo#element
-              parameters
+              formalParameters
                 _ @72
-                  element: <not-implemented>
+                  element: <testLibrary>::@fragment::package:test/a.dart::@extensionAugmentation::A::@setterAugmentation::foo::@parameter::_#element
               previousFragment: <testLibraryFragment>::@extension::A::@setter::foo
     <testLibrary>::@fragment::package:test/b.dart
       element: <testLibrary>
@@ -1585,7 +1585,7 @@ library
       setters
         synthetic static set foo=
           firstFragment: <testLibraryFragment>::@extension::A::@setter::foo
-          parameters
+          formalParameters
             requiredPositional _foo
               type: int
 ''');
@@ -1701,9 +1701,9 @@ library
             set foo= @-1
               reference: <testLibraryFragment>::@extension::A::@setter::foo
               element: <testLibraryFragment>::@extension::A::@setter::foo#element
-              parameters
+              formalParameters
                 _foo @-1
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@extension::A::@setter::foo::@parameter::_foo#element
     <testLibrary>::@fragment::package:test/a.dart
       element: <testLibrary>
       previousFragment: <testLibraryFragment>
@@ -1732,7 +1732,7 @@ library
       setters
         synthetic static set foo=
           firstFragment: <testLibraryFragment>::@extension::A::@setter::foo
-          parameters
+          formalParameters
             requiredPositional _foo
               type: int
 ''');
@@ -1988,9 +1988,9 @@ library
             set foo1= @-1
               reference: <testLibraryFragment>::@extension::A::@setter::foo1
               element: <testLibraryFragment>::@extension::A::@setter::foo1#element
-              parameters
+              formalParameters
                 _foo1 @-1
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@extension::A::@setter::foo1::@parameter::_foo1#element
     <testLibrary>::@fragment::package:test/a.dart
       element: <testLibrary>
       previousFragment: <testLibraryFragment>
@@ -2013,9 +2013,9 @@ library
             set foo2= @-1
               reference: <testLibrary>::@fragment::package:test/a.dart::@extensionAugmentation::A::@setter::foo2
               element: <testLibrary>::@fragment::package:test/a.dart::@extensionAugmentation::A::@setter::foo2#element
-              parameters
+              formalParameters
                 _foo2 @-1
-                  element: <not-implemented>
+                  element: <testLibrary>::@fragment::package:test/a.dart::@extensionAugmentation::A::@setter::foo2::@parameter::_foo2#element
   extensions
     extension A
       firstFragment: <testLibraryFragment>::@extension::A
@@ -2038,12 +2038,12 @@ library
       setters
         synthetic static set foo1=
           firstFragment: <testLibraryFragment>::@extension::A::@setter::foo1
-          parameters
+          formalParameters
             requiredPositional _foo1
               type: int
         synthetic static set foo2=
           firstFragment: <testLibrary>::@fragment::package:test/a.dart::@extensionAugmentation::A::@setter::foo2
-          parameters
+          formalParameters
             requiredPositional _foo2
               type: int
 ''');
@@ -2449,9 +2449,9 @@ library
             set foo= @-1
               reference: <testLibraryFragment>::@extension::A::@setter::foo
               element: <testLibraryFragment>::@extension::A::@setter::foo#element
-              parameters
+              formalParameters
                 _foo @-1
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@extension::A::@setter::foo::@parameter::_foo#element
     <testLibrary>::@fragment::package:test/a.dart
       element: <testLibrary>
       previousFragment: <testLibraryFragment>
@@ -2480,7 +2480,7 @@ library
       setters
         synthetic static set foo=
           firstFragment: <testLibraryFragment>::@extension::A::@setter::foo
-          parameters
+          formalParameters
             requiredPositional _foo
               type: int
 ''');
@@ -2626,9 +2626,9 @@ library
             set foo= @-1
               reference: <testLibraryFragment>::@extension::A::@setter::foo
               element: <testLibraryFragment>::@extension::A::@setter::foo#element
-              parameters
+              formalParameters
                 _foo @-1
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@extension::A::@setter::foo::@parameter::_foo#element
     <testLibrary>::@fragment::package:test/a.dart
       element: <testLibrary>
       previousFragment: <testLibraryFragment>
@@ -2673,7 +2673,7 @@ library
       setters
         synthetic static set foo=
           firstFragment: <testLibraryFragment>::@extension::A::@setter::foo
-          parameters
+          formalParameters
             requiredPositional _foo
               type: int
 ''');
@@ -3778,9 +3778,9 @@ library
             set foo1= @42
               reference: <testLibraryFragment>::@extension::A::@setter::foo1
               element: <testLibraryFragment>::@extension::A::@setter::foo1#element
-              parameters
+              formalParameters
                 _ @51
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@extension::A::@setter::foo1::@parameter::_#element
     <testLibrary>::@fragment::package:test/a.dart
       element: <testLibrary>
       previousFragment: <testLibraryFragment>
@@ -3798,9 +3798,9 @@ library
             set foo2= @49
               reference: <testLibrary>::@fragment::package:test/a.dart::@extensionAugmentation::A::@setter::foo2
               element: <testLibrary>::@fragment::package:test/a.dart::@extensionAugmentation::A::@setter::foo2#element
-              parameters
+              formalParameters
                 _ @58
-                  element: <not-implemented>
+                  element: <testLibrary>::@fragment::package:test/a.dart::@extensionAugmentation::A::@setter::foo2::@parameter::_#element
   extensions
     extension A
       firstFragment: <testLibraryFragment>::@extension::A
@@ -3816,12 +3816,12 @@ library
       setters
         set foo1=
           firstFragment: <testLibraryFragment>::@extension::A::@setter::foo1
-          parameters
+          formalParameters
             requiredPositional _
               type: int
         set foo2=
           firstFragment: <testLibrary>::@fragment::package:test/a.dart::@extensionAugmentation::A::@setter::foo2
-          parameters
+          formalParameters
             requiredPositional _
               type: int
 ''');
@@ -3939,9 +3939,9 @@ library
             set foo= @-1
               reference: <testLibraryFragment>::@extension::A::@setter::foo
               element: <testLibraryFragment>::@extension::A::@setter::foo#element
-              parameters
+              formalParameters
                 _foo @-1
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@extension::A::@setter::foo::@parameter::_foo#element
               nextFragment: <testLibrary>::@fragment::package:test/a.dart::@extensionAugmentation::A::@setterAugmentation::foo
     <testLibrary>::@fragment::package:test/a.dart
       element: <testLibrary>
@@ -3955,9 +3955,9 @@ library
             augment set foo= @64
               reference: <testLibrary>::@fragment::package:test/a.dart::@extensionAugmentation::A::@setterAugmentation::foo
               element: <testLibraryFragment>::@extension::A::@setter::foo#element
-              parameters
+              formalParameters
                 _ @72
-                  element: <not-implemented>
+                  element: <testLibrary>::@fragment::package:test/a.dart::@extensionAugmentation::A::@setterAugmentation::foo::@parameter::_#element
               previousFragment: <testLibraryFragment>::@extension::A::@setter::foo
   extensions
     extension A
@@ -3974,7 +3974,7 @@ library
       setters
         synthetic static set foo=
           firstFragment: <testLibraryFragment>::@extension::A::@setter::foo
-          parameters
+          formalParameters
             requiredPositional _foo
               type: int
 ''');
@@ -4100,16 +4100,16 @@ library
             set foo1= @42
               reference: <testLibraryFragment>::@extension::A::@setter::foo1
               element: <testLibraryFragment>::@extension::A::@setter::foo1#element
-              parameters
+              formalParameters
                 _ @51
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@extension::A::@setter::foo1::@parameter::_#element
               nextFragment: <testLibrary>::@fragment::package:test/a.dart::@extensionAugmentation::A::@setterAugmentation::foo1
             set foo2= @63
               reference: <testLibraryFragment>::@extension::A::@setter::foo2
               element: <testLibraryFragment>::@extension::A::@setter::foo2#element
-              parameters
+              formalParameters
                 _ @72
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@extension::A::@setter::foo2::@parameter::_#element
     <testLibrary>::@fragment::package:test/a.dart
       element: <testLibrary>
       previousFragment: <testLibraryFragment>
@@ -4122,9 +4122,9 @@ library
             augment set foo1= @57
               reference: <testLibrary>::@fragment::package:test/a.dart::@extensionAugmentation::A::@setterAugmentation::foo1
               element: <testLibraryFragment>::@extension::A::@setter::foo1#element
-              parameters
+              formalParameters
                 _ @66
-                  element: <not-implemented>
+                  element: <testLibrary>::@fragment::package:test/a.dart::@extensionAugmentation::A::@setterAugmentation::foo1::@parameter::_#element
               previousFragment: <testLibraryFragment>::@extension::A::@setter::foo1
   extensions
     extension A
@@ -4141,12 +4141,12 @@ library
       setters
         set foo2=
           firstFragment: <testLibraryFragment>::@extension::A::@setter::foo2
-          parameters
+          formalParameters
             requiredPositional _
               type: int
         set foo1=
           firstFragment: <testLibraryFragment>::@extension::A::@setter::foo1
-          parameters
+          formalParameters
             requiredPositional _
               type: int
 ''');

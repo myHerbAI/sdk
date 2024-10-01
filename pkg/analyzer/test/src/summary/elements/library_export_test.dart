@@ -863,7 +863,6 @@ library
       element: <testLibrary>
       libraryImports
         package:test/bar.dart
-          reference: <not-implemented>
       classes
         class B @25
           reference: <testLibraryFragment>::@class::B
@@ -934,7 +933,6 @@ library
       element: <testLibrary>
       libraryImports
         package:test/bar.dart
-          reference: <not-implemented>
       classes
         class B @25
           reference: <testLibraryFragment>::@class::B
@@ -1005,7 +1003,6 @@ library
       element: <testLibrary>
       libraryImports
         package:test/bar.dart
-          reference: <not-implemented>
       classes
         class B @25
           reference: <testLibraryFragment>::@class::B
@@ -1899,9 +1896,9 @@ library
         set a= @-1
           reference: <testLibrary>::@fragment::package:test/a.dart::@setter::a
           element: <testLibrary>::@fragment::package:test/a.dart::@setter::a#element
-          parameters
+          formalParameters
             _a @-1
-              element: <not-implemented>
+              element: <testLibrary>::@fragment::package:test/a.dart::@setter::a::@parameter::_a#element
   topLevelVariables
     a
       firstFragment: <testLibrary>::@fragment::package:test/a.dart::@topLevelVariable::a
@@ -1914,7 +1911,7 @@ library
   setters
     synthetic static set a=
       firstFragment: <testLibrary>::@fragment::package:test/a.dart::@setter::a
-      parameters
+      formalParameters
         requiredPositional _a
           type: int
   exportedReferences

@@ -696,124 +696,124 @@ class CompileTimeErrorCode extends AnalyzerErrorCode {
   );
 
   ///  Parameters:
-  ///  0: the name of the type variable
+  ///  0: the name of the type parameter
   static const CompileTimeErrorCode CONFLICTING_TYPE_VARIABLE_AND_CLASS =
       CompileTimeErrorCode(
     'CONFLICTING_TYPE_VARIABLE_AND_CONTAINER',
-    "'{0}' can't be used to name both a type variable and the class in which "
-        "the type variable is defined.",
-    correctionMessage: "Try renaming either the type variable or the class.",
+    "'{0}' can't be used to name both a type parameter and the class in which "
+        "the type parameter is defined.",
+    correctionMessage: "Try renaming either the type parameter or the class.",
     hasPublishedDocs: true,
     uniqueName: 'CONFLICTING_TYPE_VARIABLE_AND_CLASS',
   );
 
   ///  Parameters:
-  ///  0: the name of the type variable
+  ///  0: the name of the type parameter
   static const CompileTimeErrorCode CONFLICTING_TYPE_VARIABLE_AND_ENUM =
       CompileTimeErrorCode(
     'CONFLICTING_TYPE_VARIABLE_AND_CONTAINER',
-    "'{0}' can't be used to name both a type variable and the enum in which "
-        "the type variable is defined.",
-    correctionMessage: "Try renaming either the type variable or the enum.",
+    "'{0}' can't be used to name both a type parameter and the enum in which "
+        "the type parameter is defined.",
+    correctionMessage: "Try renaming either the type parameter or the enum.",
     hasPublishedDocs: true,
     uniqueName: 'CONFLICTING_TYPE_VARIABLE_AND_ENUM',
   );
 
   ///  Parameters:
-  ///  0: the name of the type variable
+  ///  0: the name of the type parameter
   static const CompileTimeErrorCode CONFLICTING_TYPE_VARIABLE_AND_EXTENSION =
       CompileTimeErrorCode(
     'CONFLICTING_TYPE_VARIABLE_AND_CONTAINER',
-    "'{0}' can't be used to name both a type variable and the extension in "
-        "which the type variable is defined.",
+    "'{0}' can't be used to name both a type parameter and the extension in "
+        "which the type parameter is defined.",
     correctionMessage:
-        "Try renaming either the type variable or the extension.",
+        "Try renaming either the type variaparameterble or the extension.",
     hasPublishedDocs: true,
     uniqueName: 'CONFLICTING_TYPE_VARIABLE_AND_EXTENSION',
   );
 
   ///  Parameters:
-  ///  0: the name of the type variable
+  ///  0: the name of the type parameter
   static const CompileTimeErrorCode
       CONFLICTING_TYPE_VARIABLE_AND_EXTENSION_TYPE = CompileTimeErrorCode(
     'CONFLICTING_TYPE_VARIABLE_AND_CONTAINER',
-    "'{0}' can't be used to name both a type variable and the extension type "
-        "in which the type variable is defined.",
+    "'{0}' can't be used to name both a type parameter and the extension type "
+        "in which the type parameter is defined.",
     correctionMessage:
-        "Try renaming either the type variable or the extension.",
+        "Try renaming either the type parameter or the extension.",
     hasPublishedDocs: true,
     uniqueName: 'CONFLICTING_TYPE_VARIABLE_AND_EXTENSION_TYPE',
   );
 
   ///  Parameters:
-  ///  0: the name of the type variable
+  ///  0: the name of the type parameter
   static const CompileTimeErrorCode CONFLICTING_TYPE_VARIABLE_AND_MEMBER_CLASS =
       CompileTimeErrorCode(
     'CONFLICTING_TYPE_VARIABLE_AND_MEMBER',
-    "'{0}' can't be used to name both a type variable and a member in this "
+    "'{0}' can't be used to name both a type parameter and a member in this "
         "class.",
-    correctionMessage: "Try renaming either the type variable or the member.",
+    correctionMessage: "Try renaming either the type parameter or the member.",
     hasPublishedDocs: true,
     uniqueName: 'CONFLICTING_TYPE_VARIABLE_AND_MEMBER_CLASS',
   );
 
   ///  Parameters:
-  ///  0: the name of the type variable
+  ///  0: the name of the type parameter
   static const CompileTimeErrorCode CONFLICTING_TYPE_VARIABLE_AND_MEMBER_ENUM =
       CompileTimeErrorCode(
     'CONFLICTING_TYPE_VARIABLE_AND_MEMBER',
-    "'{0}' can't be used to name both a type variable and a member in this "
+    "'{0}' can't be used to name both a type parameter and a member in this "
         "enum.",
-    correctionMessage: "Try renaming either the type variable or the member.",
+    correctionMessage: "Try renaming either the type parameter or the member.",
     hasPublishedDocs: true,
     uniqueName: 'CONFLICTING_TYPE_VARIABLE_AND_MEMBER_ENUM',
   );
 
   ///  Parameters:
-  ///  0: the name of the type variable
+  ///  0: the name of the type parameter
   static const CompileTimeErrorCode
       CONFLICTING_TYPE_VARIABLE_AND_MEMBER_EXTENSION = CompileTimeErrorCode(
     'CONFLICTING_TYPE_VARIABLE_AND_MEMBER',
-    "'{0}' can't be used to name both a type variable and a member in this "
+    "'{0}' can't be used to name both a type parameter and a member in this "
         "extension.",
-    correctionMessage: "Try renaming either the type variable or the member.",
+    correctionMessage: "Try renaming either the type parameter or the member.",
     hasPublishedDocs: true,
     uniqueName: 'CONFLICTING_TYPE_VARIABLE_AND_MEMBER_EXTENSION',
   );
 
   ///  Parameters:
-  ///  0: the name of the type variable
+  ///  0: the name of the type parameter
   static const CompileTimeErrorCode
       CONFLICTING_TYPE_VARIABLE_AND_MEMBER_EXTENSION_TYPE =
       CompileTimeErrorCode(
     'CONFLICTING_TYPE_VARIABLE_AND_MEMBER',
-    "'{0}' can't be used to name both a type variable and a member in this "
+    "'{0}' can't be used to name both a type parameter and a member in this "
         "extension type.",
-    correctionMessage: "Try renaming either the type variable or the member.",
+    correctionMessage: "Try renaming either the type parameter or the member.",
     hasPublishedDocs: true,
     uniqueName: 'CONFLICTING_TYPE_VARIABLE_AND_MEMBER_EXTENSION_TYPE',
   );
 
   ///  Parameters:
-  ///  0: the name of the type variable
+  ///  0: the name of the type parameter
   static const CompileTimeErrorCode CONFLICTING_TYPE_VARIABLE_AND_MEMBER_MIXIN =
       CompileTimeErrorCode(
     'CONFLICTING_TYPE_VARIABLE_AND_MEMBER',
-    "'{0}' can't be used to name both a type variable and a member in this "
+    "'{0}' can't be used to name both a type parameter and a member in this "
         "mixin.",
-    correctionMessage: "Try renaming either the type variable or the member.",
+    correctionMessage: "Try renaming either the type parameter or the member.",
     hasPublishedDocs: true,
     uniqueName: 'CONFLICTING_TYPE_VARIABLE_AND_MEMBER_MIXIN',
   );
 
   ///  Parameters:
-  ///  0: the name of the type variable
+  ///  0: the name of the type parameter
   static const CompileTimeErrorCode CONFLICTING_TYPE_VARIABLE_AND_MIXIN =
       CompileTimeErrorCode(
     'CONFLICTING_TYPE_VARIABLE_AND_CONTAINER',
-    "'{0}' can't be used to name both a type variable and the mixin in which "
-        "the type variable is defined.",
-    correctionMessage: "Try renaming either the type variable or the mixin.",
+    "'{0}' can't be used to name both a type parameter and the mixin in which "
+        "the type parameter is defined.",
+    correctionMessage: "Try renaming either the type parameter or the mixin.",
     hasPublishedDocs: true,
     uniqueName: 'CONFLICTING_TYPE_VARIABLE_AND_MIXIN',
   );
@@ -2979,7 +2979,7 @@ class CompileTimeErrorCode extends AnalyzerErrorCode {
   static const CompileTimeErrorCode INVALID_TYPE_ARGUMENT_IN_CONST_LIST =
       CompileTimeErrorCode(
     'INVALID_TYPE_ARGUMENT_IN_CONST_LITERAL',
-    "Constant list literals can't include a type parameter as a type argument, "
+    "Constant list literals can't use a type parameter in a type argument, "
         "such as '{0}'.",
     correctionMessage:
         "Try replacing the type parameter with a different type.",
@@ -2992,8 +2992,8 @@ class CompileTimeErrorCode extends AnalyzerErrorCode {
   static const CompileTimeErrorCode INVALID_TYPE_ARGUMENT_IN_CONST_MAP =
       CompileTimeErrorCode(
     'INVALID_TYPE_ARGUMENT_IN_CONST_LITERAL',
-    "Constant map literals can't include a type parameter as a type argument, "
-        "such as '{0}'.",
+    "Constant map literals can't use a type parameter in a type argument, such "
+        "as '{0}'.",
     correctionMessage:
         "Try replacing the type parameter with a different type.",
     hasPublishedDocs: true,
@@ -3005,8 +3005,8 @@ class CompileTimeErrorCode extends AnalyzerErrorCode {
   static const CompileTimeErrorCode INVALID_TYPE_ARGUMENT_IN_CONST_SET =
       CompileTimeErrorCode(
     'INVALID_TYPE_ARGUMENT_IN_CONST_LITERAL',
-    "Constant set literals can't include a type parameter as a type argument, "
-        "such as '{0}'.",
+    "Constant set literals can't use a type parameter in a type argument, such "
+        "as '{0}'.",
     correctionMessage:
         "Try replacing the type parameter with a different type.",
     hasPublishedDocs: true,
@@ -7550,6 +7550,7 @@ class WarningCode extends AnalyzerErrorCode {
     correctionMessage:
         "Try removing the default clause, or restructuring the preceding "
         "patterns.",
+    hasPublishedDocs: true,
   );
 
   ///  Parameters:
@@ -7673,6 +7674,7 @@ class WarningCode extends AnalyzerErrorCode {
     correctionMessage:
         "Try creating the file referenced by the URI, or try using a URI for a "
         "file that does exist.",
+    hasPublishedDocs: true,
   );
 
   ///  Parameters:

@@ -66,6 +66,7 @@ library kernel.ast;
 
 import 'dart:collection' show ListBase;
 import 'dart:convert' show utf8;
+import 'dart:typed_data';
 
 import 'package:_fe_analyzer_shared/src/type_inference/nullability_suffix.dart';
 import 'package:_fe_analyzer_shared/src/type_inference/type_analyzer_operations.dart'
@@ -73,9 +74,12 @@ import 'package:_fe_analyzer_shared/src/type_inference/type_analyzer_operations.
 import 'package:_fe_analyzer_shared/src/types/shared_type.dart'
     show
         SharedDynamicTypeStructure,
+        SharedNamedFunctionParameterStructure,
+        SharedFunctionTypeStructure,
         SharedInvalidTypeStructure,
         SharedNamedTypeStructure,
         SharedRecordTypeStructure,
+        SharedTypeParameterStructure,
         SharedTypeStructure,
         SharedVoidTypeStructure;
 
@@ -11603,7 +11607,9 @@ class InterfaceType extends TypeDeclarationType {
 }
 
 /// A possibly generic function type.
-class FunctionType extends DartType {
+class FunctionType extends DartType
+    implements
+        SharedFunctionTypeStructure<DartType, StructuralParameter, NamedType> {
   final List<StructuralParameter> typeParameters;
   final int requiredParameterCount;
   final List<DartType> positionalParameters;
@@ -11612,6 +11618,7 @@ class FunctionType extends DartType {
   @override
   final Nullability declaredNullability;
 
+  @override
   final DartType returnType;
 
   @override
@@ -11639,6 +11646,18 @@ class FunctionType extends DartType {
         Nullability.nonNullable => true,
         Nullability.legacy => true,
       };
+
+  @override
+  List<DartType> get positionalParameterTypes => positionalParameters;
+
+  @override
+  int get requiredPositionalParameterCount => requiredParameterCount;
+
+  @override
+  List<NamedType> get sortedNamedParameters => namedParameters;
+
+  @override
+  List<StructuralParameter> get typeFormals => typeParameters;
 
   @override
   R accept<R>(DartTypeVisitor<R> v) => v.visitFunctionType(this);
@@ -12174,7 +12193,10 @@ class ExtensionType extends TypeDeclarationType {
 
 /// A named parameter in [FunctionType].
 class NamedType extends Node
-    implements Comparable<NamedType>, SharedNamedTypeStructure<DartType> {
+    implements
+        Comparable<NamedType>,
+        SharedNamedTypeStructure<DartType>,
+        SharedNamedFunctionParameterStructure<DartType> {
   // Flag used for serialization if [isRequired].
   static const int FlagRequiredNamedType = 1 << 0;
 
@@ -12182,6 +12204,7 @@ class NamedType extends Node
   final String name;
   @override
   final DartType type;
+  @override
   final bool isRequired;
 
   const NamedType(this.name, this.type, {this.isRequired = false});
@@ -13206,7 +13229,8 @@ class TypeParameter extends TreeNode implements Annotatable {
 ///
 /// [StructuralParameter] objects should not be shared between different
 /// [FunctionType] objects.
-class StructuralParameter extends Node {
+class StructuralParameter extends Node
+    implements SharedTypeParameterStructure<DartType> {
   int flags = 0;
 
   String? name; // Cosmetic name.
@@ -13251,6 +13275,9 @@ class StructuralParameter extends Node {
 
   /// Variance of type parameter w.r.t. declaration on which it is defined.
   Variance? _variance;
+
+  @override
+  String get displayName => name ?? '<unknown>';
 
   Variance get variance => _variance ?? Variance.covariant;
 
@@ -14826,10 +14853,11 @@ class _ChildReplacer extends Transformer {
 }
 
 class Source {
+  static final Uint8List _emptySource = new Uint8List(0);
   final List<int>? lineStarts;
 
   /// A UTF8 encoding of the original source file.
-  final List<int> source;
+  final Uint8List source;
 
   final Uri? importUri;
 
@@ -14840,6 +14868,9 @@ class Source {
   String? cachedText;
 
   Source(this.lineStarts, this.source, this.importUri, this.fileUri);
+
+  Source.emptySource(this.lineStarts, this.importUri, this.fileUri)
+      : source = _emptySource;
 
   /// Return the text corresponding to [line] which is a 1-based line
   /// number. The returned line contains no line separators.

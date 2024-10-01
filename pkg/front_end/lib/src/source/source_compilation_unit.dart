@@ -4,8 +4,29 @@
 
 part of 'source_library_builder.dart';
 
-class SourceCompilationUnitImpl
-    implements SourceCompilationUnit, ProblemReporting {
+/// Enum that define what state a source compilation unit is in, in terms of how
+/// far in the compilation it has progressed. This is used to document and
+/// assert the requirements of individual methods within the
+/// [SourceCompilationUnitImpl].
+enum SourceCompilationUnitState {
+  initial,
+  importsAddedToScope,
+  ;
+
+  bool operator <(SourceCompilationUnitState other) => index < other.index;
+
+  // Coverage-ignore(suite): Not run.
+  bool operator <=(SourceCompilationUnitState other) => index <= other.index;
+
+  // Coverage-ignore(suite): Not run.
+  bool operator >(SourceCompilationUnitState other) => index > other.index;
+
+  bool operator >=(SourceCompilationUnitState other) => index >= other.index;
+}
+
+class SourceCompilationUnitImpl implements SourceCompilationUnit {
+  SourceCompilationUnitState _state = SourceCompilationUnitState.initial;
+
   @override
   final Uri fileUri;
 
@@ -20,9 +41,19 @@ class SourceCompilationUnitImpl
   @override
   final SourceLoader loader;
 
-  final SourceLibraryBuilder _sourceLibraryBuilder;
-
   SourceLibraryBuilder? _libraryBuilder;
+
+  /// The object used as the root for creating augmentation libraries.
+  // TODO(johnniwinther): Remove this once parts support augmentations.
+  final SourceCompilationUnit? _augmentationRoot;
+
+  // TODO(johnniwinther): Can we avoid this?
+  final bool? _referenceIsPartOwner;
+
+  // TODO(johnniwinther): Pass only the [Reference] instead.
+  final LibraryBuilder? _nameOrigin;
+
+  final LookupScope? _parentScope;
 
   /// Map used to find objects created in the [OutlineBuilder] from within
   /// the [DietListener].
@@ -31,6 +62,8 @@ class SourceCompilationUnitImpl
   OffsetMap? _offsetMap;
 
   LibraryBuilder? _partOfLibrary;
+
+  final LibraryProblemReporting _problemReporting;
 
   @override
   final List<Export> exporters = <Export>[];
@@ -82,8 +115,56 @@ class SourceCompilationUnitImpl
 
   late final LookupScope _scope;
 
-  SourceCompilationUnitImpl(this._sourceLibraryBuilder,
-      LibraryNameSpaceBuilder libraryNameSpaceBuilder,
+  @override
+  final bool mayImplementRestrictedTypes;
+
+  final Map<String, Builder>? _omittedTypeDeclarationBuilders;
+
+  factory SourceCompilationUnitImpl(
+      {required Uri importUri,
+      required Uri fileUri,
+      required Uri? packageUri,
+      required LanguageVersion packageLanguageVersion,
+      required Uri originImportUri,
+      required IndexedLibrary? indexedLibrary,
+      Map<String, Builder>? omittedTypeDeclarationBuilders,
+      LookupScope? parentScope,
+      required bool forAugmentationLibrary,
+      required SourceCompilationUnit? augmentationRoot,
+      required LibraryBuilder? nameOrigin,
+      required bool? referenceIsPartOwner,
+      required bool forPatchLibrary,
+      required bool isAugmenting,
+      required bool isUnsupported,
+      required SourceLoader loader,
+      required bool mayImplementRestrictedTypes}) {
+    LibraryName libraryName = new LibraryName(dummyLibrary.reference);
+    LibraryNameSpaceBuilder libraryNameSpaceBuilder =
+        new LibraryNameSpaceBuilder();
+    NameSpace importNameSpace = new NameSpaceImpl();
+    return new SourceCompilationUnitImpl._(libraryNameSpaceBuilder,
+        importUri: importUri,
+        fileUri: fileUri,
+        packageUri: packageUri,
+        packageLanguageVersion: packageLanguageVersion,
+        originImportUri: originImportUri,
+        indexedLibrary: indexedLibrary,
+        libraryName: libraryName,
+        omittedTypeDeclarationBuilders: omittedTypeDeclarationBuilders,
+        parentScope: parentScope,
+        importNameSpace: importNameSpace,
+        forAugmentationLibrary: forAugmentationLibrary,
+        augmentationRoot: augmentationRoot,
+        nameOrigin: nameOrigin,
+        referenceIsPartOwner: referenceIsPartOwner,
+        forPatchLibrary: forPatchLibrary,
+        isAugmenting: isAugmenting,
+        isUnsupported: isUnsupported,
+        loader: loader,
+        mayImplementRestrictedTypes: mayImplementRestrictedTypes);
+  }
+
+  SourceCompilationUnitImpl._(LibraryNameSpaceBuilder libraryNameSpaceBuilder,
       {required this.importUri,
       required this.fileUri,
       required Uri? packageUri,
@@ -92,31 +173,79 @@ class SourceCompilationUnitImpl
       required this.indexedLibrary,
       required LibraryName libraryName,
       Map<String, Builder>? omittedTypeDeclarationBuilders,
+      LookupScope? parentScope,
       required NameSpace importNameSpace,
       required this.forAugmentationLibrary,
+      required SourceCompilationUnit? augmentationRoot,
+      required LibraryBuilder? nameOrigin,
+      required bool? referenceIsPartOwner,
       required this.forPatchLibrary,
       required this.isAugmenting,
       required this.isUnsupported,
-      required this.loader})
+      required this.loader,
+      required this.mayImplementRestrictedTypes})
       : _libraryName = libraryName,
         _languageVersion = packageLanguageVersion,
         _packageUri = packageUri,
         _libraryNameSpaceBuilder = libraryNameSpaceBuilder,
-        _importNameSpace = importNameSpace {
+        _importNameSpace = importNameSpace,
+        _augmentationRoot = augmentationRoot,
+        _nameOrigin = nameOrigin,
+        _parentScope = parentScope,
+        _referenceIsPartOwner = referenceIsPartOwner,
+        _omittedTypeDeclarationBuilders = omittedTypeDeclarationBuilders,
+        _problemReporting = new LibraryProblemReporting(loader, fileUri) {
     _scope = new SourceLibraryBuilderScope(
         this, ScopeKind.typeParameters, 'library');
 
     // TODO(johnniwinther): Create these in [createOutlineBuilder].
     _builderFactoryResult = _builderFactory = new BuilderFactoryImpl(
         compilationUnit: this,
-        augmentationRoot: _sourceLibraryBuilder,
-        parent: _sourceLibraryBuilder,
+        augmentationRoot: augmentationRoot ?? this,
         libraryNameSpaceBuilder: libraryNameSpaceBuilder,
-        problemReporting: this,
+        problemReporting: _problemReporting,
         scope: _scope,
         libraryName: _libraryName,
         indexedLibrary: indexedLibrary,
         omittedTypeDeclarationBuilders: omittedTypeDeclarationBuilders);
+  }
+
+  SourceCompilationUnitState get state => _state;
+
+  void set state(SourceCompilationUnitState value) {
+    assert(_state < value,
+        "State $value has already been reached at $_state in $this.");
+    assert(
+        _state.index + 1 == value.index,
+        _state.index + 1 < SourceCompilationUnitState.values.length
+            ? "Expected state "
+                "${SourceCompilationUnitState.values[_state.index + 1]} "
+                "to follow from $_state, trying to set next state to $value "
+                "in $this."
+            : "No more states expected to follow from $_state, trying to set "
+                "next state to $value in $this.");
+    _state = value;
+  }
+
+  bool checkState(
+      {List<SourceCompilationUnitState>? required,
+      List<SourceCompilationUnitState>? pending}) {
+    if (required != null) {
+      for (SourceCompilationUnitState requiredState in required) {
+        assert(state >= requiredState,
+            "State $requiredState required, but found $state in $this.");
+      }
+    }
+    if (pending != null) {
+      // Coverage-ignore-block(suite): Not run.
+      for (SourceCompilationUnitState pendingState in pending) {
+        assert(
+            state < pendingState,
+            "State $pendingState must not have been reached, "
+            "but found $state in $this.");
+      }
+    }
+    return true;
   }
 
   @override
@@ -158,7 +287,7 @@ class SourceCompilationUnitImpl
       List<LocatedMessage>? context,
       Severity? severity,
       bool problemOnLibrary = false}) {
-    _sourceLibraryBuilder.addProblem(message, charOffset, length, fileUri,
+    _problemReporting.addProblem(message, charOffset, length, fileUri,
         wasHandled: wasHandled,
         context: context,
         severity: severity,
@@ -320,17 +449,39 @@ class SourceCompilationUnitImpl
   }
 
   @override
-  SourceLibraryBuilder createLibrary() {
+  SourceLibraryBuilder createLibrary([Library? library]) {
     assert(_libraryBuilder == null,
         "Source library builder as already been created for $this.");
-    _libraryBuilder = _sourceLibraryBuilder;
+    SourceLibraryBuilder libraryBuilder = _libraryBuilder =
+        new SourceLibraryBuilder(
+            compilationUnit: this,
+            importUri: importUri,
+            fileUri: fileUri,
+            packageUri: _packageUri,
+            originImportUri: originImportUri,
+            packageLanguageVersion: packageLanguageVersion,
+            loader: loader,
+            nameOrigin: _nameOrigin,
+            origin: _augmentationRoot?.libraryBuilder,
+            target: library,
+            indexedLibrary: indexedLibrary,
+            referenceIsPartOwner: _referenceIsPartOwner,
+            isUnsupported: isUnsupported,
+            isAugmentation: forAugmentationLibrary,
+            isPatch: forPatchLibrary,
+            parentScope: _parentScope,
+            libraryName: _libraryName,
+            importNameSpace: _importNameSpace,
+            libraryNameSpaceBuilder: _libraryNameSpaceBuilder,
+            omittedTypes: _omittedTypeDeclarationBuilders);
+    _problemReporting.registerLibrary(libraryBuilder.library);
     if (isPart) {
       // Coverage-ignore-block(suite): Not run.
       // This is a part with no enclosing library.
       addProblem(messagePartOrphan, 0, 1, fileUri);
       _clearPartsAndReportExporters();
     }
-    return _sourceLibraryBuilder;
+    return libraryBuilder;
   }
 
   @override
@@ -356,6 +507,9 @@ class SourceCompilationUnitImpl
 
   @override
   void addDependencies(Library library, Set<SourceCompilationUnit> seen) {
+    assert(
+        checkState(required: [SourceCompilationUnitState.importsAddedToScope]));
+
     if (!seen.add(this)) {
       return;
     }
@@ -368,15 +522,16 @@ class SourceCompilationUnitImpl
       }
 
       LibraryDependency libraryDependency;
-      if (import.deferred && import.prefixBuilder?.dependency != null) {
-        libraryDependency = import.prefixBuilder!.dependency!;
+      if (import.deferred &&
+          import.prefixFragment?.builder.dependency != null) {
+        libraryDependency = import.prefixFragment!.builder.dependency!;
       } else {
         LibraryBuilder imported = import.importedLibraryBuilder!.origin;
         Library targetLibrary = imported.library;
         libraryDependency = new LibraryDependency.import(targetLibrary,
             name: import.prefix,
             combinators: toKernelCombinators(import.combinators))
-          ..fileOffset = import.charOffset;
+          ..fileOffset = import.importOffset;
       }
       library.addDependency(libraryDependency);
       import.libraryDependency = libraryDependency;
@@ -399,8 +554,6 @@ class SourceCompilationUnitImpl
 
   @override
   LookupScope get scope => _scope;
-
-  NameSpace get _nameSpace => _sourceLibraryBuilder.nameSpace;
 
   @override
   void takeMixinApplications(
@@ -568,11 +721,6 @@ class SourceCompilationUnitImpl
     libraryNameSpaceBuilder.includeBuilders(_libraryNameSpaceBuilder);
     _libraryName.reference = libraryBuilder.libraryName.reference;
 
-    // TODO(johnniwinther): Avoid these. The compilation unit should not have
-    // a name space and its import scope should be nested within its parent's
-    // import scope.
-    _sourceLibraryBuilder._importScope = libraryBuilder.importScope;
-
     // TODO(ahe): Include metadata from part?
 
     // Recovery: Take on all exporters (i.e. if a library has erroneously
@@ -584,16 +732,7 @@ class SourceCompilationUnitImpl
     // Check that the targets are different. This is not normally a problem
     // but is for augmentation libraries.
 
-    Library library = _sourceLibraryBuilder.library;
-    if (libraryBuilder.library != library && library.problemsAsJson != null) {
-      (libraryBuilder.library.problemsAsJson ??= <String>[])
-          .addAll(library.problemsAsJson!);
-    }
-    if (libraryBuilder.library != library) {
-      // Mark the part library as synthetic as it's not an actual library
-      // (anymore).
-      library.isSynthetic = true;
-    }
+    _problemReporting.registerLibrary(libraryBuilder.library);
   }
 
   @override
@@ -660,6 +799,8 @@ class SourceCompilationUnitImpl
       required String? prefix,
       required List<CombinatorBuilder>? combinators,
       required bool deferred}) {
+    assert(
+        checkState(pending: [SourceCompilationUnitState.importsAddedToScope]));
     _builderFactory.addImport(
         metadata: null,
         isAugmentationImport: false,
@@ -670,12 +811,13 @@ class SourceCompilationUnitImpl
         deferred: deferred,
         charOffset: -1,
         prefixCharOffset: -1,
-        uriOffset: -1,
-        importIndex: -1);
+        uriOffset: -1);
   }
 
   @override
   void addImportsToScope() {
+    assert(checkState(required: [SourceCompilationUnitState.initial]));
+
     bool hasCoreImport = originImportUri == dartCore &&
         // Coverage-ignore(suite): Not run.
         !forPatchLibrary;
@@ -685,7 +827,7 @@ class SourceCompilationUnitImpl
         addProblem(
             templatePartOfInLibrary
                 .withArguments(import.importedCompilationUnit!.fileUri),
-            import.charOffset,
+            import.importOffset,
             noLength,
             fileUri);
       }
@@ -699,30 +841,35 @@ class SourceCompilationUnitImpl
           .filteredNameIterator(
               includeDuplicates: false, includeAugmentations: false);
       while (iterator.moveNext()) {
-        addToScope(iterator.name, iterator.current, -1, true);
+        addImportedBuilderToScope(
+            name: iterator.name, builder: iterator.current, charOffset: -1);
       }
     }
+
+    state = SourceCompilationUnitState.importsAddedToScope;
   }
 
   @override
-  void addToScope(String name, Builder member, int charOffset, bool isImport) {
+  void addImportedBuilderToScope(
+      {required String name,
+      required Builder builder,
+      required int charOffset}) {
     Builder? existing =
-        _importNameSpace.lookupLocalMember(name, setter: member.isSetter);
+        _importNameSpace.lookupLocalMember(name, setter: builder.isSetter);
     if (existing != null) {
-      if (existing != member) {
+      if (existing != builder) {
         _importNameSpace.addLocalMember(
             name,
-            computeAmbiguousDeclarationForScope(
-                this, _nameSpace, name, existing, member,
-                uriOffset: new UriOffset(fileUri, charOffset),
-                isImport: isImport),
-            setter: member.isSetter);
+            computeAmbiguousDeclarationForImport(
+                _problemReporting, name, existing, builder,
+                uriOffset: new UriOffset(fileUri, charOffset)),
+            setter: builder.isSetter);
       }
     } else {
-      _importNameSpace.addLocalMember(name, member, setter: member.isSetter);
+      _importNameSpace.addLocalMember(name, builder, setter: builder.isSetter);
     }
-    if (member.isExtension) {
-      _importNameSpace.addExtension(member as ExtensionBuilder);
+    if (builder.isExtension) {
+      _importNameSpace.addExtension(builder as ExtensionBuilder);
     }
   }
 
@@ -746,10 +893,17 @@ class SourceCompilationUnitImpl
 
   @override
   int finishDeferredLoadTearOffs(Library library) {
+    assert(
+        checkState(required: [SourceCompilationUnitState.importsAddedToScope]));
+
     int total = 0;
     for (Import import in _builderFactoryResult.imports) {
       if (import.deferred) {
-        Procedure? tearoff = import.prefixBuilder!.loadLibraryBuilder!.tearoff;
+        Procedure? tearoff =
+            import.prefixFragment!.builder.loadLibraryBuilder?.tearoff;
+        // In case of conflict between deferred and non-deferred prefixes of
+        // the same name, the [PrefixBuilder] might not have a load library
+        // function.
         if (tearoff != null) {
           library.addProcedure(tearoff);
         }
@@ -963,18 +1117,17 @@ class SourceCompilationUnitImpl
           }
         });
       } else {
+        // Coverage-ignore-block(suite): Not run.
         assert(
             declaration is PrefixBuilder ||
-                // Coverage-ignore(suite): Not run.
                 declaration is DynamicTypeDeclarationBuilder ||
-                // Coverage-ignore(suite): Not run.
                 declaration is NeverTypeDeclarationBuilder,
             "Unexpected top level member $declaration "
             "(${declaration.runtimeType}).");
       }
     }
 
-    Iterator<Builder> iterator = _sourceLibraryBuilder.localMembersIterator;
+    Iterator<Builder> iterator = libraryBuilder.localMembersIterator;
     while (iterator.moveNext()) {
       computeDefaultValuesForDeclaration(iterator.current);
     }
@@ -1076,7 +1229,7 @@ class SourceCompilationUnitImpl
   int computeVariances() {
     int count = 0;
 
-    Iterator<Builder> iterator = _sourceLibraryBuilder.localMembersIterator;
+    Iterator<Builder> iterator = libraryBuilder.localMembersIterator;
     while (iterator.moveNext()) {
       Builder? declaration = iterator.current;
       while (declaration != null) {
@@ -1100,57 +1253,101 @@ class SourceCompilationUnitImpl
   @override
   Message reportFeatureNotEnabled(
       LibraryFeature feature, Uri fileUri, int charOffset, int length) {
-    return _sourceLibraryBuilder.reportFeatureNotEnabled(
-        feature, fileUri, charOffset, length);
+    assert(!feature.isEnabled);
+    Message message;
+    if (feature.isSupported) {
+      // TODO(johnniwinther): Ideally the error should actually be special-cased
+      // to mention that it is an experimental feature.
+      String enabledVersionText = feature.flag.isEnabledByDefault
+          ? feature.enabledVersion.toText()
+          : "the current release";
+      if (_languageVersion.isExplicit) {
+        message = templateExperimentOptOutExplicit.withArguments(
+            feature.flag.name, enabledVersionText);
+        addProblem(message, charOffset, length, fileUri,
+            context: <LocatedMessage>[
+              templateExperimentOptOutComment
+                  .withArguments(feature.flag.name)
+                  .withLocation(_languageVersion.fileUri!,
+                      _languageVersion.charOffset, _languageVersion.charCount)
+            ]);
+      } else {
+        message = templateExperimentOptOutImplicit.withArguments(
+            feature.flag.name, enabledVersionText);
+        addProblem(message, charOffset, length, fileUri);
+      }
+    } else {
+      if (feature.flag.isEnabledByDefault) {
+        // Coverage-ignore-block(suite): Not run.
+        if (_languageVersion.version < feature.enabledVersion) {
+          message =
+              templateExperimentDisabledInvalidLanguageVersion.withArguments(
+                  feature.flag.name, feature.enabledVersion.toText());
+          addProblem(message, charOffset, length, fileUri);
+        } else {
+          message = templateExperimentDisabled.withArguments(feature.flag.name);
+          addProblem(message, charOffset, length, fileUri);
+        }
+      } else {
+        message = templateExperimentNotEnabledOffByDefault
+            .withArguments(feature.flag.name);
+        addProblem(message, charOffset, length, fileUri);
+      }
+    }
+    return message;
   }
 
   @override
-  bool addPrefixBuilder(
-      String name, PrefixBuilder prefixBuilder, int charOffset) {
-    Builder? existing = _nameSpace.lookupLocalMember(name, setter: false);
-    ProblemReporting _problemReporting = this;
+  bool addPrefixFragment(
+      String name, PrefixFragment prefixFragment, int charOffset) {
+    Builder? existing =
+        libraryBuilder.prefixNameSpace.lookupLocalMember(name, setter: false);
+    existing ??=
+        libraryBuilder.libraryNameSpace.lookupLocalMember(name, setter: false);
     if (existing is PrefixBuilder) {
       assert(existing.next is! PrefixBuilder);
-      Builder? deferred;
-      Builder? other;
-      if (prefixBuilder.deferred) {
-        deferred = prefixBuilder;
-        other = existing;
+      int? deferredFileOffset;
+      int? otherFileOffset;
+      if (prefixFragment.deferred) {
+        deferredFileOffset = prefixFragment.prefixOffset;
+        otherFileOffset = existing.charOffset;
       } else if (existing.deferred) {
-        deferred = existing;
-        other = prefixBuilder;
+        deferredFileOffset = existing.charOffset;
+        otherFileOffset = prefixFragment.prefixOffset;
       }
-      if (deferred != null) {
-        // Coverage-ignore-block(suite): Not run.
+      if (deferredFileOffset != null) {
         _problemReporting.addProblem(
             templateDeferredPrefixDuplicated.withArguments(name),
-            deferred.charOffset,
+            deferredFileOffset,
             noLength,
             fileUri,
             context: [
               templateDeferredPrefixDuplicatedCause
                   .withArguments(name)
-                  .withLocation(fileUri, other!.charOffset, noLength)
+                  .withLocation(fileUri, otherFileOffset!, noLength)
             ]);
       }
-      existing.mergeScopes(prefixBuilder, _problemReporting, _nameSpace,
-          uriOffset: new UriOffset(fileUri, charOffset));
+      prefixFragment.builder = existing;
       return false;
-    } else if (isDuplicatedDeclaration(existing, prefixBuilder)) {
+    } else if (existing != null) {
       String fullName = name;
       _problemReporting.addProblem(
           templateDuplicatedDeclaration.withArguments(fullName),
           charOffset,
           fullName.length,
-          prefixBuilder.fileUri,
+          prefixFragment.fileUri,
           context: <LocatedMessage>[
             templateDuplicatedDeclarationCause
                 .withArguments(fullName)
                 .withLocation(
-                    existing!.fileUri!, existing.charOffset, fullName.length)
+                    existing.fileUri!, existing.charOffset, fullName.length)
           ]);
     }
-    _nameSpace.addLocalMember(name, prefixBuilder, setter: false);
+    // TODO(johnniwinther): For enhanced parts, this should be the prefix name
+    //  space for the compilation unit.
+    libraryBuilder.prefixNameSpace.addLocalMember(
+        name, prefixFragment.createPrefixBuilder(),
+        setter: false);
     return true;
   }
 }

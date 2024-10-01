@@ -76,10 +76,10 @@ library
             X @21
               reference: <testLibraryFragment>::@class::A::@method::X
               element: <testLibraryFragment>::@class::A::@method::X#element
-              parameters
+              formalParameters
                 default a @32
                   reference: <testLibraryFragment>::@class::A::@method::X::@parameter::a
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@class::A::@method::X::@parameter::a#element
   classes
     class A
       firstFragment: <testLibraryFragment>::@class::A
@@ -91,7 +91,7 @@ library
       methods
         abstract X
           firstFragment: <testLibraryFragment>::@class::A::@method::X
-          parameters
+          formalParameters
             optionalNamed a
               firstFragment: <testLibraryFragment>::@class::A::@method::X::@parameter::a
               type: List<T>
@@ -200,10 +200,10 @@ library
             const new @82
               reference: <testLibraryFragment>::@class::X::@constructor::new
               element: <testLibraryFragment>::@class::X::@constructor::new#element
-              parameters
+              formalParameters
                 default this.f @90
                   reference: <testLibraryFragment>::@class::X::@constructor::new::@parameter::f
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@class::X::@constructor::new::@parameter::f#element
           getters
             get f @-1
               reference: <testLibraryFragment>::@class::X::@getter::f
@@ -222,9 +222,9 @@ library
           typeParameters
             T @39
               element: <not-implemented>
-          parameters
+          formalParameters
             v @44
-              element: <not-implemented>
+              element: <testLibraryFragment>::@function::defaultF::@parameter::v#element
   classes
     class X
       firstFragment: <testLibraryFragment>::@class::X
@@ -239,7 +239,7 @@ library
       constructors
         const new
           firstFragment: <testLibraryFragment>::@class::X::@constructor::new
-          parameters
+          formalParameters
             optionalNamed final f
               firstFragment: <testLibraryFragment>::@class::X::@constructor::new::@parameter::f
               type: void Function(dynamic)
@@ -260,7 +260,7 @@ library
       firstFragment: <testLibraryFragment>::@function::defaultF
       typeParameters
         T
-      parameters
+      formalParameters
         requiredPositional v
           type: T
       returnType: void
@@ -369,10 +369,10 @@ library
             foo @45
               reference: <testLibraryFragment>::@class::B::@method::foo
               element: <testLibraryFragment>::@class::B::@method::foo#element
-              parameters
+              formalParameters
                 default a @50
                   reference: <testLibraryFragment>::@class::B::@method::foo::@parameter::a
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@class::B::@method::foo::@parameter::a#element
   classes
     class A
       firstFragment: <testLibraryFragment>::@class::A
@@ -389,7 +389,7 @@ library
       methods
         foo
           firstFragment: <testLibraryFragment>::@class::B::@method::foo
-          parameters
+          formalParameters
             optionalNamed a
               firstFragment: <testLibraryFragment>::@class::B::@method::foo::@parameter::a
               type: dynamic
@@ -428,16 +428,16 @@ library
         f @5
           reference: <testLibraryFragment>::@function::f
           element: <testLibraryFragment>::@function::f#element
-          parameters
+          formalParameters
             g @8
-              element: <not-implemented>
+              element: <testLibraryFragment>::@function::f::@parameter::g#element
   functions
     f
       firstFragment: <testLibraryFragment>::@function::f
-      parameters
+      formalParameters
         requiredPositional g
           type: dynamic Function({dynamic a})
-          parameters
+          formalParameters
             optionalNamed a
               type: dynamic
       returnType: void
@@ -492,13 +492,13 @@ library
         f @5
           reference: <testLibraryFragment>::@function::f
           element: <testLibraryFragment>::@function::f#element
-          parameters
+          formalParameters
             default compare @22
-              element: <not-implemented>
+              element: <testLibraryFragment>::@function::f::@parameter::compare#element
   functions
     f
       firstFragment: <testLibraryFragment>::@function::f
-      parameters
+      formalParameters
         optionalPositional compare
           type: int Function(InvalidType, InvalidType)
             alias: dart:core::<fragment>::@typeAlias::Comparator
@@ -566,14 +566,14 @@ library
         f @5
           reference: <testLibraryFragment>::@function::f
           element: <testLibraryFragment>::@function::f#element
-          parameters
+          formalParameters
             default x @28
               reference: <testLibraryFragment>::@function::f::@parameter::x
-              element: <not-implemented>
+              element: <testLibraryFragment>::@function::f::@parameter::x#element
   functions
     f
       firstFragment: <testLibraryFragment>::@function::f
-      parameters
+      formalParameters
         optionalNamed x
           firstFragment: <testLibraryFragment>::@function::f::@parameter::x
           type: ({int f1, bool f2})
@@ -640,14 +640,14 @@ library
         f @5
           reference: <testLibraryFragment>::@function::f
           element: <testLibraryFragment>::@function::f#element
-          parameters
+          formalParameters
             default x @28
               reference: <testLibraryFragment>::@function::f::@parameter::x
-              element: <not-implemented>
+              element: <testLibraryFragment>::@function::f::@parameter::x#element
   functions
     f
       firstFragment: <testLibraryFragment>::@function::f
-      parameters
+      formalParameters
         optionalNamed x
           firstFragment: <testLibraryFragment>::@function::f::@parameter::x
           type: ({int f1, bool f2})
@@ -697,14 +697,14 @@ library
         f @5
           reference: <testLibraryFragment>::@function::f
           element: <testLibraryFragment>::@function::f#element
-          parameters
+          formalParameters
             default x @20
               reference: <testLibraryFragment>::@function::f::@parameter::x
-              element: <not-implemented>
+              element: <testLibraryFragment>::@function::f::@parameter::x#element
   functions
     f
       firstFragment: <testLibraryFragment>::@function::f
-      parameters
+      formalParameters
         optionalNamed x
           firstFragment: <testLibraryFragment>::@function::f::@parameter::x
           type: (int, bool)
@@ -755,14 +755,14 @@ library
         f @5
           reference: <testLibraryFragment>::@function::f
           element: <testLibraryFragment>::@function::f#element
-          parameters
+          formalParameters
             default x @20
               reference: <testLibraryFragment>::@function::f::@parameter::x
-              element: <not-implemented>
+              element: <testLibraryFragment>::@function::f::@parameter::x#element
   functions
     f
       firstFragment: <testLibraryFragment>::@function::f
-      parameters
+      formalParameters
         optionalNamed x
           firstFragment: <testLibraryFragment>::@function::f::@parameter::x
           type: (int, bool)
@@ -841,9 +841,9 @@ library
             g @65
               reference: <testLibraryFragment>::@extension::E::@method::g
               element: <testLibraryFragment>::@extension::E::@method::g#element
-              parameters
+              formalParameters
                 default p @75
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@extension::E::@method::g::@parameter::p#element
   classes
     class A
       firstFragment: <testLibraryFragment>::@class::A
@@ -858,7 +858,7 @@ library
           firstFragment: <testLibraryFragment>::@extension::E::@method::f
         static g
           firstFragment: <testLibraryFragment>::@extension::E::@method::g
-          parameters
+          formalParameters
             optionalPositional p
               type: Object
 ''');
@@ -955,9 +955,9 @@ library
             foo @50
               reference: <testLibraryFragment>::@class::C::@method::foo
               element: <testLibraryFragment>::@class::C::@method::foo#element
-              parameters
+              formalParameters
                 default b @70
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@class::C::@method::foo::@parameter::b#element
   classes
     class B
       firstFragment: <testLibraryFragment>::@class::B
@@ -975,7 +975,7 @@ library
       methods
         foo
           firstFragment: <testLibraryFragment>::@class::C::@method::foo
-          parameters
+          formalParameters
             optionalPositional b
               type: B<int, double>
 ''');
@@ -1065,9 +1065,9 @@ library
             const new @49
               reference: <testLibraryFragment>::@class::C::@constructor::new
               element: <testLibraryFragment>::@class::C::@constructor::new#element
-              parameters
+              formalParameters
                 default b @57
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@class::C::@constructor::new::@parameter::b#element
   classes
     class B
       firstFragment: <testLibraryFragment>::@class::B
@@ -1083,7 +1083,7 @@ library
       constructors
         const new
           firstFragment: <testLibraryFragment>::@class::C::@constructor::new
-          parameters
+          formalParameters
             optionalPositional b
               type: B<T>
 ''');
@@ -1198,9 +1198,9 @@ library
             const new @114
               reference: <testLibraryFragment>::@class::C::@constructor::new
               element: <testLibraryFragment>::@class::C::@constructor::new#element
-              parameters
+              formalParameters
                 default a @122
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@class::C::@constructor::new::@parameter::a#element
   classes
     abstract class A
       firstFragment: <testLibraryFragment>::@class::A
@@ -1223,7 +1223,7 @@ library
       constructors
         const new
           firstFragment: <testLibraryFragment>::@class::C::@constructor::new
-          parameters
+          formalParameters
             optionalPositional a
               type: A<T>
 ''');
@@ -1306,9 +1306,9 @@ library
           typeParameters
             T @37
               element: <not-implemented>
-          parameters
+          formalParameters
             default b @46
-              element: <not-implemented>
+              element: <testLibraryFragment>::@function::foo::@parameter::b#element
   classes
     class B
       firstFragment: <testLibraryFragment>::@class::B
@@ -1322,7 +1322,7 @@ library
       firstFragment: <testLibraryFragment>::@function::foo
       typeParameters
         T
-      parameters
+      formalParameters
         optionalPositional b
           type: B<T>
       returnType: void
@@ -1422,9 +1422,9 @@ library
               typeParameters
                 T @49
                   element: <not-implemented>
-              parameters
+              formalParameters
                 default b @58
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@class::C::@method::foo::@parameter::b#element
   classes
     class B
       firstFragment: <testLibraryFragment>::@class::B
@@ -1443,7 +1443,7 @@ library
           firstFragment: <testLibraryFragment>::@class::C::@method::foo
           typeParameters
             T
-          parameters
+          formalParameters
             optionalPositional b
               type: B<T>
 ''');
@@ -1552,9 +1552,9 @@ library
               typeParameters
                 E2 @58
                   element: <not-implemented>
-              parameters
+              formalParameters
                 default b @73
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@class::C::@method::foo::@parameter::b#element
   classes
     class B
       firstFragment: <testLibraryFragment>::@class::B
@@ -1576,7 +1576,7 @@ library
           firstFragment: <testLibraryFragment>::@class::C::@method::foo
           typeParameters
             E2
-          parameters
+          formalParameters
             optionalPositional b
               type: B<E1, E2>
 ''');
@@ -1675,9 +1675,9 @@ library
             foo @48
               reference: <testLibraryFragment>::@class::C::@method::foo
               element: <testLibraryFragment>::@class::C::@method::foo#element
-              parameters
+              formalParameters
                 default b @58
-                  element: <not-implemented>
+                  element: <testLibraryFragment>::@class::C::@method::foo::@parameter::b#element
   classes
     class B
       firstFragment: <testLibraryFragment>::@class::B
@@ -1696,7 +1696,7 @@ library
       methods
         foo
           firstFragment: <testLibraryFragment>::@class::C::@method::foo
-          parameters
+          formalParameters
             optionalPositional b
               type: B<T>
 ''');

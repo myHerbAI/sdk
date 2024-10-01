@@ -28,6 +28,8 @@ import 'package:analyzer/src/fasta/token_utils.dart' as util show findPrevious;
 import 'package:analyzer/src/generated/inference_log.dart';
 import 'package:analyzer/src/generated/resolver.dart';
 import 'package:analyzer/src/generated/utilities_dart.dart';
+import 'package:analyzer/src/utilities/extensions/element.dart';
+import 'package:analyzer/src/utilities/extensions/object.dart';
 import 'package:collection/collection.dart';
 import 'package:meta/meta.dart';
 
@@ -800,13 +802,7 @@ final class AssignedVariablePatternImpl extends VariablePatternImpl
   @experimental
   @override
   Element2? get element2 {
-    var element = this.element;
-    if (element case Fragment fragment) {
-      return fragment.element;
-    } else if (element case Element2 element) {
-      return element;
-    }
-    return null;
+    return element.asElement2;
   }
 
   @override
@@ -2627,10 +2623,7 @@ final class CatchClauseParameterImpl extends AstNodeImpl
   @experimental
   @override
   LocalVariableElement2? get declaredElement2 {
-    if (declaredElement case LocalVariableElementImpl element) {
-      return LocalVariableElementImpl2(element);
-    }
-    return null;
+    return declaredElement.asElement2 as LocalVariableElementImpl2?;
   }
 
   @override
@@ -3772,14 +3765,7 @@ base mixin CompoundAssignmentExpressionImpl
 
   @experimental
   @override
-  Element2? get writeElement2 {
-    if (writeElement case Fragment fragment) {
-      return fragment.element;
-    } else if (writeElement case Element2 element) {
-      return element;
-    }
-    return null;
-  }
+  Element2? get writeElement2 => writeElement.asElement2;
 }
 
 /// A conditional expression.
@@ -4963,10 +4949,7 @@ final class DeclaredIdentifierImpl extends DeclarationImpl
   @experimental
   @override
   LocalVariableElement2? get declaredElement2 {
-    if (declaredElement case LocalVariableElementImpl element) {
-      return LocalVariableElementImpl2(element);
-    }
-    return null;
+    return declaredElement.asElement2 as LocalVariableElementImpl2?;
   }
 
   @override
@@ -5054,10 +5037,7 @@ final class DeclaredVariablePatternImpl extends VariablePatternImpl
   @experimental
   @override
   BindPatternVariableElement2? get declaredElement2 {
-    if (declaredElement case BindPatternVariableElementImpl declaredElement) {
-      return BindPatternVariableElementImpl2(declaredElement);
-    }
-    return null;
+    return declaredElement?.element2;
   }
 
   @override
@@ -8311,6 +8291,12 @@ abstract final class FunctionDeclaration
   @override
   ExecutableElement? get declaredElement;
 
+  /// The element defined by this local function declaration.
+  ///
+  /// Returns `null` if the AST structure hasn't been resolved or if this node
+  /// is not a local function.
+  LocalFunctionElement? get declaredElement2;
+
   /// The fragment declared by this declaration.
   ///
   /// Returns `null` if the AST structure hasn't been resolved or if this node
@@ -8358,6 +8344,9 @@ final class FunctionDeclarationImpl extends NamedCompilationUnitMemberImpl
 
   @override
   ExecutableElementImpl? declaredElement;
+
+  @override
+  LocalFunctionElementImpl? declaredElement2;
 
   /// Initializes a newly created function declaration.
   ///
@@ -8503,6 +8492,24 @@ abstract final class FunctionExpression implements Expression {
   /// hasn't been resolved.
   ExecutableElement? get declaredElement;
 
+  /// The element defined by this function expression.
+  ///
+  /// Returns `null` if the AST structure hasn't been resolved.
+  ///
+  /// Returns `null` if this expression is not a closure, and the parent is
+  /// not a local function.
+  @experimental
+  LocalFunctionElement? get declaredElement2;
+
+  /// The fragment declared by this function expression.
+  ///
+  /// Returns `null` if the AST structure hasn't been resolved.
+  ///
+  /// Returns `null` is thie expression is a closure, or the parent is a
+  /// local function.
+  @experimental
+  ExecutableFragment? get declaredFragment;
+
   /// The parameters associated with the function, or `null` if the function is
   /// part of a top-level getter.
   FormalParameterList? get parameters;
@@ -8528,6 +8535,9 @@ final class FunctionExpressionImpl extends ExpressionImpl
 
   @override
   ExecutableElementImpl? declaredElement;
+
+  @override
+  LocalFunctionElementImpl? declaredElement2;
 
   /// Initializes a newly created function declaration.
   FunctionExpressionImpl({
@@ -8560,6 +8570,14 @@ final class FunctionExpressionImpl extends ExpressionImpl
   }
 
   @override
+  ExecutableFragment? get declaredFragment {
+    if (declaredElement?.enclosingElement3 is CompilationUnitElement) {
+      return declaredElement;
+    }
+    return null;
+  }
+
+  @override
   Token get endToken {
     return _body.endToken;
   }
@@ -8573,6 +8591,15 @@ final class FunctionExpressionImpl extends ExpressionImpl
 
   @override
   Precedence get precedence => Precedence.primary;
+
+  DartType get returnType {
+    // If a closure, or a local function.
+    if (declaredElement2 case var declaredElement?) {
+      return declaredElement.returnType;
+    }
+    // SAFETY: must be a top-level function.
+    return declaredFragment!.element.returnType;
+  }
 
   @override
   TypeParameterListImpl? get typeParameters => _typeParameters;
@@ -9396,13 +9423,7 @@ sealed class IdentifierImpl extends CommentReferableExpressionImpl
   @experimental
   @override
   Element2? get element {
-    var element = staticElement;
-    if (element case Fragment fragment) {
-      return fragment.element;
-    } else if (element case Element2 element) {
-      return element;
-    }
-    return null;
+    return staticElement.asElement2;
   }
 
   @override
@@ -12630,8 +12651,9 @@ final class NamedTypeImpl extends TypeAnnotationImpl implements NamedType {
   @override
   final Token name2;
 
+  @experimental
   @override
-  Element? element;
+  Element2? element2;
 
   @override
   TypeArgumentListImpl? typeArguments;
@@ -12658,16 +12680,9 @@ final class NamedTypeImpl extends TypeAnnotationImpl implements NamedType {
   @override
   Token get beginToken => importPrefix?.beginToken ?? name2;
 
-  @experimental
   @override
-  Element2? get element2 {
-    var element = this.element;
-    if (element case Fragment fragment) {
-      return fragment.element;
-    } else if (element case Element2 element) {
-      return element;
-    }
-    return null;
+  Element? get element {
+    return element2.asElement;
   }
 
   @override
@@ -18417,6 +18432,13 @@ abstract final class VariableDeclaration
   @override
   VariableElement? get declaredElement;
 
+  /// The element declared by this declaration.
+  ///
+  /// Returns `null` if the AST structure hasn't been resolved or if this node
+  /// represents the declaration of a top-level variable or a field.
+  @experimental
+  LocalVariableElement2? get declaredElement2;
+
   /// The fragment declared by this declaration.
   ///
   /// Returns `null` if the AST structure hasn't been resolved or if this node
@@ -18482,6 +18504,12 @@ final class VariableDeclarationImpl extends DeclarationImpl
 
   @experimental
   @override
+  LocalVariableElement2? get declaredElement2 {
+    return declaredElement.asElement2.ifTypeOrNull<LocalVariableElement2>();
+  }
+
+  @experimental
+  @override
   VariableFragment? get declaredFragment {
     if (declaredElement case VariableFragment fragment) {
       return fragment;
@@ -18538,6 +18566,15 @@ final class VariableDeclarationImpl extends DeclarationImpl
   bool get isLate {
     var parent = this.parent;
     return parent is VariableDeclarationList && parent.isLate;
+  }
+
+  DartType get type {
+    if (declaredElement2 case var declaredElement?) {
+      return declaredElement.type;
+    }
+    // SAFETY: The variable declaration is either a local variable,
+    // of a fragment of: top-level, field, formal parameter.
+    return declaredFragment!.element.type;
   }
 
   @override
